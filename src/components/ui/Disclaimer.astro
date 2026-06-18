@@ -1,0 +1,12 @@
+---
+// Reusable medical disclaimer. The specialist phrase links to a localized Google Maps search.
+const mapsHref =
+  'https://www.google.com/maps/search/?api=1&query=preventive+cardiologist';
+---
+<aside class="not-prose my-6 rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-100">
+  <strong>Educational only — not medical advice.</strong> These tools illustrate
+  concepts and estimates and can't account for your full history. Discuss your
+  numbers with a
+  <a class="underline" href={mapsHref} target="_blank" rel="noopener noreferrer"
+    >preventive cardiologist or clinical lipidologist</a>.
+</aside>
