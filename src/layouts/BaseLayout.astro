@@ -1,0 +1,48 @@
+---
+import '../styles/global.css';
+import Disclaimer from '../components/ui/Disclaimer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  frontmatter?: { title?: string; description?: string };
+}
+// MDX pages pass frontmatter under `frontmatter`; .astro callers pass props directly.
+const { frontmatter } = Astro.props;
+const title = Astro.props.title ?? frontmatter?.title ?? 'health.jcamino.net';
+const description =
+  Astro.props.description ??
+  frontmatter?.description ??
+  'Evidence-based longevity tools and explainers.';
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://health.jcamino.net').href;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+  </head>
+  <body class="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+    <header class="border-b border-slate-200 dark:border-slate-800">
+      <nav class="mx-auto flex max-w-3xl items-center gap-6 px-4 py-4">
+        <a class="font-semibold" href="/">health.jcamino.net</a>
+        <a class="text-slate-600 hover:underline dark:text-slate-300" href="/heart">Heart</a>
+      </nav>
+    </header>
+    <main class="prose prose-slate dark:prose-invert mx-auto max-w-3xl px-4 py-10">
+      <slot />
+    </main>
+    <footer class="mx-auto max-w-3xl px-4 py-10 text-sm text-slate-500">
+      <Disclaimer />
+      <p>© {new Date().getFullYear()} jcamino. Educational use only.</p>
+    </footer>
+  </body>
+</html>
