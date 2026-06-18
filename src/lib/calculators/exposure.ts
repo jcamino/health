@@ -1,6 +1,10 @@
 import { refs, type Reference } from '../references';
 
-export const sources: Reference[] = [refs.easLdlCausality2017, refs.snidermanApoB2019];
+export const sources: Reference[] = [
+  refs.easLdlCausality2017,
+  refs.snidermanApoB2019,
+  refs.ferenceLipids2018,
+];
 
 export interface ApoBPoint {
   age: number;
@@ -15,10 +19,20 @@ export interface TrajectoryParams {
 }
 
 /**
- * Illustrative cumulative-exposure threshold. ~5,000 is the commonly cited
- * anchor for cumulative *LDL-C* (mg·years) in the FH/causality literature; the
- * ApoB-equivalent must be confirmed in Task 7 Step 6. Until confirmed, the hero
- * chart labels this line "illustrative (LDL-C–derived)".
+ * Cumulative-exposure threshold, 5000 mg·years.
+ *
+ * This is a sourced *LDL-C* value, not an ApoB-specific one. Ference et al.
+ * (JACC Health Promotion Series, 2018; refs.ferenceLipids2018) describe ~5000
+ * mg·years of cumulative LDL-C as the level "beyond which cardiovascular events
+ * begin to occur": at LDL-C 125 mg/dL it is crossed at age 40, at 80 mg/dL not
+ * until age 62.5. The same figure (5000 mg·years = 129.2 mmol·years, ~1% MI
+ * risk by age 40) is restated by Korneva et al. 2022 (J Pers Med 12:71,
+ * doi:10.3390/jpm12010071), citing Ference 2018.
+ *
+ * Task 7 Step 6 conclusion: a primary LDL-C threshold exists (kept at 5000),
+ * but no source gives an ApoB-specific cumulative mg·years threshold. Because
+ * this calculator plots ApoB, the hero chart must label this line
+ * "illustrative (LDL-C–derived)".
  */
 export const CUMULATIVE_EXPOSURE_THRESHOLD_MG_YEARS = 5000;
 
