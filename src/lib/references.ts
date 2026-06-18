@@ -35,6 +35,16 @@ export const refs = {
     url: 'https://doi.org/10.1001/jamacardio.2019.3780',
     doi: '10.1001/jamacardio.2019.3780',
   },
+  ferenceLipids2018: {
+    id: 'ferenceLipids2018',
+    title:
+      'Impact of Lipids on Cardiovascular Health: JACC Health Promotion Series',
+    authors: 'Ference BA, Graham I, Tokgozoglu L, Catapano AL',
+    year: 2018,
+    source: 'Journal of the American College of Cardiology',
+    url: 'https://doi.org/10.1016/j.jacc.2018.06.046',
+    doi: '10.1016/j.jacc.2018.06.046',
+  },
   easLpa2022: {
     id: 'easLpa2022',
     title:
