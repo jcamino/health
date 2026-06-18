@@ -6,29 +6,33 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
+    "preview": "npm run build && wrangler dev",
     "test": "vitest run",
     "test:watch": "vitest",
     "check": "astro check",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "deploy": "npm run build && wrangler deploy",
+    "cf-typegen": "wrangler types"
   },
   "dependencies": {
-    "astro": "^5",
+    "@astrojs/cloudflare": "12",
     "@astrojs/mdx": "^4",
     "@astrojs/sitemap": "^3",
     "@astrojs/svelte": "^7",
-    "svelte": "^5",
-    "chart.js": "^4"
+    "astro": "^5",
+    "chart.js": "^4",
+    "svelte": "^5"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9",
-    "typescript": "^5",
-    "tailwindcss": "^4",
-    "@tailwindcss/vite": "^4",
     "@tailwindcss/typography": "^0.5",
+    "@tailwindcss/vite": "^4",
     "prettier": "^3",
     "prettier-plugin-astro": "^0.14",
     "prettier-plugin-svelte": "^3",
-    "vitest": "^3"
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vitest": "^3",
+    "wrangler": "^4.102.0"
   }
 }
