@@ -11,7 +11,7 @@ A static, content-first website teaching evidence-based longevity concepts, with
 interactive client-side calculators. Eventual routes:
 
 - `/` — landing page: longevity suggestions, links into the pillars.
-- `/heart` — cardiovascular: ApoB, cumulative exposure ("ApoB-years"), Lp(a), statins.
+- `/heart` — cardiovascular: ApoB, cumulative exposure ("ApoB-years"), Lp(a), blood pressure, statins.
 - `/metabolism` — metabolic health *(deferred post-MVP — see §13)*.
 
 **MVP scope (v1):** the **heart page is the focus**. v1 ships the site shell
@@ -66,7 +66,7 @@ health/
 ├── src/
 │   ├── pages/
 │   │   ├── index.mdx             # landing — minimal for MVP
-│   │   ├── heart.mdx             # ApoB, ApoB-years, Lp(a), statins
+│   │   ├── heart.mdx             # ApoB, ApoB-years, Lp(a), BP, statins
 │   │   └── metabolism.mdx        # DEFERRED (post-MVP)
 │   ├── layouts/
 │   │   └── BaseLayout.astro      # shell, nav, footer, disclaimer, SEO meta
@@ -78,6 +78,7 @@ health/
 │   │   ├── calculators/          # PURE TS: formulas, typed I/O, sources[]
 │   │   │   ├── apoB.ts           # tiers + ApoB-years exposure (+ threshold)
 │   │   │   ├── lpa.ts            # Lp(a) tier / risk readout
+│   │   │   ├── bloodPressure.ts  # BP category (ACC/AHA 2017)
 │   │   │   ├── ascvd.ts          # 10-year risk (validated)
 │   │   │   └── metabolic.ts      # DEFERRED (post-MVP)
 │   │   └── references.ts         # central citation registry (single source)
@@ -182,9 +183,12 @@ export function apoBYears(trajectory: ApoBPoint[]): number { /* AUC */ }
 3. **Lp(a) explainer + tier readout.** Enter Lp(a) (mg/dL or nmol/L) → risk tier
    against accepted high-risk cut-points; explain it as independent, largely
    genetic, measured once, and additive to ApoB risk. Sourced.
-4. **10-year ASCVD risk (secondary).** Validated equation, contextualized as
+4. **Blood pressure explainer + category readout.** Enter systolic/diastolic →
+   category (normal / elevated / stage 1 / stage 2) per the 2017 ACC/AHA
+   guideline; explain how hypertension compounds ApoB-driven risk. Sourced.
+5. **10-year ASCVD risk (secondary).** Validated equation, contextualized as
    short-horizon and paired with the lifetime view. Sourced.
-5. **Statin reference table.** Intensity/potency and when each is indicated.
+6. **Statin reference table.** Intensity/potency and when each is indicated.
    Informational, sourced.
 
 **Landing (`/`)** — minimal for MVP: a short intro and a clear link into `/heart`.
@@ -251,6 +255,8 @@ before the corresponding calculator ships (per §5). Candidate sources by topic:
   plaque-regression evidence.
 - **Lp(a)**: consensus statement(s) defining high-risk cut-points (mg/dL and
   nmol/L) and establishing independent causality.
+- **Blood pressure categories**: 2017 ACC/AHA high blood pressure guideline
+  (Whelton et al.) defining normal / elevated / stage 1 / stage 2 thresholds.
 - **10-year ASCVD**: ACC/AHA Pooled Cohort Equations source publication (and any
   lifetime-risk companion used).
 - **Statin intensity/indications**: guideline statin-intensity table.
