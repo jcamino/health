@@ -84,6 +84,38 @@ export function buildTrajectory(p: TrajectoryParams): ApoBPoint[] {
   ];
 }
 
+/**
+ * Fine-grained (default yearly) samples of the same model `buildTrajectory`
+ * describes — used for charting so the cumulative-exposure curve shows its true
+ * convex shape when ApoB rises with age. (A 2-point trajectory draws a straight
+ * chord and hides the curvature.) Integrates to the same area as
+ * `buildTrajectory` for integer intervention ages.
+ */
+export function sampleTrajectory(p: TrajectoryParams, stepYears = 1): ApoBPoint[] {
+  buildTrajectory(p); // reuse input validation (throws on invalid input)
+  const startAge = p.startAge ?? 0;
+  const valueAt = (age: number): number =>
+    p.intervention && age >= p.intervention.age
+      ? Math.max(MIN_APOB, p.intervention.apoB)
+      : risingApoB(age, p);
+
+  const ages = new Set<number>();
+  for (let a = startAge; a <= p.endAge; a += stepYears) ages.add(Math.min(a, p.endAge));
+  ages.add(p.endAge);
+  if (p.intervention) ages.add(p.intervention.age);
+
+  const out: ApoBPoint[] = [];
+  for (const age of [...ages].sort((x, y) => x - y)) {
+    if (p.intervention && age === p.intervention.age) {
+      out.push({ age, apoB: risingApoB(age, p) }); // pre-intervention (rising)
+      out.push({ age, apoB: Math.max(MIN_APOB, p.intervention.apoB) }); // held after
+    } else {
+      out.push({ age, apoB: valueAt(age) });
+    }
+  }
+  return out;
+}
+
 /** Trapezoidal integral of ApoB over age. Units: (mg/dL)·years. */
 export function apoBYears(trajectory: ApoBPoint[]): number {
   let total = 0;
