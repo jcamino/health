@@ -82,7 +82,7 @@ health/
 │   │   │   ├── apoB.ts           # tiers + ApoB-years exposure (+ threshold)
 │   │   │   ├── lpa.ts            # Lp(a) tier / risk readout
 │   │   │   ├── bloodPressure.ts  # BP category (ACC/AHA 2017)
-│   │   │   ├── ascvd.ts          # 10-year risk (validated)
+│   │   │   ├── prevent.ts        # 10-year ASCVD — AHA PREVENT 2024 (race-free)
 │   │   │   └── metabolic.ts      # DEFERRED (post-MVP)
 │   │   └── references.ts         # central citation registry (single source)
 │   └── styles/global.css         # Tailwind entry + base styles
@@ -144,7 +144,10 @@ export function apoBYears(trajectory: ApoBPoint[]): number { /* AUC */ }
   from their source papers (see §8 test vectors).
 - **The ApoB-years cumulative-exposure model is the hero of the heart page**, framed
   as the lifetime view: atherosclerosis tracks the *area under the ApoB curve*
-  (magnitude × duration), per the cumulative-exposure literature. It is a teaching
+  (magnitude × duration), per the cumulative-exposure literature. Exposure is
+  integrated **from birth (age 0)**, with ApoB **rising with age at a user-adjustable
+  per-decade rate** (anchored to the user's current ApoB and clamped to a floor); an
+  optional intervention drops ApoB and then holds it flat. It is a teaching
   model of a well-supported relationship, labeled as such — not a packaged clinical
   risk score. The chart overlays a **cumulative-exposure threshold reference line** —
   the accumulated exposure around which atherosclerotic burden becomes clinically
@@ -158,7 +161,8 @@ export function apoBYears(trajectory: ApoBPoint[]): number { /* AUC */ }
   plus a tier readout (enter Lp(a) in mg/dL or nmol/L → risk tier against accepted
   high-risk cut-points), noting it's measured ~once in a lifetime, not meaningfully
   lowered by statins/lifestyle, and **additive to ApoB risk**. Sourced.
-- **10-year ASCVD is secondary and explicitly contextualized**: kept because it's
+- **10-year ASCVD is secondary and explicitly contextualized**: computed with the
+  **AHA PREVENT (2024) equations — race-free and current** — kept because it's
   validated, but presented as a short-horizon tool that systematically
   under-weights younger people — which is precisely why the lifetime/cumulative
   view matters. Paired with a lifetime perspective.
@@ -174,12 +178,14 @@ export function apoBYears(trajectory: ApoBPoint[]): number { /* AUC */ }
 
 **Heart (`/heart`)** — the focus of v1:
 
-1. **ApoB-years cumulative exposure (hero).** Model an ApoB trajectory over a
-   lifetime — starting age, level, and an optional intervention (age → new level) —
-   and visualize the cumulative area ("ApoB-years"). Overlay a **cumulative-exposure
+1. **ApoB-years cumulative exposure (hero).** Model an ApoB trajectory **from birth
+   (age 0)** — anchored to the user's current ApoB, **rising with age at a
+   user-adjustable per-decade rate** (clamped to a floor), with an optional
+   intervention that drops ApoB and then holds it flat — and visualize the
+   cumulative area ("ApoB-years"). Overlay a **cumulative-exposure
    threshold reference line** (~5,000 mg·years for LDL-C as the commonly cited
    anchor; ApoB-equivalent value/units verified and sourced) so users see how their
-   trajectory compares. Compare scenarios (e.g., ApoB 90 from age 20 vs. lowered to
+   trajectory compares. Compare scenarios (e.g., no intervention vs. lowering ApoB to
    60 at age 40). Sourced.
 2. **ApoB risk-tier readout.** Enter ApoB → tier, oriented to optimal targets
    (~60–65 and below) with guideline context. Sourced.
@@ -189,8 +195,8 @@ export function apoBYears(trajectory: ApoBPoint[]): number { /* AUC */ }
 4. **Blood pressure explainer + category readout.** Enter systolic/diastolic →
    category (normal / elevated / stage 1 / stage 2) per the 2017 ACC/AHA
    guideline; explain how hypertension compounds ApoB-driven risk. Sourced.
-5. **10-year ASCVD risk (secondary).** Validated equation, contextualized as
-   short-horizon and paired with the lifetime view. Sourced.
+5. **10-year risk — AHA PREVENT 2024 (secondary), race-free.** Validated equation,
+   contextualized as short-horizon and paired with the lifetime view. Sourced.
 6. **Statin reference table.** Intensity/potency and when each is indicated.
    Informational, sourced.
 
@@ -266,8 +272,9 @@ before the corresponding calculator ships (per §5). Candidate sources by topic:
   nmol/L) and establishing independent causality.
 - **Blood pressure categories**: 2017 ACC/AHA high blood pressure guideline
   (Whelton et al.) defining normal / elevated / stage 1 / stage 2 thresholds.
-- **10-year ASCVD**: ACC/AHA Pooled Cohort Equations source publication (and any
-  lifetime-risk companion used).
+- **10-year risk**: AHA PREVENT equations (Khan SS et al., Circulation 2024) — now
+  pinned in `references.ts` as `preventEquations2024` (and any lifetime-risk
+  companion used).
 - **Statin intensity/indications**: guideline statin-intensity table.
 - **Metabolic markers** *(post-MVP)*: HOMA-IR original description; TG/HDL ratio
   evidence; metabolic-syndrome diagnostic criteria.
