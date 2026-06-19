@@ -33,7 +33,9 @@ Guiding principles:
 ## 2. Non-goals
 
 - No user accounts, auth, or saved/persisted results.
-- No server-side logic, database, or Cloudflare Functions/Workers (pure static).
+- No SSR or server-side app logic, and no database. (Deployment uses the
+  `@astrojs/cloudflare` adapter to host on Cloudflare Workers static assets, but
+  every page is prerendered to static HTML.)
 - No CMS — content is authored in MDX in the repo.
 - No SSR; output is a static `dist/`.
 
@@ -50,7 +52,8 @@ Guiding principles:
 | Tests          | **Vitest** (unit tests on the pure formula modules) |
 | Formatting     | **Prettier** (+ Astro/Svelte plugins)               |
 | Runtime        | **Node 24** (pinned via `.nvmrc`)                   |
-| Hosting        | **Cloudflare Pages**, static, no adapter            |
+| Hosting        | **Cloudflare Workers** (static assets) via `@astrojs/cloudflare` adapter; pages prerendered |
+| Theming        | Manual light/dark toggle (class `dark` variant + `localStorage`); defaults to OS preference |
 
 Rationale: Astro fits "content-heavy pages + pockets of interactivity" better than
 a full app framework (Next/SvelteKit would add unused SSR machinery) or a no-build
@@ -191,7 +194,8 @@ export function apoBYears(trajectory: ApoBPoint[]): number { /* AUC */ }
 6. **Statin reference table.** Intensity/potency and when each is indicated.
    Informational, sourced.
 
-**Landing (`/`)** — minimal for MVP: a short intro and a clear link into `/heart`.
+**Landing (`/`)** — minimal for MVP: a short intro, a clear link into `/heart`, and a
+**Pillar 0 — Foundations (nutrition, exercise, sleep)** entry marked *(coming soon)*.
 Fuller longevity suggestions come later.
 
 **Deferred (post-MVP):** the `/metabolism` page (HOMA-IR, TG/HDL ratio,
@@ -208,14 +212,19 @@ metabolic-syndrome criteria) — see §13.
 - **UI tests kept minimal** (YAGNI). A passing `astro build` is part of routine
   verification.
 
-## 9. Deployment (Cloudflare Pages)
+## 9. Deployment (Cloudflare Workers)
 
-- Production branch: **`main`**; automatic preview deploys for other branches/PRs.
-- Framework preset: **Astro** · Build command: **`npm run build`** · Output
-  directory: **`dist`**.
-- Node version: **24** via `.nvmrc` (and/or `NODE_VERSION=24` env var).
-- Custom domain **`health.jcamino.net`** — DNS already on Cloudflare → one-click.
-- Pure static: **no adapter, no Functions**.
+- Connected to Cloudflare via the GitHub integration (Workers Builds): **every push
+  to `main` auto-builds and deploys**. (`origin/cloudflare/workers-autoconfig`,
+  merged 2026-06-18, added this config.)
+- Build via the **`@astrojs/cloudflare` adapter**: `npm run build` prerenders to
+  `dist/` and emits a `_worker.js` for asset serving; config in `wrangler.jsonc`
+  (assets→`dist`, `nodejs_compat`). `public/.assetsignore` excludes `_worker.js`.
+- `output` stays default (**static**): pages are prerendered HTML; calculators are
+  client-side Svelte islands. No SSR app logic.
+- Node **24** (`.nvmrc`). Custom domain **`health.jcamino.net`** in the Cloudflare
+  dashboard (DNS already on Cloudflare).
+- Local: `npm run preview` (build + `wrangler dev`); `npm run deploy` for manual deploy.
 
 ## 10. Tooling & quality
 
@@ -269,4 +278,6 @@ before the corresponding calculator ships (per §5). Candidate sources by topic:
   metabolic-syndrome criteria — then expand (CGM concepts, fasting insulin, etc.).
 - Add a lifetime ASCVD estimate alongside the 10-year score?
 - Fuller longevity-suggestions content on the landing page.
-- Possible future pillars (e.g., fitness/VO₂max, sleep) as additional routes.
+- **Pillar 0 — Foundations page (nutrition, exercise, sleep):** shown as *(coming
+  soon)* on the landing now; build the page later.
+- Possible future pillars (e.g., fitness/VO₂max) as additional routes.
