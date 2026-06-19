@@ -84,6 +84,16 @@ export const refs = {
     url: 'https://doi.org/10.1161/01.cir.0000437741.48606.98',
     doi: '10.1161/01.cir.0000437741.48606.98',
   },
+  escEasDyslipidaemia2019: {
+    id: 'escEasDyslipidaemia2019',
+    title:
+      '2019 ESC/EAS Guidelines for the management of dyslipidaemias: lipid modification to reduce cardiovascular risk',
+    authors: 'Mach F, et al.',
+    year: 2020,
+    source: 'European Heart Journal',
+    url: 'https://doi.org/10.1093/eurheartj/ehz455',
+    doi: '10.1093/eurheartj/ehz455',
+  },
   preventEquations2024: {
     id: 'preventEquations2024',
     title:
