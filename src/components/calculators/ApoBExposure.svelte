@@ -14,13 +14,13 @@
   let currentAge = $state(40);
   let currentApoB = $state(90);
   let risePerDecade = $state(3);
-  let endAge = $state(80);
+  const endAge = 100; // fixed lifetime window: birth (0) → 100
   let useIntervention = $state(true);
   let interventionAge = $state(50);
   let interventionApoB = $state(60);
 
   const inputsValid = $derived(
-    [currentAge, currentApoB, risePerDecade, endAge].every((n) => Number.isFinite(n)) &&
+    [currentAge, currentApoB, risePerDecade].every((n) => Number.isFinite(n)) &&
       (!useIntervention ||
         [interventionAge, interventionApoB].every((n) => Number.isFinite(n))),
   );
@@ -102,15 +102,13 @@
 </script>
 
 <div class="not-prose rounded-xl border border-slate-200 p-5 dark:border-slate-700">
-  <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+  <div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
     <label class="text-sm">Your age now
       <input type="number" min="1" max="120" bind:value={currentAge} class="mt-1 block w-full rounded border border-slate-300 px-2 py-1 dark:bg-slate-800" /></label>
     <label class="text-sm">Your ApoB now (mg/dL)
       <input type="number" min="1" max="300" bind:value={currentApoB} class="mt-1 block w-full rounded border border-slate-300 px-2 py-1 dark:bg-slate-800" /></label>
     <label class="text-sm">Rise per decade (mg/dL)
       <input type="number" min="0" max="50" bind:value={risePerDecade} class="mt-1 block w-full rounded border border-slate-300 px-2 py-1 dark:bg-slate-800" /></label>
-    <label class="text-sm">Project to age
-      <input type="number" min="1" max="120" bind:value={endAge} class="mt-1 block w-full rounded border border-slate-300 px-2 py-1 dark:bg-slate-800" /></label>
   </div>
 
   <label class="mt-3 flex items-center gap-2 text-sm">
@@ -119,7 +117,7 @@
   {#if useIntervention}
     <div class="mt-2 grid grid-cols-2 gap-3">
       <label class="text-sm">Intervention age
-        <input type="number" min="1" max="120" bind:value={interventionAge} class="mt-1 block w-full rounded border border-slate-300 px-2 py-1 dark:bg-slate-800" /></label>
+        <input type="number" min="1" max="99" bind:value={interventionAge} class="mt-1 block w-full rounded border border-slate-300 px-2 py-1 dark:bg-slate-800" /></label>
       <label class="text-sm">ApoB after (mg/dL)
         <input type="number" min="1" max="300" bind:value={interventionApoB} class="mt-1 block w-full rounded border border-slate-300 px-2 py-1 dark:bg-slate-800" /></label>
     </div>
