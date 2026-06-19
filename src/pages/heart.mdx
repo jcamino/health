@@ -7,6 +7,7 @@ import ApoBExposure from '../components/calculators/ApoBExposure.svelte';
 import ApoBTier from '../components/calculators/ApoBTier.svelte';
 import LpaTier from '../components/calculators/LpaTier.svelte';
 import BloodPressure from '../components/calculators/BloodPressure.svelte';
+import PreventRisk from '../components/calculators/PreventRisk.svelte';
 import StatinTable from '../components/StatinTable.astro';
 import Citation from '../components/ui/Citation.astro';
 
@@ -41,6 +42,15 @@ The 2017 ACC/AHA guideline lowered the thresholds — "normal" is now under 120/
 <Citation id="accAhaBp2017" />.
 
 <BloodPressure client:visible />
+
+## 10-year risk, in context
+
+Conventional scores estimate your *next 10 years*. The AHA **PREVENT** model
+(race-free) is the current standard <Citation id="preventEquations2024" />. Useful,
+but it systematically under-weights younger people — which is exactly why the
+lifetime exposure above matters more for prevention.
+
+<PreventRisk client:visible />
 
 ## Statins: which, and when
 
