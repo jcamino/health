@@ -123,6 +123,65 @@ export const refs = {
     url: 'https://doi.org/10.1161/HYPERTENSIONAHA.111.177766',
     doi: '10.1161/HYPERTENSIONAHA.111.177766',
   },
+  matthewsHoma1985: {
+    id: 'matthewsHoma1985',
+    title:
+      'Homeostasis model assessment: insulin resistance and β-cell function from fasting plasma glucose and insulin concentrations in man',
+    authors: 'Matthews DR, et al.',
+    year: 1985,
+    source: 'Diabetologia',
+    url: 'https://doi.org/10.1007/BF00280883',
+    doi: '10.1007/BF00280883',
+  },
+  gayosoHomaIr2013: {
+    id: 'gayosoHomaIr2013',
+    title:
+      'Insulin resistance (HOMA-IR) cut-off values and the metabolic syndrome in a general adult population: effect of gender and age: EPIRCE cross-sectional study',
+    authors: 'Gayoso-Diz P, et al.',
+    year: 2013,
+    source: 'BMC Endocrine Disorders',
+    url: 'https://doi.org/10.1186/1472-6823-13-47',
+    doi: '10.1186/1472-6823-13-47',
+  },
+  adaDiagnosis2024: {
+    id: 'adaDiagnosis2024',
+    title:
+      '2. Diagnosis and Classification of Diabetes: Standards of Care in Diabetes—2024',
+    authors: 'American Diabetes Association Professional Practice Committee',
+    year: 2024,
+    source: 'Diabetes Care',
+    url: 'https://doi.org/10.2337/dc24-S002',
+    doi: '10.2337/dc24-S002',
+  },
+  nathanAdag2008: {
+    id: 'nathanAdag2008',
+    title: 'Translating the A1C assay into estimated average glucose values',
+    authors: 'Nathan DM, et al. (A1c-Derived Average Glucose Study Group)',
+    year: 2008,
+    source: 'Diabetes Care',
+    url: 'https://doi.org/10.2337/dc08-0545',
+    doi: '10.2337/dc08-0545',
+  },
+  albertiMetSyndrome2009: {
+    id: 'albertiMetSyndrome2009',
+    title:
+      'Harmonizing the metabolic syndrome: a joint interim statement of the IDF Task Force on Epidemiology and Prevention; NHLBI; AHA; World Heart Federation; International Atherosclerosis Society; and International Association for the Study of Obesity',
+    authors: 'Alberti KGMM, et al.',
+    year: 2009,
+    source: 'Circulation',
+    url: 'https://doi.org/10.1161/CIRCULATIONAHA.109.192644',
+    doi: '10.1161/CIRCULATIONAHA.109.192644',
+  },
+  mclaughlinTgHdl2003: {
+    id: 'mclaughlinTgHdl2003',
+    title:
+      'Use of metabolic markers to identify overweight individuals who are insulin resistant',
+    authors: 'McLaughlin T, et al.',
+    year: 2003,
+    source: 'Annals of Internal Medicine',
+    url: 'https://doi.org/10.7326/0003-4819-139-10-200311180-00007',
+    doi: '10.7326/0003-4819-139-10-200311180-00007',
+  },
 } satisfies Record<string, Reference>;
 
 export type ReferenceId = keyof typeof refs;
