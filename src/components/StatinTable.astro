@@ -1,0 +1,27 @@
+---
+import { statinIntensity, sources } from '../lib/statins';
+import Sources from './ui/Sources.svelte';
+---
+<div class="not-prose overflow-x-auto rounded-xl border border-slate-200 p-2 dark:border-slate-700">
+  <table class="w-full text-sm">
+    <thead>
+      <tr class="text-left">
+        <th class="p-2">Intensity</th>
+        <th class="p-2">LDL-C lowering</th>
+        <th class="p-2">Typical regimens</th>
+        <th class="p-2">When used</th>
+      </tr>
+    </thead>
+    <tbody>
+      {statinIntensity.map((b) => (
+        <tr class="border-t border-slate-200 dark:border-slate-700">
+          <td class="p-2 font-medium capitalize">{b.intensity}</td>
+          <td class="p-2">{b.ldlReduction}</td>
+          <td class="p-2">{b.regimens.join(', ')}</td>
+          <td class="p-2">{b.whenTypicallyUsed}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  <Sources sources={sources} />
+</div>
