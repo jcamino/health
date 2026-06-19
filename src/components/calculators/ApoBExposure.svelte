@@ -7,22 +7,49 @@
     cumulativeSeries,
     ageAtThreshold,
     CUMULATIVE_EXPOSURE_THRESHOLD_MG_YEARS,
-    sources,
+    sources as exposureSources,
   } from '../../lib/calculators/exposure';
+  import {
+    apoBFromLdl,
+    apoBFromNonHdl,
+    sources as conversionSources,
+  } from '../../lib/calculators/apoBFromLipids';
   import Sources from '../ui/Sources.svelte';
 
+  type InputMode = 'apoB' | 'nonHdl' | 'ldl';
+
+  let inputMode = $state<InputMode>('apoB');
   let currentAge = $state(40);
-  let currentApoB = $state(90);
-  let risePerDecade = $state(3);
-  const endAge = 100; // fixed lifetime window: birth (0) → 100
+  let currentValue = $state(90); // in the selected unit
+  let risePerDecade = $state(3); // ApoB mg/dL per decade
   let useIntervention = $state(true);
   let interventionAge = $state(50);
-  let interventionApoB = $state(60);
+  let interventionValue = $state(60); // in the selected unit
+
+  const endAge = 100; // fixed lifetime window: birth (0) → 100
+
+  const unitLabel = $derived(
+    inputMode === 'apoB' ? 'ApoB' : inputMode === 'nonHdl' ? 'non-HDL-C' : 'LDL-C',
+  );
+
+  function toApoB(v: number): number {
+    if (inputMode === 'apoB') return v;
+    if (inputMode === 'nonHdl') return apoBFromNonHdl(v);
+    return apoBFromLdl(v);
+  }
 
   const inputsValid = $derived(
-    [currentAge, currentApoB, risePerDecade].every((n) => Number.isFinite(n)) &&
+    [currentAge, currentValue, risePerDecade].every((n) => Number.isFinite(n)) &&
+      currentValue > 0 &&
       (!useIntervention ||
-        [interventionAge, interventionApoB].every((n) => Number.isFinite(n))),
+        ([interventionAge, interventionValue].every((n) => Number.isFinite(n)) &&
+          interventionValue > 0)),
+  );
+
+  const estimatedApoB = $derived(
+    inputMode !== 'apoB' && Number.isFinite(currentValue) && currentValue > 0
+      ? Math.round(toApoB(currentValue))
+      : null,
   );
 
   const scenario = $derived.by(() => {
@@ -31,11 +58,11 @@
       return buildTrajectory({
         startAge: 0,
         currentAge,
-        currentApoB,
+        currentApoB: toApoB(currentValue),
         risePerYear: risePerDecade / 10,
         endAge,
         intervention: useIntervention
-          ? { age: interventionAge, apoB: interventionApoB }
+          ? { age: interventionAge, apoB: toApoB(interventionValue) }
           : undefined,
       });
     } catch {
@@ -46,6 +73,10 @@
   const totalExposure = $derived(scenario ? Math.round(apoBYears(scenario)) : null);
   const crossingAge = $derived(
     scenario ? ageAtThreshold(scenario, CUMULATIVE_EXPOSURE_THRESHOLD_MG_YEARS) : null,
+  );
+
+  const displaySources = $derived(
+    inputMode === 'apoB' ? exposureSources : [...exposureSources, ...conversionSources],
   );
 
   let canvas: HTMLCanvasElement;
@@ -102,24 +133,34 @@
 </script>
 
 <div class="not-prose rounded-xl border border-slate-200 p-5 dark:border-slate-700">
-  <div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
+  <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+    <label class="text-sm">Enter as
+      <select bind:value={inputMode} class="mt-1 block w-full rounded border border-slate-300 px-2 py-1 dark:bg-slate-800">
+        <option value="apoB">ApoB (best)</option>
+        <option value="nonHdl">non-HDL-C</option>
+        <option value="ldl">LDL-C</option>
+      </select></label>
     <label class="text-sm">Your age now
       <input type="number" min="1" max="120" bind:value={currentAge} class="mt-1 block w-full rounded border border-slate-300 px-2 py-1 dark:bg-slate-800" /></label>
-    <label class="text-sm">Your ApoB now (mg/dL)
-      <input type="number" min="1" max="300" bind:value={currentApoB} class="mt-1 block w-full rounded border border-slate-300 px-2 py-1 dark:bg-slate-800" /></label>
-    <label class="text-sm">Rise per decade (mg/dL)
+    <label class="text-sm">Your {unitLabel} now (mg/dL)
+      <input type="number" min="1" max="400" bind:value={currentValue} class="mt-1 block w-full rounded border border-slate-300 px-2 py-1 dark:bg-slate-800" /></label>
+    <label class="text-sm">ApoB rise per decade (mg/dL)
       <input type="number" min="0" max="50" bind:value={risePerDecade} class="mt-1 block w-full rounded border border-slate-300 px-2 py-1 dark:bg-slate-800" /></label>
   </div>
 
+  {#if estimatedApoB !== null}
+    <p class="mt-2 text-xs text-slate-500">Estimated ApoB ≈ <strong>{estimatedApoB} mg/dL</strong> (converted from {unitLabel}).</p>
+  {/if}
+
   <label class="mt-3 flex items-center gap-2 text-sm">
-    <input type="checkbox" bind:checked={useIntervention} /> Model an intervention (e.g. a statin lowers ApoB, then held)
+    <input type="checkbox" bind:checked={useIntervention} /> Model an intervention (e.g. a statin lowers it, then held)
   </label>
   {#if useIntervention}
     <div class="mt-2 grid grid-cols-2 gap-3">
       <label class="text-sm">Intervention age
         <input type="number" min="1" max="99" bind:value={interventionAge} class="mt-1 block w-full rounded border border-slate-300 px-2 py-1 dark:bg-slate-800" /></label>
-      <label class="text-sm">ApoB after (mg/dL)
-        <input type="number" min="1" max="300" bind:value={interventionApoB} class="mt-1 block w-full rounded border border-slate-300 px-2 py-1 dark:bg-slate-800" /></label>
+      <label class="text-sm">{unitLabel} after (mg/dL)
+        <input type="number" min="1" max="400" bind:value={interventionValue} class="mt-1 block w-full rounded border border-slate-300 px-2 py-1 dark:bg-slate-800" /></label>
     </div>
   {/if}
 
@@ -135,14 +176,16 @@
       {/if}
     </p>
   {:else}
-    <p class="mt-3 text-sm text-red-600">Check the inputs — all fields must be filled in, and any intervention age must be between birth and the projection age.</p>
+    <p class="mt-3 text-sm text-red-600">Check the inputs — all fields must be positive numbers, and any intervention age must be under {endAge}.</p>
   {/if}
 
   <p class="mt-2 text-xs text-slate-500">
-    Illustrative model: exposure accrues from birth; ApoB is assumed to rise linearly
-    with age (adjust the per-decade rate), anchored to your current value. An
-    intervention drops ApoB and holds it there. Real trajectories vary.
+    ApoB or non-HDL-C are preferred; LDL-C is converted approximately and individual
+    ApoB can differ (which is why measuring ApoB is best). Illustrative model:
+    exposure accrues from birth; ApoB is assumed to rise linearly with age (adjust
+    the per-decade rate), anchored to your current value. An intervention drops ApoB
+    and holds it. Real trajectories vary.
   </p>
 
-  <Sources {sources} />
+  <Sources sources={displaySources} />
 </div>
