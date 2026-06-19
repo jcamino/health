@@ -1,0 +1,49 @@
+---
+layout: ../layouts/BaseLayout.astro
+title: "Heart: ApoB, lifetime exposure, and statins"
+description: "Why ApoB and cumulative exposure — not just 10-year risk — drive atherosclerosis."
+---
+import ApoBExposure from '../components/calculators/ApoBExposure.svelte';
+import ApoBTier from '../components/calculators/ApoBTier.svelte';
+import LpaTier from '../components/calculators/LpaTier.svelte';
+import BloodPressure from '../components/calculators/BloodPressure.svelte';
+import StatinTable from '../components/StatinTable.astro';
+import Citation from '../components/ui/Citation.astro';
+
+# Your heart runs on a lifetime, not a decade
+
+Atherosclerosis is driven by **ApoB** — the number of atherogenic particles in
+your blood — accumulated over *time*. The damage is the area under the curve:
+particle concentration multiplied by years of exposure <Citation id="easLdlCausality2017" />.
+
+## Lifetime exposure (the number that matters)
+
+<ApoBExposure client:visible />
+
+Lowering ApoB earlier shrinks the area dramatically — that's why a 10-year risk
+score, which under-weights younger people, misses the point for prevention.
+
+## Where does your ApoB sit?
+
+ApoB is a better measure of risk than LDL-C alone <Citation id="snidermanApoB2019" />.
+Prevention-optimal targets are lower than population "normal."
+
+<ApoBTier client:visible />
+
+## Lp(a): the genetic multiplier
+
+<LpaTier client:visible />
+
+## Blood pressure
+
+High blood pressure compounds ApoB-driven risk by accelerating arterial damage.
+The 2017 ACC/AHA guideline lowered the thresholds — "normal" is now under 120/80
+<Citation id="accAhaBp2017" />.
+
+<BloodPressure client:visible />
+
+## Statins: which, and when
+
+<StatinTable />
+
+> Educational only. See the disclaimer below before acting on any of this.
