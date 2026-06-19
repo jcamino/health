@@ -52,6 +52,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://health.jcam
     </main>
     <footer class="mx-auto max-w-3xl px-4 py-10 text-sm text-slate-500">
       <Disclaimer />
+      <p>
+        Open source — contributions and issues welcome on
+        <a class="underline hover:text-slate-700 dark:hover:text-slate-300" href="https://github.com/jcamino/health" target="_blank" rel="noopener noreferrer">GitHub</a>
+        (<a class="underline hover:text-slate-700 dark:hover:text-slate-300" href="https://github.com/jcamino/health/issues" target="_blank" rel="noopener noreferrer">open an issue</a>).
+      </p>
       <p>© {new Date().getFullYear()} jcamino. Educational use only.</p>
     </footer>
   </body>
