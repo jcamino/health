@@ -12,49 +12,75 @@ export interface ApoBPoint {
 }
 
 export interface TrajectoryParams {
-  startAge: number;
+  /** The person's age now (anchor). */
+  currentAge: number;
+  /** ApoB (mg/dL) at currentAge (anchor). */
+  currentApoB: number;
+  /** Age-related rise in ApoB, mg/dL per YEAR (UI typically supplies per-decade / 10). >= 0. */
+  risePerYear: number;
+  /** Project cumulative exposure out to this age. */
   endAge: number;
-  baselineApoB: number;
+  /** Where integration begins; defaults to 0 (birth). */
+  startAge?: number;
+  /** Optional intervention: at `age`, ApoB drops to `apoB` and is then held flat. */
   intervention?: { age: number; apoB: number };
 }
 
+/** Hard floor so back-extrapolation can't yield non-physiologic ApoB. */
+const MIN_APOB = 10;
+
 /**
- * Cumulative-exposure threshold, 5000 mg·years.
- *
- * This is a sourced *LDL-C* value, not an ApoB-specific one. Ference et al.
- * (JACC Health Promotion Series, 2018; refs.ferenceLipids2018) describe ~5000
- * mg·years of cumulative LDL-C as the level "beyond which cardiovascular events
- * begin to occur": at LDL-C 125 mg/dL it is crossed at age 40, at 80 mg/dL not
- * until age 62.5. The same figure (5000 mg·years = 129.2 mmol·years, ~1% MI
- * risk by age 40) is restated by Korneva et al. 2022 (J Pers Med 12:71,
- * doi:10.3390/jpm12010071), citing Ference 2018.
- *
- * Task 7 Step 6 conclusion: a primary LDL-C threshold exists (kept at 5000),
- * but no source gives an ApoB-specific cumulative mg·years threshold. Because
- * this calculator plots ApoB, the hero chart must label this line
- * "illustrative (LDL-C–derived)".
+ * Illustrative cumulative-exposure threshold, 5000 mg·years. This is a sourced
+ * *LDL-C* value (Ference et al., JACC Health Promotion Series 2018), not an
+ * ApoB-specific one — the hero chart labels the line "illustrative (LDL-C–derived)".
  */
 export const CUMULATIVE_EXPOSURE_THRESHOLD_MG_YEARS = 5000;
 
+/** ApoB on the untreated, age-rising line, anchored at currentApoB @ currentAge. */
+function risingApoB(age: number, p: TrajectoryParams): number {
+  return Math.max(MIN_APOB, p.currentApoB + p.risePerYear * (age - p.currentAge));
+}
+
+/**
+ * Build a lifetime ApoB trajectory (piecewise linear) from `startAge` (default 0
+ * = birth) to `endAge`. ApoB rises with age at `risePerYear`, anchored to the
+ * user's current value. An optional intervention drops ApoB at a given age and
+ * holds it flat thereafter.
+ */
 export function buildTrajectory(p: TrajectoryParams): ApoBPoint[] {
-  if (!(p.endAge > p.startAge)) {
+  const startAge = p.startAge ?? 0;
+  if (!Number.isFinite(startAge) || startAge < 0) {
+    throw new Error('buildTrajectory: startAge must be a finite value >= 0');
+  }
+  if (!(p.endAge > startAge)) {
     throw new Error('buildTrajectory: endAge must be greater than startAge');
   }
+  if (![p.currentAge, p.currentApoB, p.risePerYear].every((n) => Number.isFinite(n))) {
+    throw new Error('buildTrajectory: currentAge, currentApoB and risePerYear must be finite');
+  }
+  if (p.currentApoB <= 0) throw new Error('buildTrajectory: currentApoB must be positive');
+  if (p.risePerYear < 0) throw new Error('buildTrajectory: risePerYear must be >= 0');
+
   if (p.intervention) {
     const { age, apoB } = p.intervention;
-    if (age <= p.startAge || age >= p.endAge) {
+    if (!Number.isFinite(age) || !Number.isFinite(apoB)) {
+      throw new Error('buildTrajectory: intervention values must be finite');
+    }
+    if (age <= startAge || age >= p.endAge) {
       throw new Error('buildTrajectory: intervention age must be within (startAge, endAge)');
     }
+    if (apoB <= 0) throw new Error('buildTrajectory: intervention apoB must be positive');
+    const held = Math.max(MIN_APOB, apoB);
     return [
-      { age: p.startAge, apoB: p.baselineApoB },
-      { age, apoB: p.baselineApoB },
-      { age, apoB },
-      { age: p.endAge, apoB },
+      { age: startAge, apoB: risingApoB(startAge, p) },
+      { age, apoB: risingApoB(age, p) }, // pre-intervention (rising)
+      { age, apoB: held }, // drop
+      { age: p.endAge, apoB: held }, // held flat
     ];
   }
   return [
-    { age: p.startAge, apoB: p.baselineApoB },
-    { age: p.endAge, apoB: p.baselineApoB },
+    { age: startAge, apoB: risingApoB(startAge, p) },
+    { age: p.endAge, apoB: risingApoB(p.endAge, p) },
   ];
 }
 
