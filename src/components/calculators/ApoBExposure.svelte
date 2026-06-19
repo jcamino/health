@@ -53,9 +53,16 @@
   function render() {
     if (!chart || !scenario) return;
     const series = cumulativeSeries(scenario);
-    chart.data.labels = series.map((p) => p.age);
-    chart.data.datasets[0].data = series.map((p) => p.cumulative);
-    chart.data.datasets[1].data = series.map(() => CUMULATIVE_EXPOSURE_THRESHOLD_MG_YEARS);
+    // Linear age axis: plot {x: age, y: ...} so points sit at their true ages.
+    // An intervention yields two points at the same age (a slope kink, not a
+    // duplicate tick), and unequal spans (e.g. 14 vs 65 years) render to scale.
+    chart.data.datasets[0].data = series.map((p) => ({ x: p.age, y: p.cumulative }));
+    const first = series[0].age;
+    const last = series[series.length - 1].age;
+    chart.data.datasets[1].data = [
+      { x: first, y: CUMULATIVE_EXPOSURE_THRESHOLD_MG_YEARS },
+      { x: last, y: CUMULATIVE_EXPOSURE_THRESHOLD_MG_YEARS },
+    ];
     chart.update();
   }
 
@@ -63,9 +70,8 @@
     chart = new Chart(canvas, {
       type: 'line',
       data: {
-        labels: [],
         datasets: [
-          { label: 'Cumulative ApoB exposure (mg·years)', data: [], fill: true, tension: 0.1 },
+          { label: 'Cumulative ApoB exposure (mg·years)', data: [], fill: true, tension: 0 },
           {
             label: 'Illustrative threshold (LDL-C–derived)',
             data: [],
@@ -78,7 +84,10 @@
         responsive: true,
         maintainAspectRatio: false,
         scales: {
-          x: { title: { display: true, text: 'Age' } },
+          x: {
+            type: 'linear',
+            title: { display: true, text: 'Age' },
+          },
           y: {
             title: { display: true, text: 'Cumulative ApoB-years (mg·years)' },
             beginAtZero: true,
