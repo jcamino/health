@@ -104,6 +104,25 @@ export const refs = {
     url: 'https://doi.org/10.1161/CIRCULATIONAHA.123.067626',
     doi: '10.1161/CIRCULATIONAHA.123.067626',
   },
+  sprint2015: {
+    id: 'sprint2015',
+    title: 'A Randomized Trial of Intensive versus Standard Blood-Pressure Control (SPRINT)',
+    authors: 'SPRINT Research Group',
+    year: 2015,
+    source: 'New England Journal of Medicine',
+    url: 'https://doi.org/10.1056/NEJMoa1511939',
+    doi: '10.1056/NEJMoa1511939',
+  },
+  hypertensionHistory2011: {
+    id: 'hypertensionHistory2011',
+    title:
+      'Historical Trends and Milestones in Hypertension Research: A Model of the Process of Translational Research',
+    authors: 'Kotchen TA',
+    year: 2011,
+    source: 'Hypertension',
+    url: 'https://doi.org/10.1161/HYPERTENSIONAHA.111.177766',
+    doi: '10.1161/HYPERTENSIONAHA.111.177766',
+  },
 } satisfies Record<string, Reference>;
 
 export type ReferenceId = keyof typeof refs;
