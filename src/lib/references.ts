@@ -84,6 +84,16 @@ export const refs = {
     url: 'https://doi.org/10.1161/01.cir.0000437741.48606.98',
     doi: '10.1161/01.cir.0000437741.48606.98',
   },
+  preventEquations2024: {
+    id: 'preventEquations2024',
+    title:
+      "Development and Validation of the American Heart Association's PREVENT Equations",
+    authors: 'Khan SS, et al.',
+    year: 2024,
+    source: 'Circulation',
+    url: 'https://doi.org/10.1161/CIRCULATIONAHA.123.067626',
+    doi: '10.1161/CIRCULATIONAHA.123.067626',
+  },
 } satisfies Record<string, Reference>;
 
 export type ReferenceId = keyof typeof refs;
