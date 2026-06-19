@@ -2,7 +2,7 @@
   import { onMount, onDestroy } from 'svelte';
   import Chart from 'chart.js/auto';
   import {
-    buildTrajectory,
+    sampleTrajectory,
     apoBYears,
     cumulativeSeries,
     ageAtThreshold,
@@ -55,7 +55,7 @@
   const scenario = $derived.by(() => {
     if (!inputsValid) return null;
     try {
-      return buildTrajectory({
+      return sampleTrajectory({
         startAge: 0,
         currentAge,
         currentApoB: toApoB(currentValue),

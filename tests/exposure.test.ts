@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   buildTrajectory,
+  sampleTrajectory,
   apoBYears,
   cumulativeSeries,
   ageAtThreshold,
@@ -104,5 +105,33 @@ describe('exposure module', () => {
   it('exposes a positive threshold and sources', () => {
     expect(CUMULATIVE_EXPOSURE_THRESHOLD_MG_YEARS).toBeGreaterThan(0);
     expect(sources.length).toBeGreaterThan(0);
+  });
+});
+
+describe('sampleTrajectory (fine-grained for charting)', () => {
+  it('samples ~yearly and integrates to the same area as buildTrajectory', () => {
+    const p = {
+      currentAge: 40, currentApoB: 90, risePerYear: 0.3,
+      startAge: 0, endAge: 100, intervention: { age: 50, apoB: 60 },
+    };
+    const sampled = sampleTrajectory(p);
+    expect(sampled.length).toBeGreaterThan(50);
+    expect(sampled[0].age).toBe(0);
+    expect(sampled.at(-1)!.age).toBe(100);
+    expect(apoBYears(sampled)).toBeCloseTo(apoBYears(buildTrajectory(p)));
+  });
+
+  it('produces a convex (accelerating) cumulative curve when ApoB rises', () => {
+    const s = cumulativeSeries(
+      sampleTrajectory({ currentAge: 0, currentApoB: 50, risePerYear: 2, startAge: 0, endAge: 100 }),
+    );
+    const slopeEarly = s[10].cumulative - s[9].cumulative;
+    const slopeLate = s[90].cumulative - s[89].cumulative;
+    expect(slopeLate).toBeGreaterThan(slopeEarly);
+  });
+
+  it('flat ApoB (rise 0) integrates the same as buildTrajectory', () => {
+    const p = { currentAge: 20, currentApoB: 100, risePerYear: 0, startAge: 0, endAge: 50 };
+    expect(apoBYears(sampleTrajectory(p))).toBeCloseTo(apoBYears(buildTrajectory(p)));
   });
 });
