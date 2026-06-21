@@ -22,15 +22,14 @@
   </div>
   {#if result}
     <p class="mt-3">
-      HOMA-IR: <span class="font-semibold">{result.value.toFixed(2)}</span>
-      —
+      HOMA-IR: <span class="font-semibold">{result.value.toFixed(2)}</span>,
       <span class={`font-semibold ${result.insulinResistant ? 'text-orange-600' : 'text-emerald-600'}`}>
         {result.insulinResistant ? 'above the insulin-resistance cut-point' : 'below the insulin-resistance cut-point'}
       </span>
     </p>
     <p class="mt-2 text-xs text-slate-500">
       Approximate cut-point ≈ {result.cutPoint} (90th percentile in a general adult
-      population). HOMA-IR thresholds vary by population, age, and sex — this is an
+      population). HOMA-IR thresholds vary by population, age, and sex. This is an
       illustrative reference point, not a diagnosis.
     </p>
   {:else}

@@ -22,8 +22,7 @@
   </div>
   {#if result}
     <p class="mt-3">
-      TG/HDL ratio: <span class="font-semibold">{result.ratio.toFixed(1)}</span>
-      —
+      TG/HDL ratio: <span class="font-semibold">{result.ratio.toFixed(1)}</span>,
       <span class={`font-semibold ${result.insulinResistanceLikely ? 'text-orange-600' : 'text-emerald-600'}`}>
         {result.insulinResistanceLikely ? 'above the insulin-resistance cut-point' : 'below the insulin-resistance cut-point'}
       </span>

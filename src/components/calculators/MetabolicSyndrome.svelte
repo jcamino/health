@@ -94,13 +94,13 @@
     <ul class="mt-4 space-y-1 text-sm">
       {#each rows as row (row.key)}
         <li>
-          <span class={row.met ? 'text-orange-600' : 'text-emerald-600'}>{row.met ? '✓' : '—'}</span>
+          <span class={row.met ? 'text-orange-600' : 'text-emerald-600'}>{row.met ? '✓' : '·'}</span>
           {row.label}
         </li>
       {/each}
     </ul>
     <p class="mt-3">
-      <span class="font-semibold">{result.count} of 5</span> criteria met —
+      <span class="font-semibold">{result.count} of 5</span> criteria met,
       <span class={`font-semibold ${result.meets ? 'text-red-600' : 'text-emerald-600'}`}>
         {result.meets ? 'meets metabolic syndrome' : 'does not meet metabolic syndrome'}
       </span>

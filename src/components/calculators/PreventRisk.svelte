@@ -72,7 +72,7 @@
 
   <p class="mt-2 text-xs text-slate-500">
     A short-horizon estimate (AHA PREVENT, race-free). 10-year risk under-weights
-    younger people — read it alongside the lifetime exposure above, which is what
+    younger people, so read it alongside the lifetime exposure above, which is what
     early prevention targets.
   </p>
 

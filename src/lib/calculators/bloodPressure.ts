@@ -20,7 +20,7 @@ const LABELS: Record<BpCategoryName, string> = {
 /**
  * Categorize a blood-pressure reading per the 2017 ACC/AHA guideline
  * (Whelton et al.). When systolic and diastolic imply different categories, the
- * HIGHER category applies — handled by the ordered checks below.
+ * HIGHER category applies, handled by the ordered checks below.
  */
 export function bpCategory(systolic: number, diastolic: number): BpCategory {
   if (

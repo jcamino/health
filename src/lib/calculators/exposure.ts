@@ -32,7 +32,7 @@ const MIN_APOB = 10;
 /**
  * Illustrative cumulative-exposure threshold, 5000 mg·years. This is a sourced
  * *LDL-C* value (Ference et al., JACC Health Promotion Series 2018), not an
- * ApoB-specific one — the hero chart labels the line "illustrative (LDL-C–derived)".
+ * ApoB-specific one; the hero chart labels the line "illustrative (LDL-C–derived)".
  */
 export const CUMULATIVE_EXPOSURE_THRESHOLD_MG_YEARS = 5000;
 
@@ -86,7 +86,7 @@ export function buildTrajectory(p: TrajectoryParams): ApoBPoint[] {
 
 /**
  * Fine-grained (default yearly) samples of the same model `buildTrajectory`
- * describes — used for charting so the cumulative-exposure curve shows its true
+ * describes, used for charting so the cumulative-exposure curve shows its true
  * convex shape when ApoB rises with age. (A 2-point trajectory draws a straight
  * chord and hides the curvature.) Integrates to the same area as
  * `buildTrajectory` for integer intervention ages.
