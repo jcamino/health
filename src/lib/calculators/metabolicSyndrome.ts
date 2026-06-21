@@ -48,7 +48,7 @@ export function metabolicSyndrome(criteria: MetSCriteria): MetSResult {
  * Waist-circumference cut-point (cm). The harmonized statement defers waist to
  * national/regional cut-points; we default to the AHA/NHLBI (US, ATP III)
  * values (≥102 cm men, ≥88 cm women) and also offer the IDF Europid values
- * (≥94 cm men, ≥80 cm women). Population-specific — label as such in the UI.
+ * (≥94 cm men, ≥80 cm women). Population-specific, so label as such in the UI.
  */
 export function waistThresholdCm(sex: Sex, population: WaistPopulation = 'aha-nhlbi-us'): number {
   const TABLE: Record<WaistPopulation, Record<Sex, number>> = {

@@ -141,7 +141,7 @@ function requireFinite(value: number, name: string): void {
  *   risk    = exp(logOdds) / (1 + exp(logOdds))
  * with predictors centered/scaled as documented on {@link AscvdCoefficients}.
  *
- * @returns `{ tenYearPercent }` — the 10-year ASCVD risk as a percentage (0-100).
+ * @returns `{ tenYearPercent }`: the 10-year ASCVD risk as a percentage (0-100).
  * @throws if age is outside 30-79 or any numeric input is non-finite.
  */
 export function preventAscvd10yr(input: PreventInput): { tenYearPercent: number } {

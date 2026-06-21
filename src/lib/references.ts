@@ -4,7 +4,7 @@ export interface Reference {
   authors?: string;
   year?: number;
   source?: string; // journal / publisher
-  url: string;     // real, verified link — REQUIRED
+  url: string;     // real, verified link (REQUIRED)
   doi?: string;
 }
 

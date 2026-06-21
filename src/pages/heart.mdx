@@ -1,7 +1,7 @@
 ---
 layout: ../layouts/BaseLayout.astro
 title: "Heart: ApoB, lifetime exposure, and statins"
-description: "Why ApoB and cumulative exposure — not just 10-year risk — drive atherosclerosis."
+description: "Why ApoB and cumulative exposure, not just 10-year risk, drive atherosclerosis."
 ---
 import ApoBExposure from '../components/calculators/ApoBExposure.svelte';
 import ApoBTier from '../components/calculators/ApoBTier.svelte';
@@ -13,8 +13,8 @@ import Citation from '../components/ui/Citation.astro';
 
 # Your heart runs on a lifetime, not a decade
 
-Atherosclerosis is driven by **ApoB** — the number of atherogenic particles in
-your blood — accumulated over *time*. The damage is the area under the curve:
+Atherosclerosis is driven by **ApoB**, the number of atherogenic particles in
+your blood, accumulated over *time*. The damage is the area under the curve:
 particle concentration multiplied by years of exposure <Citation id="easLdlCausality2017" />.
 
 <aside class="not-prose my-6 rounded-lg border border-sky-300 bg-sky-50 p-4 text-sm text-sky-900 dark:border-sky-700 dark:bg-sky-950/40 dark:text-sky-100">
@@ -28,14 +28,14 @@ particle concentration multiplied by years of exposure <Citation id="easLdlCausa
     number a standard panel waves through keeps accruing damage every year it sits there.
   </p>
   <p class="mt-2">
-    Take two people a standard lab calls normal (illustrative — the same
+    Take two people a standard lab calls normal (illustrative: the same
     cumulative-exposure model as the chart below, against its 5,000 mg·years threshold):
   </p>
   <ul class="mt-1 list-disc space-y-1 pl-5">
     <li>An ApoB of <strong>90 mg/dL</strong> crosses the lifetime-exposure threshold
       around <strong>age 56</strong>.</li>
-    <li>An ApoB of <strong>110 mg/dL</strong> crosses it around <strong>age 45</strong>
-      — about a decade earlier.</li>
+    <li>An ApoB of <strong>110 mg/dL</strong> crosses it around <strong>age 45</strong>,
+      about a decade earlier.</li>
   </ul>
   <p class="mt-2">
     On this site's prevention-optimal scale those same two numbers are already
@@ -49,16 +49,16 @@ particle concentration multiplied by years of exposure <Citation id="easLdlCausa
 
 <ApoBExposure client:visible />
 
-Lowering ApoB earlier shrinks the area dramatically — that's why a 10-year risk
+Lowering ApoB earlier shrinks the area dramatically. That's why a 10-year risk
 score, which under-weights younger people, misses the point for prevention.
 
 ## We have seen this before: blood pressure
 
-We have seen this before — with blood pressure. Life-insurance actuaries quantified
+We have seen this before, with blood pressure. Life-insurance actuaries quantified
 that higher blood pressure predicted earlier death back in the 1920s, yet for decades
 mainstream medicine treated moderately elevated pressure as benign "essential"
-hypertension <Citation id="hypertensionHistory2011" />. Only after landmark trials —
-and, much later, trials of *lower* targets like SPRINT <Citation id="sprint2015" /> —
+hypertension <Citation id="hypertensionHistory2011" />. Only after landmark trials
+(and, much later, trials of *lower* targets like SPRINT <Citation id="sprint2015" />)
 did guideline thresholds fall toward what the mortality data had shown all along: the
 2017 ACC/AHA guideline finally moved "high blood pressure" down to 130/80
 <Citation id="accAhaBp2017" />. ApoB looks like the same story, earlier in its arc.
@@ -77,7 +77,7 @@ Prevention-optimal targets are lower than population "normal."
 ## Blood pressure
 
 High blood pressure compounds ApoB-driven risk by accelerating arterial damage.
-The 2017 ACC/AHA guideline lowered the thresholds — "normal" is now under 120/80
+The 2017 ACC/AHA guideline lowered the thresholds, and "normal" is now under 120/80
 <Citation id="accAhaBp2017" />.
 
 <BloodPressure client:visible />
@@ -86,7 +86,7 @@ The 2017 ACC/AHA guideline lowered the thresholds — "normal" is now under 120/
 
 Conventional scores estimate your *next 10 years*. The AHA **PREVENT** model
 (race-free) is the current standard <Citation id="preventEquations2024" />. Useful,
-but it systematically under-weights younger people — which is exactly why the
+but it systematically under-weights younger people, which is exactly why the
 lifetime exposure above matters more for prevention.
 
 <PreventRisk client:visible />

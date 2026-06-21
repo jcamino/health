@@ -1,7 +1,7 @@
 ---
 layout: ../layouts/BaseLayout.astro
 title: "Metabolism: insulin resistance and visceral fat"
-description: "Insulin resistance and visceral fat sit upstream of type 2 diabetes and much cardiovascular disease — and they move years before a diagnosis."
+description: "Insulin resistance and visceral fat sit upstream of type 2 diabetes and much cardiovascular disease, and they move years before a diagnosis."
 ---
 import HomaIr from '../components/calculators/HomaIr.svelte';
 import A1c from '../components/calculators/A1c.svelte';
@@ -16,13 +16,13 @@ import UnderConstruction from '../components/ui/UnderConstruction.astro';
 
 The core of metabolic disease is **insulin resistance** and the **visceral
 (intra-abdominal) fat** that drives it. Long before fasting glucose or A1C cross
-a diagnostic line, the body compensates by secreting more insulin — so fasting
+a diagnostic line, the body compensates by secreting more insulin, so fasting
 *insulin* and the ratio of fat-related markers shift first, and the lab values
 clinicians watch are late indicators. Clustering these abnormalities together is
 exactly what the metabolic-syndrome definition captures
 <Citation id="albertiMetSyndrome2009" />, and it roughly doubles cardiovascular
 risk. The prevention angle is the same as for the heart: the damage accumulates
-over a lifetime, so catching the trend early — and reversing it — matters more
+over a lifetime, so catching the trend early, and reversing it, matters more
 than any single reading.
 
 ## Insulin resistance: HOMA-IR
@@ -35,14 +35,14 @@ flag the compensatory phase while glucose still looks normal.
 <HomaIr client:visible />
 
 Cut-points are population-, age-, and sex-dependent and are not a clinical
-diagnosis — the reference point here is the 90th-percentile value from a general
+diagnosis. The reference point here is the 90th-percentile value from a general
 adult population <Citation id="gayosoHomaIr2013" />. A rising HOMA-IR over time
 is more informative than any one value.
 
 ## A1C and estimated average glucose
 
-A1C reflects average blood glucose over the prior ~3 months. The ADA thresholds —
-normal under 5.7%, prediabetes 5.7–6.4%, diabetes 6.5% and above — define where
+A1C reflects average blood glucose over the prior ~3 months. The ADA thresholds
+(normal under 5.7%, prediabetes 5.7–6.4%, diabetes 6.5% and above) define where
 you sit <Citation id="adaDiagnosis2024" />. The estimated average glucose (eAG)
 restates that A1C in the mg/dL units a glucometer shows, using the ADAG study's
 regression <Citation id="nathanAdag2008" />.
@@ -55,7 +55,7 @@ fat.
 
 ## Metabolic syndrome (3 of 5)
 
-Metabolic syndrome is a cluster — meeting **any 3 of 5** criteria flags the
+Metabolic syndrome is a cluster: meeting **any 3 of 5** criteria flags the
 combination of central adiposity, dyslipidemia, blood pressure, and glucose
 dysregulation that travels with insulin resistance. The 2009 harmonized
 definition unified the competing thresholds into one set
@@ -70,7 +70,7 @@ component (blood pressure, lipids, or glucose) counts as meeting that component.
 ## Triglyceride/HDL ratio
 
 A high triglyceride-to-HDL ratio is a cheap, widely available **surrogate** for
-insulin resistance — it tends to rise as insulin sensitivity falls
+insulin resistance. It tends to rise as insulin sensitivity falls
 <Citation id="mclaughlinTgHdl2003" />. It is a marker, not a diagnosis, and the
 cut-point is unit-specific (the value below is for mg/dL).
 

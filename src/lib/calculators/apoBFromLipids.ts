@@ -26,7 +26,7 @@ export const sources: Reference[] = [refs.escEasDyslipidaemia2019];
  *   ApoB ≈ 0.7619 * nonHDL-C +  1.6667
  *
  * Slope = 800/1050 = 16/21 ≈ 0.761905. These are POPULATION APPROXIMATIONS with
- * real individual scatter — a given person's measured ApoB can differ materially
+ * real individual scatter; a given person's measured ApoB can differ materially
  * from the estimate, which is exactly why directly measuring ApoB is preferred.
  * The UI labels these conversions as approximate.
  */
