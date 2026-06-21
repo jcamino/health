@@ -51,9 +51,13 @@ accAhaBp2017: {
 },
 ```
 
-**Verify it resolves.** WebFetch the DOI (or WebSearch the exact title). AHA/EAS
-supplement PDFs often 403 to bots — then confirm via the resolving DOI landing page
-plus a peer-reviewed secondary source. Never invent a DOI.
+**Verify it resolves.** Try WebFetch on the DOI / WebSearch the exact title.
+Publisher pages (AHA/EAS/Springer) and PubMed itself frequently 403 / CAPTCHA bots.
+When they do, verify authoritatively via the **NCBI E-utilities API** (no CAPTCHA) —
+WebFetch `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=<title-or-DOI>`
+for the PMID, then `.../esummary.fcgi?db=pubmed&id=<PMID>&retmode=json` for structured
+title/journal/year/DOI. Confirm the DOI redirects to the correct publisher host.
+Never invent a DOI.
 
 ## Step 2 — Write the failing test FIRST (`tests/<name>.test.ts`)
 
@@ -144,15 +148,25 @@ npx astro check                       # 0 errors
 
 - **Primary source first.** Find the paper/guideline, add it, WebFetch the DOI to
   confirm it resolves to that exact work.
-- **Bot-blocked supplement (403)?** Use a peer-reviewed transcription (a CRAN
-  package, a guideline's published "corresponding goals" table) and still cite the
-  primary source. Report what you used and the anchor numbers you derived.
+- **Bot-blocked (403/CAPTCHA)?** Verify the *citation* via NCBI E-utilities (Step 1).
+  For the *numbers* (coefficients/thresholds) when the source PDF is unreadable, use a
+  peer-reviewed transcription (a CRAN package, a guideline's "corresponding goals"
+  table, StatPearls) — still cite the primary source, and report what you used + the
+  anchor numbers you derived/checked.
 - **Validated equation → worked-example gate.** Do not ship until the function
-  reproduces a published example (or the official calculator's output) within
-  tolerance. No worked example obtainable → report **BLOCKED**, don't approximate.
+  reproduces a published example (or the official calculator's output) within a stated
+  **tolerance** — assert `Math.abs(got - expected) <= tol`, not exact equality.
+  Published values are pre-rounded and floats bite (e.g. `28.7×6 − 46.7 = 125.4999…`,
+  so `Math.round` gives 125, not the table's 126 — assert ±1). No worked example
+  obtainable → report **BLOCKED**, don't approximate.
 - **Illustrative ≠ validated.** Label teaching illustrations as such in the code
   comment AND the UI (e.g. the cumulative-exposure threshold is LDL-C-derived, not
   ApoB-specific). Never dress an illustration up as a clinical score.
+- **Population/assay-dependent cut-points** (HOMA-IR, TG/HDL ratio, waist
+  circumference, etc.): cite the *specific* population/assay the cut-point came from,
+  label it approximate in code + UI, expose a population option where one exists
+  (e.g. waist: US AHA/NHLBI vs IDF-Europid), and frame it as a trend, not a hard
+  diagnosis.
 - **Historical / qualitative claims** still need a citation — use a peer-reviewed
   review (e.g. `hypertensionHistory2011`).
 - **Prefer current, equitable models** — this site uses AHA PREVENT 2024 (race-free),

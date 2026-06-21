@@ -9,8 +9,8 @@ description: Use when creating or fleshing out a content/"pillar" page (metaboli
 
 A "pillar" page is an **MDX file in `src/pages/<pillar>.mdx`** that uses `BaseLayout`
 (via frontmatter), mixes static prose with **interactive Svelte 5 islands** (the
-calculators), and cites everything. `src/pages/heart.mdx` is the canonical, complete
-example — copy its structure.
+calculators), and cites everything. `src/pages/heart.mdx` and `src/pages/metabolism.mdx`
+are the canonical, complete examples — copy their structure.
 
 **REQUIRED SUB-SKILL:** build each calculator first with adding-sourced-calculator
 (pure tested module + verified citation). Widgets only bind to those.
@@ -128,10 +128,11 @@ script (e.g. `grep <Name> dist/<pillar>/index.html`), each `<Sources>` block, an
 citation DOIs.
 
 ### 6. Deploy
-Commit on `main`. **Push only at functional milestones** — Cloudflare allows ~500
-builds/month and every push to `main` triggers a build. Batch related commits; push
-once the page (or a coherent feature) is complete and verified. (Project memory:
-`push-to-main-workflow`, `cloudflare-workers-deploy`.)
+Commit on `main`, **one commit per calculator as you finish it** (so progress survives
+an interruption — important when a long build may be cut off). **Push only at
+functional milestones** — Cloudflare allows ~500 builds/month and every push to `main`
+triggers a build. Batch related commits; push once the page is complete and verified.
+(Project memory: `push-to-main-workflow`, `cloudflare-workers-deploy`.)
 
 ## Quick reference
 
