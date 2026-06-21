@@ -26,6 +26,9 @@
   let interventionAge = $state(50);
   let interventionValue = $state(60); // in the selected unit
 
+  // Cumulative exposure at the age the pointer is currently over (hover/drag readout).
+  let hovered = $state<{ age: number; cumulative: number } | null>(null);
+
   const endAge = 100; // fixed lifetime window: birth (0) → 100
 
   const unitLabel = $derived(
@@ -82,17 +85,47 @@
   let canvas: HTMLCanvasElement;
   let chart: Chart | undefined;
 
+  // Vertical guide line drawn at whatever age the pointer is over, so dragging
+  // across the chart reads the cumulative exposure at that age.
+  const crosshairPlugin = {
+    id: 'crosshair',
+    afterDraw(c: Chart) {
+      const active = c.getActiveElements();
+      if (!active.length) return;
+      const x = active[0].element.x;
+      const { ctx, chartArea } = c;
+      ctx.save();
+      ctx.beginPath();
+      ctx.setLineDash([4, 4]);
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'rgba(100, 116, 139, 0.7)'; // slate-500
+      ctx.moveTo(x, chartArea.top);
+      ctx.lineTo(x, chartArea.bottom);
+      ctx.stroke();
+      ctx.restore();
+    },
+  };
+
   function render() {
     if (!chart || !scenario) return;
     const series = cumulativeSeries(scenario);
     chart.data.datasets[0].data = series.map((p) => ({ x: p.age, y: p.cumulative }));
-    const first = series[0].age;
-    const last = series[series.length - 1].age;
-    chart.data.datasets[1].data = [
-      { x: first, y: CUMULATIVE_EXPOSURE_THRESHOLD_MG_YEARS },
-      { x: last, y: CUMULATIVE_EXPOSURE_THRESHOLD_MG_YEARS },
-    ];
+    // Same x samples as the curve so index-mode hover aligns both datasets.
+    chart.data.datasets[1].data = series.map((p) => ({
+      x: p.age,
+      y: CUMULATIVE_EXPOSURE_THRESHOLD_MG_YEARS,
+    }));
     chart.update();
+  }
+
+  function readHover(c: Chart) {
+    const active = c.getActiveElements();
+    if (!active.length) {
+      hovered = null;
+      return;
+    }
+    const pt = c.data.datasets[0].data[active[0].index] as { x: number; y: number } | undefined;
+    hovered = pt ? { age: pt.x, cumulative: pt.y } : null;
   }
 
   onMount(() => {
@@ -100,18 +133,42 @@
       type: 'line',
       data: {
         datasets: [
-          { label: 'Cumulative ApoB exposure (mg·years)', data: [], fill: true, tension: 0 },
+          {
+            label: 'Cumulative ApoB exposure (mg·years)',
+            data: [],
+            fill: true,
+            tension: 0,
+            pointRadius: 0,
+            pointHoverRadius: 5,
+            pointHitRadius: 20,
+          },
           {
             label: 'Illustrative threshold (LDL-C–derived)',
             data: [],
             borderDash: [6, 6],
             pointRadius: 0,
+            pointHoverRadius: 0,
           },
         ],
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        onHover: (_event, _els, c) => readHover(c),
+        plugins: {
+          tooltip: {
+            callbacks: {
+              title: (items) => (items.length ? `Age ${items[0].parsed.x}` : ''),
+              label: (item) => {
+                const v = Math.round(item.parsed.y).toLocaleString();
+                return item.datasetIndex === 0
+                  ? `Cumulative exposure: ${v} mg·years`
+                  : `Illustrative threshold: ${v} mg·years`;
+              },
+            },
+          },
+        },
         scales: {
           x: { type: 'linear', title: { display: true, text: 'Age' } },
           y: {
@@ -120,6 +177,7 @@
           },
         },
       },
+      plugins: [crosshairPlugin],
     });
     render();
   });
@@ -166,6 +224,16 @@
 
   <div class="mt-4 h-64"><canvas bind:this={canvas} aria-label="Cumulative ApoB exposure from birth over age"></canvas></div>
 
+  {#if hovered}
+    <p class="mt-2 text-sm">
+      At <strong>age {hovered.age}</strong>:
+      <strong>{Math.round(hovered.cumulative).toLocaleString()} mg·years</strong> cumulative
+      ({Math.round((100 * hovered.cumulative) / CUMULATIVE_EXPOSURE_THRESHOLD_MG_YEARS)}% of the illustrative threshold).
+    </p>
+  {:else}
+    <p class="mt-2 text-xs text-slate-500">Hover or drag across the chart to read the cumulative exposure at any age.</p>
+  {/if}
+
   {#if scenario}
     <p class="mt-3 text-sm">
       Cumulative exposure from birth to age {endAge}: <strong>{totalExposure} mg·years</strong>.
@@ -176,7 +244,7 @@
       {/if}
     </p>
   {:else}
-    <p class="mt-3 text-sm text-red-600">Check the inputs — all fields must be positive numbers, and any intervention age must be under {endAge}.</p>
+    <p class="mt-3 text-sm text-red-600">Check the inputs: all fields must be positive numbers, and any intervention age must be under {endAge}.</p>
   {/if}
 
   <p class="mt-2 text-xs text-slate-500">
