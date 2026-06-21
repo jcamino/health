@@ -31,3 +31,25 @@ export function apoBTier(apoB_mgdl: number): ApoBTier {
   const match = TIERS.find((t) => apoB_mgdl >= t.lower)!; // optimal lower=0 always matches
   return { tier: match.name, label: match.label, lowerBound: match.lower };
 }
+
+export interface ApoBBand {
+  name: ApoBTierName;
+  label: string;
+  /** Inclusive lower bound, mg/dL. */
+  lower: number;
+  /** Exclusive upper bound, mg/dL, or null for the open-ended top tier. */
+  upper: number | null;
+}
+
+/**
+ * The same tiers as `apoBTier`, in ascending order and with upper bounds, for
+ * axis/gauge display. Derived from `TIERS` so the thresholds stay single-sourced.
+ */
+export const apoBBands: ApoBBand[] = [...TIERS]
+  .sort((a, b) => a.lower - b.lower)
+  .map((t, i, arr) => ({
+    name: t.name,
+    label: t.label,
+    lower: t.lower,
+    upper: i < arr.length - 1 ? arr[i + 1].lower : null,
+  }));

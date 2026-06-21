@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { lpaTier, sources } from '../src/lib/calculators/lpa';
+import { lpaTier, lpaBands, sources } from '../src/lib/calculators/lpa';
 
 describe('lpaTier (mg/dL)', () => {
   it('classifies representative values', () => {
@@ -29,5 +29,26 @@ describe('lpa module', () => {
   it('validates input and ships sources', () => {
     expect(() => lpaTier(-1, 'mg/dL')).toThrow();
     expect(sources.length).toBeGreaterThan(0);
+  });
+});
+
+describe('lpaBands', () => {
+  it('match the mg/dL cut-points and are open-ended at the top', () => {
+    const b = lpaBands('mg/dL');
+    expect(b.map((x) => x.lower)).toEqual([0, 30, 50, 180]);
+    expect(b.map((x) => x.upper)).toEqual([30, 50, 180, null]);
+  });
+
+  it('match the nmol/L cut-points', () => {
+    const b = lpaBands('nmol/L');
+    expect(b.map((x) => x.lower)).toEqual([0, 75, 125, 430]);
+    expect(b.map((x) => x.upper)).toEqual([75, 125, 430, null]);
+  });
+
+  it('agree with lpaTier', () => {
+    for (const v of [10, 30, 49, 50, 179, 180, 300]) {
+      const band = lpaBands('mg/dL').find((x) => x.upper === null || v < x.upper)!;
+      expect(band.name).toBe(lpaTier(v, 'mg/dL').tier);
+    }
   });
 });
