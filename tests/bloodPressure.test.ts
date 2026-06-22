@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { bpCategory, sources } from '../src/lib/calculators/bloodPressure';
+import { bpCategory, BP_THRESHOLDS, sources } from '../src/lib/calculators/bloodPressure';
 
 describe('bpCategory (ACC/AHA 2017)', () => {
   it('classifies representative readings', () => {
@@ -30,5 +30,10 @@ describe('bpCategory (ACC/AHA 2017)', () => {
     expect(() => bpCategory(0, 80)).toThrow();
     expect(() => bpCategory(120, NaN)).toThrow();
     expect(sources.length).toBeGreaterThan(0);
+  });
+
+  it('exposes thresholds consistent with the classifier', () => {
+    expect(BP_THRESHOLDS.systolic).toEqual({ elevated: 120, stage1: 130, stage2: 140, crisis: 180 });
+    expect(BP_THRESHOLDS.diastolic).toEqual({ stage1: 80, stage2: 90, crisis: 120 });
   });
 });
