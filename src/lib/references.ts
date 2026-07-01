@@ -65,6 +65,16 @@ export const refs = {
     url: 'https://doi.org/10.1161/HYP.0000000000000065',
     doi: '10.1161/HYP.0000000000000065',
   },
+  accAhaBp2025: {
+    id: 'accAhaBp2025',
+    title:
+      '2025 AHA/ACC/Multisociety Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults',
+    authors: 'Jones DW, et al.',
+    year: 2025,
+    source: 'Journal of the American College of Cardiology',
+    url: 'https://doi.org/10.1016/j.jacc.2025.07.010',
+    doi: '10.1016/j.jacc.2025.07.010',
+  },
   accAhaCholesterol2018: {
     id: 'accAhaCholesterol2018',
     title:
@@ -112,6 +122,16 @@ export const refs = {
     source: 'New England Journal of Medicine',
     url: 'https://doi.org/10.1056/NEJMoa1511939',
     doi: '10.1056/NEJMoa1511939',
+  },
+  fourierVeryLowLdl2017: {
+    id: 'fourierVeryLowLdl2017',
+    title:
+      'Clinical efficacy and safety of achieving very low LDL-cholesterol concentrations with the PCSK9 inhibitor evolocumab: a prespecified secondary analysis of the FOURIER trial',
+    authors: 'Giugliano RP, et al.',
+    year: 2017,
+    source: 'The Lancet',
+    url: 'https://doi.org/10.1016/S0140-6736(17)32290-0',
+    doi: '10.1016/S0140-6736(17)32290-0',
   },
   hypertensionHistory2011: {
     id: 'hypertensionHistory2011',

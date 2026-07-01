@@ -1,6 +1,6 @@
 import { refs, type Reference } from '../references';
 
-export const sources: Reference[] = [refs.accAhaBp2017];
+export const sources: Reference[] = [refs.accAhaBp2017, refs.accAhaBp2025];
 
 export type BpCategoryName = 'normal' | 'elevated' | 'stage-1' | 'stage-2' | 'crisis';
 
