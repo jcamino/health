@@ -1,6 +1,10 @@
 import { refs, type Reference } from '../references';
 
-export const sources: Reference[] = [refs.snidermanApoB2019, refs.easLdlCausality2017];
+export const sources: Reference[] = [
+  refs.snidermanApoB2019,
+  refs.easLdlCausality2017,
+  refs.fourierVeryLowLdl2017,
+];
 
 export type ApoBTierName = 'optimal' | 'borderline' | 'high' | 'very-high';
 

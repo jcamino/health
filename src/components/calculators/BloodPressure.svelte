@@ -68,6 +68,16 @@
       fill(D.stage2, X.max, Y.min, Y.max, zoneFill['stage-2']); // diastolic >= 90
       fill(X.min, X.max, S.crisis, Y.max, zoneFill.crisis); // systolic > 180
       fill(D.crisis, X.max, Y.min, Y.max, zoneFill.crisis); // diastolic > 120
+      // Prevention-optimal target: outline the "aim for under 120/80" corner
+      // (2025 ACC/AHA "as close to <120/80 as tolerated"). This is a target, not the
+      // diagnostic boundary; 120/80 is the low end the intensive trials actually tested.
+      const tx = px(D.stage1), ty = py(S.elevated);
+      const cx = px(X.min), cy = py(Y.min);
+      ctx.strokeStyle = pointColor.normal;
+      ctx.lineWidth = 2;
+      ctx.setLineDash([5, 4]);
+      ctx.strokeRect(Math.min(cx, tx), Math.min(cy, ty), Math.abs(tx - cx), Math.abs(ty - cy));
+      ctx.setLineDash([]);
       ctx.restore();
     },
   };
@@ -151,7 +161,10 @@
   </div>
   <p class="mt-2 text-xs text-slate-500">
     Zones follow the 2017 ACC/AHA categories; because the higher of the systolic and
-    diastolic categories applies, the bands are L-shaped. Your reading is the dot.
+    diastolic categories applies, the bands are L-shaped. Your reading is the dot. The
+    dashed green box is the prevention-optimal target: the 2025 ACC/AHA guidance to get
+    <span class="whitespace-nowrap">as close to under 120/80 as tolerated</span>. Judge
+    yourself against home readings (rested, seated, averaged); office readings run high.
   </p>
 
   <Sources {sources} />
