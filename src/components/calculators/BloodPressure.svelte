@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
-  import Chart from 'chart.js/auto';
+  import { Chart } from '../../lib/chart';
   import { bpCategory, BP_THRESHOLDS, sources } from '../../lib/calculators/bloodPressure';
   import Sources from '../ui/Sources.svelte';
 

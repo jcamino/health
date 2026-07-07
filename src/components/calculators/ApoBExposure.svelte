@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
-  import Chart from 'chart.js/auto';
+  import { Chart } from '../../lib/chart';
   import {
     sampleTrajectory,
     apoBYears,
