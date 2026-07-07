@@ -2,3 +2,11 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: DENY
+
+# Astro emits content-hashed filenames under /_astro/ (the hash changes whenever
+# the contents change), so these are safe to cache forever. Without this, the
+# Workers Assets default (max-age=0, must-revalidate) makes the browser
+# revalidate every bundle on every navigation. HTML docs are intentionally left
+# on the default so page updates show up immediately.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
