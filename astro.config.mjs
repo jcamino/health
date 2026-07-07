@@ -11,6 +11,10 @@ import cloudflare from "@astrojs/cloudflare";
 // emits the dist/_worker.js that wrangler.jsonc points `main` at.
 export default defineConfig({
   site: 'https://health.jcamino.net',
+  // Canonical URLs and the sitemap already use trailing slashes, and Cloudflare
+  // redirects `/heart` -> `/heart/`. Make that explicit so the dev server matches
+  // production and internal links stay on the canonical (redirect-free) form.
+  trailingSlash: 'always',
   integrations: [mdx(), svelte(), sitemap()],
   vite: { plugins: [tailwindcss()] },
   adapter: cloudflare()
