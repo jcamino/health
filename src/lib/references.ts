@@ -133,6 +133,35 @@ export const refs = {
     url: 'https://doi.org/10.1016/S0140-6736(17)32290-0',
     doi: '10.1016/S0140-6736(17)32290-0',
   },
+  oKeefeOptimalLdl2004: {
+    id: 'oKeefeOptimalLdl2004',
+    title:
+      'Optimal low-density lipoprotein is 50 to 70 mg/dl: lower is better and physiologically normal',
+    authors: "O'Keefe JH Jr, Cordain L, Harris WH, Moe RM, Vogel R",
+    year: 2004,
+    source: 'Journal of the American College of Cardiology',
+    url: 'https://doi.org/10.1016/j.jacc.2004.03.046',
+    doi: '10.1016/j.jacc.2004.03.046',
+  },
+  samsonStatins2020: {
+    id: 'samsonStatins2020',
+    title: 'N-of-1 Trial of a Statin, Placebo, or No Treatment to Assess Side Effects',
+    authors: 'Wood FA, et al.',
+    year: 2020,
+    source: 'New England Journal of Medicine',
+    url: 'https://doi.org/10.1056/NEJMc2031173',
+    doi: '10.1056/NEJMc2031173',
+  },
+  statinwise2021: {
+    id: 'statinwise2021',
+    title:
+      'Statin treatment and muscle symptoms: series of randomised, placebo controlled n-of-1 trials',
+    authors: 'Herrett E, et al.',
+    year: 2021,
+    source: 'BMJ',
+    url: 'https://doi.org/10.1136/bmj.n135',
+    doi: '10.1136/bmj.n135',
+  },
   hypertensionHistory2011: {
     id: 'hypertensionHistory2011',
     title:
