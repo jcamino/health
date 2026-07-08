@@ -5,9 +5,10 @@
 // tree-shakes away.
 //
 // NOTE: registration is a runtime side effect — a successful build does NOT prove
-// the set is complete. If a piece is missing, `new Chart(...)` throws at runtime
-// ("'line' is not a registered controller"). Verify both charts in a browser
-// after changing this list.
+// the set is complete. If a controller/element/scale is missing, `new Chart(...)`
+// throws at runtime ("'line' is not a registered controller"). A missing *plugin*
+// fails silently instead (e.g. without Colors, datasets that set no color render
+// gray). Verify both charts render *with color* in a browser after changing this.
 import {
   Chart,
   LineController,
@@ -15,6 +16,7 @@ import {
   LineElement,
   PointElement,
   LinearScale,
+  Colors,
   Filler,
   Tooltip,
   Legend,
@@ -26,6 +28,7 @@ Chart.register(
   LineElement, // line segments (and scatter's line parent)
   PointElement, // data points / hover targets
   LinearScale, // both charts use linear x and y axes
+  Colors, // default palette for ApoBExposure's datasets (they set no color)
   Filler, // ApoBExposure dataset uses fill: true
   Tooltip, // both charts use custom tooltip callbacks
   Legend, // ApoBExposure shows the default legend
