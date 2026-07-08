@@ -202,6 +202,26 @@ export const refs = {
     url: 'https://doi.org/10.7326/0003-4819-139-10-200311180-00007',
     doi: '10.7326/0003-4819-139-10-200311180-00007',
   },
+  lancetDementia2024: {
+    id: 'lancetDementia2024',
+    title:
+      'Dementia prevention, intervention, and care: 2024 report of the Lancet standing Commission',
+    authors: 'Livingston G, et al.',
+    year: 2024,
+    source: 'The Lancet',
+    url: 'https://doi.org/10.1016/S0140-6736(24)01296-0',
+    doi: '10.1016/S0140-6736(24)01296-0',
+  },
+  lancetDementia2020: {
+    id: 'lancetDementia2020',
+    title:
+      'Dementia prevention, intervention, and care: 2020 report of the Lancet Commission',
+    authors: 'Livingston G, et al.',
+    year: 2020,
+    source: 'The Lancet',
+    url: 'https://doi.org/10.1016/S0140-6736(20)30367-6',
+    doi: '10.1016/S0140-6736(20)30367-6',
+  },
 } satisfies Record<string, Reference>;
 
 export type ReferenceId = keyof typeof refs;
