@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "vitest run",
     "build": "astro build",
     "preview": "npm run build && wrangler dev",
     "test": "vitest run",
