@@ -39,7 +39,7 @@
 </script>
 
 <div class="not-prose rounded-xl border border-slate-200 p-5 dark:border-slate-700">
-  <div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
+  <div class="grid grid-cols-2 items-end gap-3 sm:grid-cols-3">
     <label class="text-sm">Age (30–79)
       <input type="number" min="30" max="79" bind:value={age} class="mt-1 block w-full rounded border border-slate-300 px-2 py-1 dark:bg-slate-800" /></label>
     <label class="text-sm">Sex

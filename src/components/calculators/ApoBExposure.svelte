@@ -191,7 +191,7 @@
 </script>
 
 <div class="not-prose rounded-xl border border-slate-200 p-5 dark:border-slate-700">
-  <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+  <div class="grid grid-cols-2 items-end gap-3 sm:grid-cols-4">
     <label class="text-sm">Enter as
       <select bind:value={inputMode} class="mt-1 block w-full rounded border border-slate-300 px-2 py-1 dark:bg-slate-800">
         <option value="apoB">ApoB (best)</option>
@@ -214,7 +214,7 @@
     <input type="checkbox" bind:checked={useIntervention} /> Model an intervention (e.g. a statin lowers it, then held)
   </label>
   {#if useIntervention}
-    <div class="mt-2 grid grid-cols-2 gap-3">
+    <div class="mt-2 grid grid-cols-2 items-end gap-3">
       <label class="text-sm">Intervention age
         <input type="number" min="1" max="99" bind:value={interventionAge} class="mt-1 block w-full rounded border border-slate-300 px-2 py-1 dark:bg-slate-800" /></label>
       <label class="text-sm">{unitLabel} after (mg/dL)
