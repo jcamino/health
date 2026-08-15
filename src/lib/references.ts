@@ -529,6 +529,16 @@ export const refs = {
     url: 'https://doi.org/10.1056/NEJMoa1912387',
     doi: '10.1056/NEJMoa1912387',
   },
+  ldlExposureHypothesis2024: {
+    id: 'ldlExposureHypothesis2024',
+    title:
+      'The LDL cumulative exposure hypothesis: evidence and practical applications',
+    authors: 'Ference BA, Braunwald E, Catapano AL',
+    year: 2024,
+    source: 'Nature Reviews Cardiology',
+    url: 'https://doi.org/10.1038/s41569-024-01039-5',
+    doi: '10.1038/s41569-024-01039-5',
+  },
   verve102BaseEditing2026: {
     id: 'verve102BaseEditing2026',
     title:

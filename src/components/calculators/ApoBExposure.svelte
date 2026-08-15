@@ -323,9 +323,11 @@
       {#if crossingAge !== null}
         Crosses the illustrative threshold at about <strong
           >age {Math.round(crossingAge)}</strong
-        >.
+        > — the age this model expects accumulated plaque to reach the level where
+        heart attacks start occurring. The goal is to push it later.
       {:else}
-        Stays under the illustrative threshold across this range.
+        Stays under the illustrative threshold across this range — the outcome
+        prevention is aiming for.
       {/if}
     </p>
   {:else}
@@ -340,7 +342,13 @@
     individual ApoB can differ (which is why measuring ApoB is best).
     Illustrative model: exposure accrues from birth; ApoB is assumed to rise
     linearly with age (adjust the per-decade rate), anchored to your current
-    value. An intervention drops ApoB and holds it. Real trajectories vary.
+    value. An intervention drops ApoB and holds it. Real trajectories vary. The
+    dashed threshold (an LDL-C–derived ~5,000 mg·years) approximates the
+    cumulative exposure, and with it the plaque burden, at which myocardial
+    infarctions typically begin to occur. Crossing it is not an event date, and
+    it is not a cliff: risk rises continuously with the area under the curve.
+    The practical goal is moving your crossing age later, ideally past the right
+    edge of the chart.
   </p>
 
   <Sources sources={displaySources} />

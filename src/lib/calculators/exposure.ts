@@ -4,6 +4,7 @@ export const sources: Reference[] = [
   refs.easLdlCausality2017,
   refs.snidermanApoB2019,
   refs.ferenceLipids2018,
+  refs.ldlExposureHypothesis2024,
   refs.zhangCumulativeLdl2021,
 ];
 
