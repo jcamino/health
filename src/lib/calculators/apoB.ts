@@ -4,6 +4,7 @@ export const sources: Reference[] = [
   refs.snidermanApoB2019,
   refs.easLdlCausality2017,
   refs.fourierVeryLowLdl2017,
+  refs.accAhaDyslipidemia2026,
 ];
 
 export type ApoBTierName = 'optimal' | 'borderline' | 'high' | 'very-high';
@@ -18,10 +19,16 @@ export interface ApoBTier {
 /**
  * Tier boundaries (mg/dL) oriented to lifetime/prevention-optimal targets, not
  * population "normal". Plaque-stabilizing target is ~<65; ~<80 is a common
- * secondary-prevention goal; >=100 is clearly elevated.
- * Boundaries must remain consistent with the cited guidance (see `sources`).
+ * secondary-prevention goal; >=100 is clearly elevated. Deliberately stricter
+ * than the 2026 ACC/AHA dyslipidemia guideline's risk-tiered ApoB goals of
+ * <90 / <70 / <55 (see `sources`); the page prose explains the gap.
+ * Boundaries must remain consistent with the cited guidance.
  */
-const TIERS: ReadonlyArray<{ name: ApoBTierName; label: string; lower: number }> = [
+const TIERS: ReadonlyArray<{
+  name: ApoBTierName;
+  label: string;
+  lower: number;
+}> = [
   { name: 'very-high', label: 'Very high', lower: 100 },
   { name: 'high', label: 'High', lower: 80 },
   { name: 'borderline', label: 'Borderline', lower: 65 },

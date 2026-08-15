@@ -4,7 +4,7 @@ export interface Reference {
   authors?: string;
   year?: number;
   source?: string; // journal / publisher
-  url: string;     // real, verified link (REQUIRED)
+  url: string; // real, verified link (REQUIRED)
   doi?: string;
 }
 
@@ -116,7 +116,8 @@ export const refs = {
   },
   sprint2015: {
     id: 'sprint2015',
-    title: 'A Randomized Trial of Intensive versus Standard Blood-Pressure Control (SPRINT)',
+    title:
+      'A Randomized Trial of Intensive versus Standard Blood-Pressure Control (SPRINT)',
     authors: 'SPRINT Research Group',
     year: 2015,
     source: 'New England Journal of Medicine',
@@ -145,7 +146,8 @@ export const refs = {
   },
   samsonStatins2020: {
     id: 'samsonStatins2020',
-    title: 'N-of-1 Trial of a Statin, Placebo, or No Treatment to Assess Side Effects',
+    title:
+      'N-of-1 Trial of a Statin, Placebo, or No Treatment to Assess Side Effects',
     authors: 'Wood FA, et al.',
     year: 2020,
     source: 'New England Journal of Medicine',
@@ -250,6 +252,292 @@ export const refs = {
     source: 'The Lancet',
     url: 'https://doi.org/10.1016/S0140-6736(20)30367-6',
     doi: '10.1016/S0140-6736(20)30367-6',
+  },
+  accAhaDyslipidemia2026: {
+    id: 'accAhaDyslipidemia2026',
+    title:
+      '2026 ACC/AHA/AACVPR/ABC/ACPM/ADA/AGS/APhA/ASPC/NLA/PCNA Guideline on the Management of Dyslipidemia',
+    authors: 'Blumenthal RS, et al.',
+    year: 2026,
+    source: 'Circulation',
+    url: 'https://doi.org/10.1161/CIR.0000000000001423',
+    doi: '10.1161/CIR.0000000000001423',
+  },
+  zhangCumulativeLdl2021: {
+    id: 'zhangCumulativeLdl2021',
+    title:
+      'Association Between Cumulative Low-Density Lipoprotein Cholesterol Exposure During Young Adulthood and Middle Age and Risk of Cardiovascular Events',
+    authors: 'Zhang Y, et al.',
+    year: 2021,
+    source: 'JAMA Cardiology',
+    url: 'https://doi.org/10.1001/jamacardio.2021.3508',
+    doi: '10.1001/jamacardio.2021.3508',
+  },
+  ferenceMendelian2012: {
+    id: 'ferenceMendelian2012',
+    title:
+      'Effect of Long-Term Exposure to Lower Low-Density Lipoprotein Cholesterol Beginning Early in Life on the Risk of Coronary Heart Disease: A Mendelian Randomization Analysis',
+    authors: 'Ference BA, et al.',
+    year: 2012,
+    source: 'Journal of the American College of Cardiology',
+    url: 'https://doi.org/10.1016/j.jacc.2012.09.017',
+    doi: '10.1016/j.jacc.2012.09.017',
+  },
+  byrneStatinAbsolute2022: {
+    id: 'byrneStatinAbsolute2022',
+    title:
+      'Evaluating the Association Between Low-Density Lipoprotein Cholesterol Reduction and Relative and Absolute Effects of Statin Treatment: A Systematic Review and Meta-analysis',
+    authors: 'Byrne P, et al.',
+    year: 2022,
+    source: 'JAMA Internal Medicine',
+    url: 'https://doi.org/10.1001/jamainternmed.2022.0134',
+    doi: '10.1001/jamainternmed.2022.0134',
+  },
+  uspstfStatins2022: {
+    id: 'uspstfStatins2022',
+    title:
+      'Statin Use for the Primary Prevention of Cardiovascular Disease in Adults: US Preventive Services Task Force Recommendation Statement',
+    authors: 'US Preventive Services Task Force, Mangione CM, et al.',
+    year: 2022,
+    source: 'JAMA',
+    url: 'https://doi.org/10.1001/jama.2022.13044',
+    doi: '10.1001/jama.2022.13044',
+  },
+  ldlDurationMeta2024: {
+    id: 'ldlDurationMeta2024',
+    title:
+      'Course of the effects of LDL-cholesterol reduction on cardiovascular risk over time: A meta-analysis of 60 randomized controlled trials',
+    authors: 'Burger PM, et al.',
+    year: 2024,
+    source: 'Atherosclerosis',
+    url: 'https://doi.org/10.1016/j.atherosclerosis.2024.118540',
+    doi: '10.1016/j.atherosclerosis.2024.118540',
+  },
+  caughtCad2025: {
+    id: 'caughtCad2025',
+    title:
+      'Effects of Combining Coronary Calcium Score With Treatment on Plaque Progression in Familial Coronary Artery Disease: A Randomized Clinical Trial (CAUGHT-CAD)',
+    authors: 'Nerlekar N, et al.',
+    year: 2025,
+    source: 'JAMA',
+    url: 'https://doi.org/10.1001/jama.2025.0584',
+    doi: '10.1001/jama.2025.0584',
+  },
+  vesaliusCv2025: {
+    id: 'vesaliusCv2025',
+    title:
+      'Evolocumab in Patients without a Previous Myocardial Infarction or Stroke (VESALIUS-CV)',
+    authors: 'Bohula EA, et al.',
+    year: 2025,
+    source: 'New England Journal of Medicine',
+    url: 'https://doi.org/10.1056/NEJMoa2514428',
+    doi: '10.1056/NEJMoa2514428',
+  },
+  alpacaLepodisiran2025: {
+    id: 'alpacaLepodisiran2025',
+    title:
+      'Lepodisiran — A Long-Duration Small Interfering RNA Targeting Lipoprotein(a) (ALPACA)',
+    authors: 'Nissen SE, et al.',
+    year: 2025,
+    source: 'New England Journal of Medicine',
+    url: 'https://doi.org/10.1056/NEJMoa2415818',
+    doi: '10.1056/NEJMoa2415818',
+  },
+  clearOutcomes2023: {
+    id: 'clearOutcomes2023',
+    title:
+      'Bempedoic Acid and Cardiovascular Outcomes in Statin-Intolerant Patients (CLEAR Outcomes)',
+    authors: 'Nissen SE, et al.',
+    year: 2023,
+    source: 'New England Journal of Medicine',
+    url: 'https://doi.org/10.1056/NEJMoa2215024',
+    doi: '10.1056/NEJMoa2215024',
+  },
+  sattarStatinDiabetes2010: {
+    id: 'sattarStatinDiabetes2010',
+    title:
+      'Statins and risk of incident diabetes: a collaborative meta-analysis of randomised statin trials',
+    authors: 'Sattar N, et al.',
+    year: 2010,
+    source: 'The Lancet',
+    url: 'https://doi.org/10.1016/S0140-6736(09)61965-6',
+    doi: '10.1016/S0140-6736(09)61965-6',
+  },
+  statinDementiaMeta2025: {
+    id: 'statinDementiaMeta2025',
+    title:
+      'Statin use and dementia risk: A systematic review and updated meta-analysis',
+    authors: 'Westphal Filho FL, et al.',
+    year: 2025,
+    source:
+      "Alzheimer's & Dementia: Translational Research & Clinical Interventions",
+    url: 'https://doi.org/10.1002/trc2.70039',
+    doi: '10.1002/trc2.70039',
+  },
+  hooperSatFat2020: {
+    id: 'hooperSatFat2020',
+    title: 'Reduction in saturated fat intake for cardiovascular disease',
+    authors: 'Hooper L, et al.',
+    year: 2020,
+    source: 'Cochrane Database of Systematic Reviews',
+    url: 'https://doi.org/10.1002/14651858.CD011737.pub3',
+    doi: '10.1002/14651858.CD011737.pub3',
+  },
+  jovanovskiPsyllium2018: {
+    id: 'jovanovskiPsyllium2018',
+    title:
+      'Effect of psyllium (Plantago ovata) fiber on LDL cholesterol and alternative lipid targets, non-HDL cholesterol and apolipoprotein B: a systematic review and meta-analysis of randomized controlled trials',
+    authors: 'Jovanovski E, et al.',
+    year: 2018,
+    source: 'The American Journal of Clinical Nutrition',
+    url: 'https://doi.org/10.1093/ajcn/nqy115',
+    doi: '10.1093/ajcn/nqy115',
+  },
+  weightLossLipids2020: {
+    id: 'weightLossLipids2020',
+    title:
+      'Weight Loss and Serum Lipids in Overweight and Obese Adults: A Systematic Review and Meta-Analysis',
+    authors: 'Hasan B, et al.',
+    year: 2020,
+    source: 'The Journal of Clinical Endocrinology & Metabolism',
+    url: 'https://doi.org/10.1210/clinem/dgaa673',
+    doi: '10.1210/clinem/dgaa673',
+  },
+  holmeOsloExercise2007: {
+    id: 'holmeOsloExercise2007',
+    title:
+      'ApoB but not LDL-cholesterol is reduced by exercise training in overweight healthy men. Results from the 1-year randomized Oslo Diet and Exercise Study',
+    authors: 'Holme I, et al.',
+    year: 2007,
+    source: 'Journal of Internal Medicine',
+    url: 'https://doi.org/10.1111/j.1365-2796.2007.01806.x',
+    doi: '10.1111/j.1365-2796.2007.01806.x',
+  },
+  mandsagerFitness2018: {
+    id: 'mandsagerFitness2018',
+    title:
+      'Association of Cardiorespiratory Fitness With Long-term Mortality Among Adults Undergoing Exercise Treadmill Testing',
+    authors: 'Mandsager K, et al.',
+    year: 2018,
+    source: 'JAMA Network Open',
+    url: 'https://doi.org/10.1001/jamanetworkopen.2018.3605',
+    doi: '10.1001/jamanetworkopen.2018.3605',
+  },
+  smokingCessation2025: {
+    id: 'smokingCessation2025',
+    title:
+      'Cardiovascular Effects of Smoking and Smoking Cessation: A 2024 Update',
+    authors: 'Rahman M, et al.',
+    year: 2025,
+    source: 'Global Heart',
+    url: 'https://doi.org/10.5334/gh.1399',
+    doi: '10.5334/gh.1399',
+  },
+  biddingerAlcohol2022: {
+    id: 'biddingerAlcohol2022',
+    title:
+      'Association of Habitual Alcohol Intake With Risk of Cardiovascular Disease',
+    authors: 'Biddinger KJ, et al.',
+    year: 2022,
+    source: 'JAMA Network Open',
+    url: 'https://doi.org/10.1001/jamanetworkopen.2022.3849',
+    doi: '10.1001/jamanetworkopen.2022.3849',
+  },
+  lloydJonesEssential8: {
+    id: 'lloydJonesEssential8',
+    title:
+      "Life's Essential 8: Updating and Enhancing the American Heart Association's Construct of Cardiovascular Health",
+    authors: 'Lloyd-Jones DM, et al.',
+    year: 2022,
+    source: 'Circulation',
+    url: 'https://doi.org/10.1161/CIR.0000000000001078',
+    doi: '10.1161/CIR.0000000000001078',
+  },
+  quispeRemnant2021: {
+    id: 'quispeRemnant2021',
+    title:
+      'Remnant cholesterol predicts cardiovascular disease beyond LDL and ApoB: a primary prevention study',
+    authors: 'Quispe R, et al.',
+    year: 2021,
+    source: 'European Heart Journal',
+    url: 'https://doi.org/10.1093/eurheartj/ehab432',
+    doi: '10.1093/eurheartj/ehab432',
+  },
+  parikhPregnancy2021: {
+    id: 'parikhPregnancy2021',
+    title:
+      'Adverse Pregnancy Outcomes and Cardiovascular Disease Risk: Unique Opportunities for Cardiovascular Disease Prevention in Women',
+    authors: 'Parikh NI, et al.',
+    year: 2021,
+    source: 'Circulation',
+    url: 'https://doi.org/10.1161/CIR.0000000000000961',
+    doi: '10.1161/CIR.0000000000000961',
+  },
+  menopauseLipids2023: {
+    id: 'menopauseLipids2023',
+    title:
+      'Low-density lipoprotein subclasses over the menopausal transition and risk of coronary calcification and carotid atherosclerosis: the SWAN Heart and HDL ancillary studies',
+    authors: 'El Khoudary SR, et al.',
+    year: 2023,
+    source: 'Menopause',
+    url: 'https://doi.org/10.1097/GME.0000000000002245',
+    doi: '10.1097/GME.0000000000002245',
+  },
+  nlaYouthScreening: {
+    id: 'nlaYouthScreening',
+    title: 'Cholesterol Screening in Children, Adolescents and Young Adults',
+    authors: 'National Lipid Association',
+    year: 2015,
+    source: 'National Lipid Association',
+    url: 'https://www.lipid.org/nla/cholesterol-screening-children-adolescents-and-young-adults',
+  },
+  stareeTrial: {
+    id: 'stareeTrial',
+    title:
+      'A Clinical Trial of STAtin Therapy for Reducing Events in the Elderly (STAREE)',
+    authors: 'STAREE Investigators, Monash University',
+    year: 2026,
+    source: 'ClinicalTrials.gov NCT02099123',
+    url: 'https://clinicaltrials.gov/study/NCT02099123',
+  },
+  preventableTrial: {
+    id: 'preventableTrial',
+    title:
+      'Pragmatic Evaluation of Events And Benefits of Lipid-lowering in Older Adults (PREVENTABLE)',
+    authors: 'PREVENTABLE Investigators',
+    year: 2026,
+    source: 'ClinicalTrials.gov NCT04262206',
+    url: 'https://clinicaltrials.gov/study/NCT04262206',
+  },
+  fourierPrimary2017: {
+    id: 'fourierPrimary2017',
+    title:
+      'Evolocumab and Clinical Outcomes in Patients with Cardiovascular Disease (FOURIER)',
+    authors: 'Sabatine MS, et al.',
+    year: 2017,
+    source: 'New England Journal of Medicine',
+    url: 'https://doi.org/10.1056/NEJMoa1615664',
+    doi: '10.1056/NEJMoa1615664',
+  },
+  orionInclisiran2020: {
+    id: 'orionInclisiran2020',
+    title:
+      'Two Phase 3 Trials of Inclisiran in Patients with Elevated LDL Cholesterol (ORION-10 and ORION-11)',
+    authors: 'Ray KK, et al.',
+    year: 2020,
+    source: 'New England Journal of Medicine',
+    url: 'https://doi.org/10.1056/NEJMoa1912387',
+    doi: '10.1056/NEJMoa1912387',
+  },
+  verve102BaseEditing2026: {
+    id: 'verve102BaseEditing2026',
+    title:
+      'In Vivo Base Editing of PCSK9 with VERVE-102 for Hypercholesterolemia',
+    authors: 'Vafai SB, et al.',
+    year: 2026,
+    source: 'New England Journal of Medicine',
+    url: 'https://doi.org/10.1056/NEJMoa2601283',
+    doi: '10.1056/NEJMoa2601283',
   },
 } satisfies Record<string, Reference>;
 

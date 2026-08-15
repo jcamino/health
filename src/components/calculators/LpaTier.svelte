@@ -68,7 +68,10 @@
   {/if}
   <p class="hint">
     Lp(a) is largely genetic, measured ~once in a lifetime, not meaningfully
-    lowered by statins or lifestyle, and adds to ApoB-driven risk.
+    lowered by statins or lifestyle (targeted drugs are in late-stage trials),
+    and adds to ApoB-driven risk. Bands follow the EAS 2022 consensus; the 2026
+    US guideline uses a single "elevated" threshold of ≥50 mg/dL (≥125 nmol/L),
+    with risk roughly doubled from ~100 mg/dL (~250 nmol/L).
   </p>
   <Sources {sources} />
 </div>

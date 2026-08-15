@@ -4,6 +4,7 @@ export const sources: Reference[] = [
   refs.easLdlCausality2017,
   refs.snidermanApoB2019,
   refs.ferenceLipids2018,
+  refs.zhangCumulativeLdl2021,
 ];
 
 export interface ApoBPoint {
@@ -38,7 +39,10 @@ export const CUMULATIVE_EXPOSURE_THRESHOLD_MG_YEARS = 5000;
 
 /** ApoB on the untreated, age-rising line, anchored at currentApoB @ currentAge. */
 function risingApoB(age: number, p: TrajectoryParams): number {
-  return Math.max(MIN_APOB, p.currentApoB + p.risePerYear * (age - p.currentAge));
+  return Math.max(
+    MIN_APOB,
+    p.currentApoB + p.risePerYear * (age - p.currentAge),
+  );
 }
 
 /**
@@ -55,11 +59,19 @@ export function buildTrajectory(p: TrajectoryParams): ApoBPoint[] {
   if (!(p.endAge > startAge)) {
     throw new Error('buildTrajectory: endAge must be greater than startAge');
   }
-  if (![p.currentAge, p.currentApoB, p.risePerYear].every((n) => Number.isFinite(n))) {
-    throw new Error('buildTrajectory: currentAge, currentApoB and risePerYear must be finite');
+  if (
+    ![p.currentAge, p.currentApoB, p.risePerYear].every((n) =>
+      Number.isFinite(n),
+    )
+  ) {
+    throw new Error(
+      'buildTrajectory: currentAge, currentApoB and risePerYear must be finite',
+    );
   }
-  if (p.currentApoB <= 0) throw new Error('buildTrajectory: currentApoB must be positive');
-  if (p.risePerYear < 0) throw new Error('buildTrajectory: risePerYear must be >= 0');
+  if (p.currentApoB <= 0)
+    throw new Error('buildTrajectory: currentApoB must be positive');
+  if (p.risePerYear < 0)
+    throw new Error('buildTrajectory: risePerYear must be >= 0');
 
   if (p.intervention) {
     const { age, apoB } = p.intervention;
@@ -67,9 +79,12 @@ export function buildTrajectory(p: TrajectoryParams): ApoBPoint[] {
       throw new Error('buildTrajectory: intervention values must be finite');
     }
     if (age <= startAge || age >= p.endAge) {
-      throw new Error('buildTrajectory: intervention age must be within (startAge, endAge)');
+      throw new Error(
+        'buildTrajectory: intervention age must be within (startAge, endAge)',
+      );
     }
-    if (apoB <= 0) throw new Error('buildTrajectory: intervention apoB must be positive');
+    if (apoB <= 0)
+      throw new Error('buildTrajectory: intervention apoB must be positive');
     const held = Math.max(MIN_APOB, apoB);
     return [
       { age: startAge, apoB: risingApoB(startAge, p) },
@@ -91,7 +106,10 @@ export function buildTrajectory(p: TrajectoryParams): ApoBPoint[] {
  * chord and hides the curvature.) Integrates to the same area as
  * `buildTrajectory` for integer intervention ages.
  */
-export function sampleTrajectory(p: TrajectoryParams, stepYears = 1): ApoBPoint[] {
+export function sampleTrajectory(
+  p: TrajectoryParams,
+  stepYears = 1,
+): ApoBPoint[] {
   buildTrajectory(p); // reuse input validation (throws on invalid input)
   const startAge = p.startAge ?? 0;
   const valueAt = (age: number): number =>
@@ -100,7 +118,8 @@ export function sampleTrajectory(p: TrajectoryParams, stepYears = 1): ApoBPoint[
       : risingApoB(age, p);
 
   const ages = new Set<number>();
-  for (let a = startAge; a <= p.endAge; a += stepYears) ages.add(Math.min(a, p.endAge));
+  for (let a = startAge; a <= p.endAge; a += stepYears)
+    ages.add(Math.min(a, p.endAge));
   ages.add(p.endAge);
   if (p.intervention) ages.add(p.intervention.age);
 
@@ -128,7 +147,9 @@ export function apoBYears(trajectory: ApoBPoint[]): number {
 }
 
 /** Running cumulative exposure at each trajectory point. */
-export function cumulativeSeries(trajectory: ApoBPoint[]): { age: number; cumulative: number }[] {
+export function cumulativeSeries(
+  trajectory: ApoBPoint[],
+): { age: number; cumulative: number }[] {
   const out = [{ age: trajectory[0].age, cumulative: 0 }];
   let total = 0;
   for (let i = 1; i < trajectory.length; i++) {
@@ -141,7 +162,10 @@ export function cumulativeSeries(trajectory: ApoBPoint[]): { age: number; cumula
 }
 
 /** Age at which cumulative exposure crosses `threshold`, or null if never. */
-export function ageAtThreshold(trajectory: ApoBPoint[], threshold: number): number | null {
+export function ageAtThreshold(
+  trajectory: ApoBPoint[],
+  threshold: number,
+): number | null {
   const s = cumulativeSeries(trajectory);
   for (let i = 1; i < s.length; i++) {
     if (s[i].cumulative >= threshold) {

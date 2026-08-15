@@ -1,6 +1,9 @@
 import { refs, type Reference } from './references';
 
-export const sources: Reference[] = [refs.accAhaCholesterol2018];
+export const sources: Reference[] = [
+  refs.accAhaCholesterol2018,
+  refs.accAhaDyslipidemia2026,
+];
 
 export type StatinIntensity = 'high' | 'moderate' | 'low';
 
