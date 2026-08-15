@@ -252,10 +252,25 @@
     content: "\2212"; /* minus sign */
   }
 
+  /* Fold bodies hold markdown-generated blocks (p, ul, islands), unstyled by
+     prose because of not-prose — space and style them here. */
   .fold > div {
     padding: 1rem 1.125rem;
     font-size: 0.875rem;
     line-height: 1.7;
+  }
+
+  .fold > div > * + * {
+    margin-top: 0.625rem;
+  }
+
+  .fold > div ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+  }
+
+  .fold > div li + li {
+    margin-top: 0.25rem;
   }
 
   /* Annotation box (disclaimer, caveats). */

@@ -10,6 +10,7 @@ import LpaTier from "../components/calculators/LpaTier.svelte";
 import BloodPressure from "../components/calculators/BloodPressure.svelte";
 import PreventRisk from "../components/calculators/PreventRisk.svelte";
 import StatinTable from "../components/StatinTable.astro";
+import ThreeChecks from "../components/ThreeChecks.astro";
 import Citation from "../components/ui/Citation.astro";
 
 <p class="eyebrow">Pillar 01 · Heart</p>
@@ -23,52 +24,7 @@ Measured against _optimal_ targets instead of lab "normal," most adults are alre
 above the line, even when a standard panel and a 10-year risk score say they are fine.
 Two numbers and one decision show where you actually stand.
 
-<aside class="not-prose my-8 overflow-hidden rounded-md border border-rule">
-  <p class="border-b border-rule bg-well px-5 py-2.5 font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-blood">
-    If you do only three things
-  </p>
-  <ol>
-    <li class="flex items-start gap-4 border-b border-rule px-5 py-4">
-      <span class="pt-0.5 font-mono text-xs font-medium text-blood">01</span>
-      <p class="text-sm leading-relaxed">
-        <a
-          href="#lpa"
-          class="font-semibold underline decoration-blood underline-offset-[3px] hover:text-blood"
-        >
-          Check your Lp(a), once.
-        </a>
-        A one-time, mostly genetic blood test almost nobody gets. High Lp(a)
-        quietly multiplies your risk, and about 1 in 5 people have it.
-      </p>
-    </li>
-    <li class="flex items-start gap-4 border-b border-rule px-5 py-4">
-      <span class="pt-0.5 font-mono text-xs font-medium text-blood">02</span>
-      <p class="text-sm leading-relaxed">
-        <a
-          href="#apob"
-          class="font-semibold underline decoration-blood underline-offset-[3px] hover:text-blood"
-        >
-          Check your ApoB.
-        </a>
-        The real driver of atherosclerosis, and a better measure than standard
-        LDL-C. Judged against optimal, most adults land in "High" or above.
-      </p>
-    </li>
-    <li class="flex items-start gap-4 px-5 py-4">
-      <span class="pt-0.5 font-mono text-xs font-medium text-blood">03</span>
-      <p class="text-sm leading-relaxed">
-        <a
-          href="#statins"
-          class="font-semibold underline decoration-blood underline-offset-[3px] hover:text-blood"
-        >
-          If your numbers are up, ask about a statin.
-        </a>
-        The highest-leverage lever, and starting earlier means less lifetime
-        exposure.
-      </p>
-    </li>
-  </ol>
-</aside>
+<ThreeChecks />
 
 <h2 id="lpa">Lp(a): check it once</h2>
 
@@ -94,66 +50,46 @@ high." ApoB is also a better measure of risk than LDL-C alone <Citation id="snid
 <details class="fold not-prose">
   <summary>Why "normal" on a lab panel is already too high</summary>
   <div>
-    <p>
-      Lipid guidelines are built around <em>short-horizon</em> (typically
-      10-year) risk and population "normal" ranges. The 2018 AHA/ACC guideline
-      does not even count ApoB as a risk-enhancing factor until it reaches{" "}
-      <strong>130 mg/dL</strong>
-      <Citation id="accAhaCholesterol2018" />. But atherosclerosis is driven by
-      <strong>cumulative</strong> ApoB exposure{" "}
-      <Citation id="ferenceLipids2018" />, so a number a standard panel waves
-      through keeps accruing damage every year it sits there.
-    </p>
-    <p class="mt-2">
-      Take two people a standard lab calls normal (illustrative, using the same
-      cumulative-exposure model as the chart below against its 5,000 mg·years
-      threshold):
-    </p>
-    <ul class="mt-1 list-disc space-y-1 pl-5">
-      <li>
-        An ApoB of <strong>90 mg/dL</strong> crosses the lifetime-exposure
-        threshold around <strong>age 56</strong>.
-      </li>
-      <li>
-        An ApoB of <strong>110 mg/dL</strong> crosses it around{" "}
-        <strong>age 45</strong>, about a decade earlier.
-      </li>
-    </ul>
-    <p class="mt-2">
-      On this site's prevention-optimal scale those same two numbers are already
-      <strong>"High"</strong> and <strong>"Very high"</strong>. The gap between
-      a lab's "normal" and a prevention-optimal target <em>is</em> the case for
-      preventive cardiology.
-    </p>
+    Lipid guidelines are built around _short-horizon_ (typically 10-year) risk and
+    population "normal" ranges. The 2018 AHA/ACC guideline does not even count ApoB as
+    a risk-enhancing factor until it reaches **130 mg/dL** <Citation id="accAhaCholesterol2018" />.
+    But atherosclerosis is driven by **cumulative** ApoB exposure <Citation id="ferenceLipids2018" />,
+    so a number a standard panel waves through keeps accruing damage every year it sits there.
+
+    Take two people a standard lab calls normal (illustrative, using the same
+    cumulative-exposure model as the chart below against its 5,000 mg·years threshold):
+
+    - An ApoB of **90 mg/dL** crosses the lifetime-exposure threshold around **age 56**.
+    - An ApoB of **110 mg/dL** crosses it around **age 45**, about a decade earlier.
+
+    On this site's prevention-optimal scale those same two numbers are already
+    **"High"** and **"Very high."** The gap between a lab's "normal" and a
+    prevention-optimal target _is_ the case for preventive cardiology.
+
   </div>
 </details>
 
 <details class="fold not-prose">
   <summary>See it as lifetime exposure</summary>
   <div>
-    <p class="mb-3">
-      Lowering ApoB earlier shrinks the area under the curve dramatically. Drag
-      across the chart to read cumulative exposure at any age. This is why a
-      10-year risk score, which under-weights younger people, misses the point
-      for prevention.
-    </p>
+    Lowering ApoB earlier shrinks the area under the curve dramatically. Drag across the
+    chart to read cumulative exposure at any age. This is why a 10-year risk score, which
+    under-weights younger people, misses the point for prevention.
+
     <ApoBExposure client:visible />
+
   </div>
 </details>
 
 <details class="fold not-prose">
   <summary>How low is too low?</summary>
   <div>
-    <p>
-      There is no known floor. In FOURIER, driving LDL-C down to under 20 mg/dL
-      kept cutting events with no threshold of benefit and no rise in adverse
-      events
-      <Citation id="fourierVeryLowLdl2017" />. That evidence is from high-risk
-      <em>secondary</em>-prevention patients, so it argues for{" "}
-      <em>as low as reasonably achievable</em> rather than a fixed target of 20
-      for everyone. Either way, the "Optimal" band above stays open-ended toward
-      zero.
-    </p>
+    There is no known floor. In FOURIER, driving LDL-C down to under 20 mg/dL
+    kept cutting events with no threshold of benefit and no rise in adverse
+    events <Citation id="fourierVeryLowLdl2017" />. That evidence is from
+    high-risk _secondary_-prevention patients, so it argues for _as low as
+    reasonably achievable_ rather than a fixed target of 20 for everyone. Either
+    way, the "Optimal" band above stays open-ended toward zero.
   </div>
 </details>
 
@@ -177,23 +113,19 @@ longer is better" evidence is what supports it.
 <details class="fold not-prose">
   <summary>But don't statins have side effects?</summary>
   <div>
-    <p>
-      The most common serious reason to avoid a statin is genuine intolerance,
-      and it is less common than its reputation. In blinded n-of-1 trials,
-      people who had previously quit statins over side effects took a statin, a
-      placebo, and nothing in random months without knowing which was which:
-      about 90% of the symptom burden they blamed on the statin also appeared on
-      placebo <Citation id="samsonStatins2020" />, and a separate series found
-      no overall difference in muscle symptoms between statin and placebo months
-      <Citation id="statinwise2021" />. Half of the participants in the first
-      trial were able to restart a statin afterward.
-    </p>
-    <p class="mt-2">
-      When side effects are real, the usual fix is a lower dose, a different
-      statin, or a non-statin like ezetimibe, rather than giving up on lowering
-      ApoB. For most people the question is tolerability, not whether it would
-      help.
-    </p>
+    The most common serious reason to avoid a statin is genuine intolerance, and it is
+    less common than its reputation. In blinded n-of-1 trials, people who had previously
+    quit statins over side effects took a statin, a placebo, and nothing in random months
+    without knowing which was which: about 90% of the symptom burden they blamed on the
+    statin also appeared on placebo <Citation id="samsonStatins2020" />, and a separate
+    series found no overall difference in muscle symptoms between statin and placebo
+    months <Citation id="statinwise2021" />. Half of the participants in the first trial
+    were able to restart a statin afterward.
+
+    When side effects are real, the usual fix is a lower dose, a different statin, or a
+    non-statin like ezetimibe, rather than giving up on lowering ApoB. For most people
+    the question is tolerability, not whether it would help.
+
   </div>
 </details>
 
@@ -215,20 +147,17 @@ averaged over several days.
 <details class="fold not-prose">
   <summary>The history rhymes</summary>
   <div>
-    <p>
-      We have seen this arc before, with blood pressure. Life-insurance
-      actuaries quantified that higher blood pressure predicted earlier death
-      back in the 1920s, yet for decades mainstream medicine treated moderately
-      elevated pressure as benign "essential" hypertension{" "}
-      <Citation id="hypertensionHistory2011" />. Only after landmark trials, and
-      much later trials of <em>lower</em> targets like SPRINT{" "}
-      <Citation id="sprint2015" />, did guideline thresholds fall: the 2017
-      ACC/AHA guideline moved "high blood pressure" down to 130/80{" "}
-      <Citation id="accAhaBp2017" />, and the 2025 guideline now urges getting
-      <em>as close to under 120/80 as tolerated</em>{" "}
-      <Citation id="accAhaBp2025" />. ApoB looks like the same story, earlier in
-      its arc.
-    </p>
+    We have seen this arc before, with blood pressure. Life-insurance actuaries
+    quantified that higher blood pressure predicted earlier death back in the
+    1920s, yet for decades mainstream medicine treated moderately elevated
+    pressure as benign "essential" hypertension{" "}
+    <Citation id="hypertensionHistory2011" />. Only after landmark trials, and
+    much later trials of _lower_ targets like SPRINT{" "}
+    <Citation id="sprint2015" />, did guideline thresholds fall: the 2017
+    ACC/AHA guideline moved "high blood pressure" down to 130/80{" "}
+    <Citation id="accAhaBp2017" />, and the 2025 guideline now urges getting _as
+    close to under 120/80 as tolerated_ <Citation id="accAhaBp2025" />. ApoB
+    looks like the same story, earlier in its arc.
   </div>
 </details>
 
