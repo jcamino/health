@@ -3,11 +3,14 @@ layout: ../layouts/BaseLayout.astro
 title: "Brain health: dementia risk is more modifiable than it looks"
 description: "Around 45% of dementia cases are associated with modifiable risk factors, and many are the same vascular and metabolic levers that protect the heart and metabolism."
 ---
-import BloodPressure from '../components/calculators/BloodPressure.svelte';
-import A1c from '../components/calculators/A1c.svelte';
-import ApoBTier from '../components/calculators/ApoBTier.svelte';
-import Citation from '../components/ui/Citation.astro';
-import UnderConstruction from '../components/ui/UnderConstruction.astro';
+
+import BloodPressure from "../components/calculators/BloodPressure.svelte";
+import A1c from "../components/calculators/A1c.svelte";
+import ApoBTier from "../components/calculators/ApoBTier.svelte";
+import Citation from "../components/ui/Citation.astro";
+import UnderConstruction from "../components/ui/UnderConstruction.astro";
+
+<p class="eyebrow">Pillar 03 · Brain</p>
 
 # Brain health starts decades before memory changes
 
@@ -15,11 +18,11 @@ import UnderConstruction from '../components/ui/UnderConstruction.astro';
 
 Dementia can feel like fate, but a large share of the risk is modifiable. The 2024
 Lancet standing Commission estimates that **around 45% of dementia cases are
-associated with 14 modifiable risk factors** acting across a lifetime
-<Citation id="lancetDementia2024" />, up from 12 factors and roughly 40% in its 2020
-report <Citation id="lancetDementia2020" />. That is a population estimate, not an
-individual guarantee, but the direction is clear: what happens across midlife matters,
-and it matters early.
+associated with 14 modifiable risk factors** acting across a lifetime <Citation id="lancetDementia2024" />,
+up from 12 factors and roughly 40% in its
+2020 report <Citation id="lancetDementia2020" />. That is a population estimate,
+not an individual guarantee, but the direction is clear: what happens across
+midlife matters, and it matters early.
 
 The most useful starting point is that **much of what protects the heart and
 metabolism also protects the brain.** Several of the Commission's risk factors are the
@@ -32,27 +35,27 @@ high LDL cholesterol. So the calculators there apply here too.
 Hypertension is a modifiable dementia risk factor, and the Commission's proactive,
 prevention-oriented recommendation is to keep **systolic blood pressure at or below
 130 mmHg from age 40** <Citation id="lancetDementia2024" />. That target is earlier and
-lower than waiting for a diagnosis. The excess risk is concentrated in *untreated* high
+lower than waiting for a diagnosis. The excess risk is concentrated in _untreated_ high
 blood pressure and largely attenuates once it is treated.
 
 <BloodPressure client:visible />
 
 ## Blood sugar (A1C)
 
-Diabetes is on the Commission's list of modifiable dementia risk factors
-<Citation id="lancetDementia2024" />. A1C is the standard marker for average blood
-glucose, and the metabolic dysfunction it reflects tracks with brain risk as well as
-cardiovascular risk.
+Diabetes is on the Commission's list of modifiable dementia risk factors <Citation id="lancetDementia2024" />.
+A1C is the standard marker for average
+blood glucose, and the metabolic dysfunction it reflects tracks with brain risk
+as well as cardiovascular risk.
 
 <A1c client:visible />
 
 ## ApoB / LDL cholesterol
 
 The 2024 update **newly added high LDL cholesterol** as a dementia risk factor, tied
-with hearing loss as the largest single contributor by population share
-<Citation id="lancetDementia2024" />. LDL cholesterol is the measure the Commission
-used; ApoB counts the same atherogenic particles more completely (see the
-[Heart](/heart/) page for why particle count beats concentration).
+with hearing loss as the largest single contributor by population share <Citation id="lancetDementia2024" />.
+LDL cholesterol is the measure the
+Commission used; ApoB counts the same atherogenic particles more completely (see
+the [Heart](/heart/) page for why particle count beats concentration).
 
 <ApoBTier client:visible />
 
@@ -62,9 +65,9 @@ This page is a starting skeleton. The brain-specific levers still to be written 
 sourced and where useful given its own calculator, include:
 
 - **Hearing loss**: one of the largest single modifiable factors (~7% of cases)
-  <Citation id="lancetDementia2024" />. Treating it is promising but not yet proven in
-  randomized trials, so the case is currently strongest for people who already carry
-  other risk factors.
+  <Citation id="lancetDementia2024" />. Treating it is promising but not yet
+  proven in randomized trials, so the case is currently strongest for people who
+  already carry other risk factors.
 - **Air pollution**, **smoking**, and **excess alcohol**.
 - **Sleep**, **physical activity**, and **social and cognitive engagement**.
 - **Vision loss** (untreated), also new to the 2024 list.

@@ -2,4 +2,294 @@
 @plugin "@tailwindcss/typography";
 @custom-variant dark (&:where(.dark, .dark *));
 
-:root { color-scheme: light dark; }
+:root {
+  color-scheme: light dark;
+}
+
+/*
+ * Design tokens — "the lab report you should have ordered".
+ * Porcelain ground, near-black ink, and a single venous-oxblood accent (the
+ * site's call to action is literally a blood draw). Serif prose comes from
+ * STIX Two Text (the scientific-publishing typeface); the data layer — nav,
+ * labels, values, sources — is IBM Plex Mono.
+ *
+ * Light values live in @theme; `.dark` overrides the raw variables below, so
+ * every token-based utility (bg-paper, text-ink, border-rule, …) flips
+ * automatically without dark: variants.
+ */
+@theme {
+  --font-serif:
+    "STIX Two Text Variable", "STIX Two Text", Georgia, "Times New Roman", serif;
+  --font-mono:
+    "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --color-paper: #f4f3f0; /* porcelain ground */
+  --color-well: #fcfcfa; /* raised card surface */
+  --color-ink: #201e1d;
+  --color-ink-muted: #6e6a64;
+  --color-ink-faint: #98948c;
+  --color-rule: #dedcd5; /* hairlines */
+  --color-rule-strong: #c4c1b8;
+  --color-blood: #7a1f2e; /* venous oxblood accent */
+  --color-blood-deep: #5c1622;
+  --color-blood-wash: #ede3e1; /* faint blood tint for hovers */
+}
+
+.dark {
+  --color-paper: #1a1918;
+  --color-well: #232120;
+  --color-ink: #e9e6e0;
+  --color-ink-muted: #a39f96;
+  --color-ink-faint: #7c7870;
+  --color-rule: #383630;
+  --color-rule-strong: #4e4b43;
+  --color-blood: #d68d97;
+  --color-blood-deep: #e4a7af;
+  --color-blood-wash: #2c2123;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-serif);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--color-blood);
+    color: var(--color-well);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-blood);
+    outline-offset: 2px;
+  }
+
+  input[type="number"],
+  input[type="checkbox"],
+  select {
+    accent-color: var(--color-blood);
+  }
+}
+
+/* ---- Prose: route the typography plugin through the tokens (they self-flip
+   in dark mode, so no prose-invert needed). ---- */
+.prose {
+  --tw-prose-body: var(--color-ink);
+  --tw-prose-headings: var(--color-ink);
+  --tw-prose-lead: var(--color-ink-muted);
+  --tw-prose-links: var(--color-blood);
+  --tw-prose-bold: var(--color-ink);
+  --tw-prose-counters: var(--color-blood);
+  --tw-prose-bullets: var(--color-rule-strong);
+  --tw-prose-hr: var(--color-rule);
+  --tw-prose-quotes: var(--color-ink-muted);
+  --tw-prose-quote-borders: var(--color-blood);
+  --tw-prose-captions: var(--color-ink-muted);
+  --tw-prose-code: var(--color-ink);
+  --tw-prose-th-borders: var(--color-rule-strong);
+  --tw-prose-td-borders: var(--color-rule);
+  font-size: 1.0625rem;
+}
+
+.prose h1 {
+  font-size: clamp(1.9rem, 4.2vw + 1rem, 2.5rem);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.prose h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  margin-top: 3rem;
+}
+
+/* The blood tick: a short rule above each section head, the lab-form device
+   that recurs in eyebrows and panel headers. */
+.prose h2::before {
+  content: "";
+  display: block;
+  width: 1.75rem;
+  height: 3px;
+  background: var(--color-blood);
+  margin-bottom: 0.875rem;
+}
+
+.prose h3 {
+  font-size: 1.17rem;
+  font-weight: 600;
+}
+
+.prose a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.prose a:hover {
+  color: var(--color-blood-deep);
+  text-decoration-thickness: 2px;
+}
+
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  font-weight: 500;
+}
+
+.prose code::before,
+.prose code::after {
+  content: none;
+}
+
+@layer components {
+  /* Mono specimen-label eyebrow, used above page H1s. */
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin: 0 0 1.125rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--color-ink-muted);
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    background: var(--color-blood);
+  }
+
+  /* Calculator / table card. */
+  .card {
+    background: var(--color-well);
+    border: 1px solid var(--color-rule);
+    border-radius: 0.375rem;
+    padding: 1.25rem;
+  }
+
+  /* Mono field label wrapping its input. */
+  .field {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-ink-muted);
+  }
+
+  .input {
+    margin-top: 0.375rem;
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-ink);
+    background: var(--color-paper);
+    border: 1px solid var(--color-rule-strong);
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.625rem;
+  }
+
+  .input:focus {
+    border-color: var(--color-blood);
+  }
+
+  /* Small print inside cards. */
+  .hint {
+    margin-top: 0.625rem;
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: var(--color-ink-muted);
+  }
+
+  /* Collapsible evidence fold (details/summary). */
+  .fold {
+    margin: 1rem 0;
+    background: var(--color-well);
+    border: 1px solid var(--color-rule);
+    border-radius: 0.375rem;
+    overflow: hidden;
+  }
+
+  .fold > summary {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.875rem 1.125rem;
+    cursor: pointer;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    list-style: none;
+  }
+
+  .fold > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .fold > summary::after {
+    content: "+";
+    flex: none;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--color-blood);
+  }
+
+  .fold[open] > summary {
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .fold[open] > summary::after {
+    content: "\2212"; /* minus sign */
+  }
+
+  .fold > div {
+    padding: 1rem 1.125rem;
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+
+  /* Annotation box (disclaimer, caveats). */
+  .notice {
+    background: var(--color-well);
+    border: 1px solid var(--color-rule);
+    border-left: 3px solid var(--color-blood);
+    border-radius: 0.375rem;
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    line-height: 1.65;
+  }
+
+  .notice-label {
+    margin-bottom: 0.375rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--color-blood);
+  }
+
+  /* Mono status stamp (panel rows, draft banner). */
+  .stamp {
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    border: 1px solid currentColor;
+    border-radius: 2px;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    white-space: nowrap;
+  }
+}

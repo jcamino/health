@@ -20,7 +20,7 @@ import {
   Filler,
   Tooltip,
   Legend,
-} from 'chart.js';
+} from "chart.js";
 
 Chart.register(
   LineController, // ApoBExposure: type 'line'
@@ -28,10 +28,19 @@ Chart.register(
   LineElement, // line segments (and scatter's line parent)
   PointElement, // data points / hover targets
   LinearScale, // both charts use linear x and y axes
-  Colors, // default palette for ApoBExposure's datasets (they set no color)
+  Colors, // fallback palette for any dataset that sets no color
   Filler, // ApoBExposure dataset uses fill: true
   Tooltip, // both charts use custom tooltip callbacks
   Legend, // ApoBExposure shows the default legend
 );
+
+// Match the site's data layer: mono axis/tick/legend text, and a neutral
+// mid-tone for text and gridlines that stays legible on the light and dark
+// themes alike (charts don't re-render when the theme toggles).
+Chart.defaults.font.family =
+  "'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace";
+Chart.defaults.font.size = 11;
+Chart.defaults.color = "#8a867e";
+Chart.defaults.borderColor = "rgba(138, 134, 126, 0.25)";
 
 export { Chart };
