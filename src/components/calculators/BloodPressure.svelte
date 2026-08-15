@@ -8,8 +8,10 @@
   } from "../../lib/calculators/bloodPressure";
   import Sources from "../ui/Sources.svelte";
 
-  let systolic = $state(120);
-  let diastolic = $state(80);
+  // Default deliberately sits in "Normal": 120/80 exactly would classify as
+  // Stage 1 (diastolic >= 80), which is a confusing first impression.
+  let systolic = $state(118);
+  let diastolic = $state(76);
 
   const result = $derived(
     Number.isFinite(systolic) &&

@@ -17,66 +17,100 @@ import Citation from "../components/ui/Citation.astro";
 
 # Heart disease starts decades before the diagnosis
 
-Atherosclerosis is driven by **ApoB**, the number of atherogenic particles in your
-blood, accumulated over _time_: the damage is the area under the curve, particle
-concentration multiplied by years of exposure <Citation id="easLdlCausality2017" />.
-Measured against _optimal_ targets instead of lab "normal," most adults are already
-above the line, even when a standard panel and a 10-year risk score say they are fine.
-Two numbers and one decision show where you actually stand.
+Atherosclerosis is driven by **ApoB** (apolipoprotein B), a count of the
+atherogenic particles in your blood. The damage is cumulative: particle
+concentration multiplied by years of exposure, the area under a lifelong
+curve <Citation id="easLdlCausality2017" /> <Citation id="zhangCumulativeLdl2021" />.
+Measured against _optimal_ targets instead of lab "normal," most adults are
+already above the line, even when a standard panel and a 10-year risk score say
+they are fine. Two numbers and one decision show where you actually stand, and
+as of 2026, US guidelines have moved a long way toward this view <Citation id="accAhaDyslipidemia2026" />.
 
 <ThreeChecks />
 
 <h2 id="lpa">Lp(a): check it once</h2>
 
+**Lipoprotein(a)**, said "ell-pee-little-ay," is an LDL-like particle whose
+level is set almost entirely by your genes: diet and exercise barely move it,
+and one measurement usually holds for life. About 1 in 5 people carry an
+elevated level, and almost none of them know it.
+
 <LpaTier client:visible />
 
-About 1 in 5 people carry an elevated level, and almost none of them know it. That is the
-case for the test in one sentence: a single, cheap draw uncovers a hidden, largely
-genetic multiplier that should change how aggressively you manage everything else on this
-page, starting with your ApoB and blood pressure.
-
-<h2 id="apob">ApoB: where you actually sit</h2>
-
-Here is the uncomfortable part: "optimal" ApoB is far below what a standard panel treats
-as unremarkable. Physiologically normal LDL, the level seen in hunter-gatherers, healthy
-newborns, and other mammals that do not develop atherosclerosis, is only about 50 to 70
-mg/dL <Citation id="oKeefeOptimalLdl2004" />, which maps to an ApoB well under the 65
-mg/dL top of the "Optimal" band below. Typical adult levels run much higher, so most
-people who check, including plenty whose lab flagged nothing, land in "High" or "Very
-high." ApoB is also a better measure of risk than LDL-C alone <Citation id="snidermanApoB2019" />.
-
-<ApoBTier client:visible />
+That is the case for the test in one sentence: a single, cheap draw uncovers a
+hidden, largely genetic multiplier that should change how aggressively you
+manage everything else on this page, starting with your ApoB and blood
+pressure. The 2026 US guideline now agrees, recommending a one-time Lp(a)
+measurement for every adult <Citation id="accAhaDyslipidemia2026" />. And
+because it is inherited, a high result is worth sharing: each of your
+first-degree relatives has roughly a coin-flip chance of carrying it too.
 
 <details class="fold not-prose">
-  <summary>Why "normal" on a lab panel is already too high</summary>
+  <summary>Drugs that lower Lp(a) are in the pipeline</summary>
   <div>
-    Lipid guidelines are built around _short-horizon_ (typically 10-year) risk and
-    population "normal" ranges. The 2018 AHA/ACC guideline does not even count ApoB as
-    a risk-enhancing factor until it reaches **130 mg/dL** <Citation id="accAhaCholesterol2018" />.
-    But atherosclerosis is driven by **cumulative** ApoB exposure <Citation id="ferenceLipids2018" />,
-    so a number a standard panel waves through keeps accruing damage every year it sits there.
-
-    Take two people a standard lab calls normal (illustrative, using the same
-    cumulative-exposure model as the chart below against its 5,000 mg·years threshold):
-
-    - An ApoB of **90 mg/dL** crosses the lifetime-exposure threshold around **age 56**.
-    - An ApoB of **110 mg/dL** crosses it around **age 45**, about a decade earlier.
-
-    On this site's prevention-optimal scale those same two numbers are already
-    **"High"** and **"Very high."** The gap between a lab's "normal" and a
-    prevention-optimal target _is_ the case for preventive cardiology.
+    Nothing you can do today meaningfully lowers Lp(a): statins do not (they can
+    even nudge it up slightly), lifestyle does not, and today's PCSK9-blocking
+    antibodies trim it only by about a quarter <Citation id="easLpa2022" />.
+    That is changing. Several
+    targeted drugs now in phase 3 trials cut Lp(a) by 80 to 95%, including
+    lepodisiran, an injection given as little as once a year <Citation id="alpacaLepodisiran2025" />,
+    and muvalaplin, a daily pill. What none of them has shown yet is the only
+    thing that matters, fewer heart attacks; the first outcomes verdict (the
+    pelacarsen Lp(a)HORIZON trial) is due imminently. Until then, a high Lp(a)
+    is managed indirectly: drive ApoB and blood pressure lower than you
+    otherwise would.
 
   </div>
 </details>
 
-<details class="fold not-prose">
-  <summary>See it as lifetime exposure</summary>
-  <div>
-    Lowering ApoB earlier shrinks the area under the curve dramatically. Drag across the
-    chart to read cumulative exposure at any age. This is why a 10-year risk score, which
-    under-weights younger people, misses the point for prevention.
+<h2 id="apob">ApoB: where you actually sit</h2>
 
-    <ApoBExposure client:visible />
+Here is the uncomfortable part: "optimal" ApoB is far below what a standard panel
+treats as unremarkable. Physiologically normal LDL, the level seen in
+hunter-gatherers, healthy newborns, and other mammals that do not develop
+atherosclerosis, is only about 50 to 70 mg/dL <Citation id="oKeefeOptimalLdl2004" />,
+which maps to an ApoB well under the 65 mg/dL top of the "Optimal" band below.
+Typical adult levels run much higher, so most people who check, including plenty
+whose lab flagged nothing, land in "High" or "Very high." ApoB is also a better
+measure of risk than LDL-C alone <Citation id="snidermanApoB2019" />.
+
+<ApoBTier client:visible />
+
+Two footnotes to the gauge. If your LDL-C is **190 mg/dL or higher**, that is a
+different conversation, possible familial hypercholesterolemia (about 1 in 250
+people), and it warrants a doctor now, whatever any risk score says <Citation id="accAhaCholesterol2018" />.
+And if your _triglycerides_ run high, that is a separate, mostly metabolic
+flag <Citation id="quispeRemnant2021" />: see [Metabolism](/metabolism/) for
+the insulin-resistance side of that story.
+
+Lowering ApoB earlier shrinks the area under the curve dramatically, which is
+why a 10-year risk score, which under-weights younger people, misses the point
+for prevention. Drag across the chart to read your cumulative exposure at any
+age.
+
+<ApoBExposure client:visible />
+
+<details class="fold not-prose">
+  <summary>Why "normal" on a lab panel is already too high</summary>
+  <div>
+    Lab reference ranges describe the population, and the population is not
+    fine. Even the 2026 guideline, a large step in the right direction, sets
+    ApoB goals of 90, 70, or 55 mg/dL depending on risk tier <Citation id="accAhaDyslipidemia2026" />,
+    while many panels do not flag ApoB until well above any of those. And
+    because atherosclerosis is driven by **cumulative** exposure <Citation id="ferenceLipids2018" />,
+    a number a panel waves through keeps accruing damage every year it sits there.
+
+    Take two people a standard lab calls normal (illustrative, using the same
+    cumulative-exposure model as the chart above against its 5,000 mg·years
+    threshold):
+
+    - An ApoB of **90 mg/dL**, exactly at the guideline's most lenient goal,
+      crosses the lifetime-exposure threshold around **age 56**.
+    - An ApoB of **110 mg/dL** crosses it around **age 45**, about a decade earlier.
+
+    On this site's prevention-optimal scale those same two numbers are already
+    **"High"** and **"Very high."** The gap between "goal met" and _optimal_
+    _is_ the case for preventive cardiology.
 
   </div>
 </details>
@@ -88,25 +122,46 @@ high." ApoB is also a better measure of risk than LDL-C alone <Citation id="snid
     kept cutting events with no threshold of benefit and no rise in adverse
     events <Citation id="fourierVeryLowLdl2017" />. That evidence is from
     high-risk _secondary_-prevention patients, so it argues for _as low as
-    reasonably achievable_ rather than a fixed target of 20 for everyone. Either
-    way, the "Optimal" band above stays open-ended toward zero.
+    reasonably achievable_ rather than a fixed target of 20 for everyone. The
+    pattern now reaches earlier, too: in 2025, the PCSK9-blocking antibody
+    evolocumab cut first-ever major events by 25% in high-risk people with **no
+    prior heart attack or stroke**, at an achieved LDL-C around 45 mg/dL{" "}
+    <Citation id="vesaliusCv2025" />. Either way, the "Optimal" band above stays
+    open-ended toward zero.
+  </div>
+</details>
+
+<details class="fold not-prose">
+  <summary>When should these first be checked?</summary>
+  <div>
+    Earlier than almost anyone does it. US consensus recommends a universal
+    lipid screen at ages **9–11** and again at **17–21**, mainly to catch
+    familial hypercholesterolemia before decades of exposure accrue{" "}
+    <Citation id="nlaYouthScreening" />. For adults the practical answer is:
+    with your next routine panel. ApoB and Lp(a) are cheap add-ons, and a
+    measurement in your 20s or 30s anchors your lifetime trajectory while there
+    is still maximal time to bend it <Citation id="zhangCumulativeLdl2021" />.
   </div>
 </details>
 
 <h2 id="statins">Statins: the highest-leverage lever</h2>
 
 **For most people who check, a statin is worth a serious conversation, not a last
-resort.** The benefit is roughly proportional to how much you lower ApoB and for how
-long, with no floor found yet <Citation id="fourierVeryLowLdl2017" />, so almost everyone
-sits somewhere on that curve where lower is better. Statins are among the most-studied,
-safest drugs we have, and they are under-used relative to that benefit. The higher your
-ApoB or Lp(a), or the more other risk you carry, the stronger the case, and starting
-earlier cuts lifetime exposure instead of reacting to an event. Bring your numbers to
-your doctor.
+resort.** The benefit is roughly proportional to how much you lower ApoB and for
+how long, with no floor found yet <Citation id="fourierVeryLowLdl2017" />, so
+almost everyone sits somewhere on that curve where lower is better. Statins are
+among the most-studied, safest drugs we have, and they are under-used relative
+to that benefit. The higher your ApoB or Lp(a), or the more other risk you
+carry, the stronger the case, and starting earlier cuts lifetime exposure
+instead of reacting to an event. Bring your numbers to your doctor.
 
-This leans further than current guidelines, which still reserve statins for higher
-_calculated_ 10-year risk. It is the prevention-optimal stance, and the "lower for
-longer is better" evidence is what supports it.
+For years that stance leaned further than the guidelines. In 2026 the
+guidelines caught up most of the way: the new ACC/AHA dyslipidemia guideline
+scores 30-year as well as 10-year risk, endorses "lower for longer," and for
+the first time supports considering a statin from **age 30** for people with
+high LDL-C or high 30-year risk <Citation id="accAhaDyslipidemia2026" />. What
+is still "prevention-optimal" rather than official is treating _optimal_, not
+"goal met," as the finish line.
 
 <StatinTable />
 
@@ -122,25 +177,110 @@ longer is better" evidence is what supports it.
     months <Citation id="statinwise2021" />. Half of the participants in the first trial
     were able to restart a statin afterward.
 
-    When side effects are real, the usual fix is a lower dose, a different statin, or a
-    non-statin like ezetimibe, rather than giving up on lowering ApoB. For most people
-    the question is tolerability, not whether it would help.
+    Two other worries, briefly. Statins do slightly raise the odds of a new
+    type 2 diabetes diagnosis, roughly 9% in relative terms and almost entirely
+    in people already near the diagnostic line <Citation id="sattarStatinDiabetes2010" />;
+    if that is you, [Metabolism](/metabolism/) is the other half of this
+    conversation, and the cardiovascular benefit still wins on net. And on
+    memory: a 2025 meta-analysis covering over 7 million people found statin
+    users had _lower_ dementia risk, not higher <Citation id="statinDementiaMeta2025" />.
+
+    When side effects are real, the usual fix is a lower dose, a different
+    statin, or a non-statin, such as ezetimibe or bempedoic acid (which cut
+    events in a trial run specifically in statin-intolerant patients <Citation id="clearOutcomes2023" />),
+    rather than giving up on lowering ApoB. For most people the question is
+    tolerability, not whether it would help.
+
+  </div>
+</details>
+
+<details class="fold not-prose">
+  <summary>Beyond statins: antibodies, silencers, and a one-time edit</summary>
+  <div>
+    Statins are the foundation because they are cheap, oral, and carry decades
+    of safety data, but they are not the ceiling. **PCSK9 inhibitors**
+    (evolocumab, alirocumab), antibody injections every two to four weeks, cut
+    LDL-C by roughly another 60% on top of a statin and reduce events <Citation id="fourierPrimary2017" />;
+    they are the drugs behind the very-low-LDL results above. **Inclisiran**
+    silences the same gene with a twice-a-year injection for about a 50%
+    reduction <Citation id="orionInclisiran2020" />, though its own outcome
+    trials only read out around 2027. And the logical endpoint of "lower for
+    longer" is now in human trials: a **one-time gene edit** that turns down
+    PCSK9 in the liver cut LDL-C by up to 62%, durable so far out to 18 months
+    of follow-up <Citation id="verve102BaseEditing2026" />. That is lifetime
+    exposure treated as the target, set once. It is years from routine use,
+    and the practical escalation path today remains statin, then ezetimibe,
+    then a PCSK9-class drug, with insurers gating each step.
+
+  </div>
+</details>
+
+<details class="fold not-prose">
+  <summary>The honest case against starting early</summary>
+  <div>
+    Steelmanned, it goes: statin trials run about five years, and over that
+    horizon the _absolute_ risk reductions are modest, roughly 0.8% for death
+    and 1.3% for heart attack across trial populations <Citation id="byrneStatinAbsolute2022" />,
+    and smaller still for a low-risk 35-year-old. No trial has ever enrolled
+    low-risk young adults for the forty years the prevention argument actually
+    spans, and none ever will; the USPSTF accordingly rates the under-40
+    evidence "insufficient" <Citation id="uspstfStatins2022" />.
+
+    The counter is that the benefit compounds. Across 60 trials, the risk
+    reduction per unit of LDL lowering grows with each additional year of
+    treatment <Citation id="ldlDurationMeta2024" />, and people whose genes
+    give them lifelong lower LDL get roughly **three times** the per-mmol
+    protection that statins started in middle age deliver <Citation id="ferenceMendelian2012" />.
+    Starting early is a bet that decades of compounding beat decades of
+    exposure. The 2026 guideline now partly endorses that bet, but it is still
+    a bet, worth making with eyes open.
+
+    (At the other end of life the evidence gap is about to close: two
+    definitive trials of statins in adults 70 and older, STAREE and
+    PREVENTABLE, read out in 2026–27 <Citation id="stareeTrial" /> <Citation id="preventableTrial" />.)
+
+  </div>
+</details>
+
+<details class="fold not-prose">
+  <summary>On the fence? What a calcium score adds</summary>
+  <div>
+    A coronary artery calcium (CAC) scan is a quick, no-contrast CT that counts
+    calcified plaque: direct evidence of the disease rather than an estimate of
+    it. The 2026 guideline gives it a formal tie-breaker role when the statin
+    decision is genuinely uncertain: **a score of 0 can justify deferring**,
+    any score above 0 argues for treating to an LDL-C goal under 100 mg/dL, and
+    higher scores argue for lower goals <Citation id="accAhaDyslipidemia2026" />.
+    There is now randomized evidence behind this: CAC-guided prevention slowed
+    plaque progression in the CAUGHT-CAD trial <Citation id="caughtCad2025" />.
+
+    One caveat, and it is this page's thesis in miniature: calcium is a _late_
+    signature. A zero in your 30s or 40s is expected and does not rule out the
+    soft plaque that calcifies later, so a young zero is a reason to keep ApoB
+    low, not a license to ignore it.
 
   </div>
 </details>
 
 ---
 
-The rest is worth knowing, but the three things above are what move the needle.
+The rest is worth knowing, but the three things above are what move the
+needle, with one exception: if you smoke, quitting outranks everything else on
+this page.
 
 ## Blood pressure
 
-High blood pressure compounds ApoB-driven risk by accelerating arterial damage. "Normal"
-is now under 120/80 <Citation id="accAhaBp2017" />. The `130/80` below is the _diagnostic_
-line where Stage 1 hypertension begins, not a prevention target; the prevention-optimal
-goal is systolic **under 120 if you tolerate it** <Citation id="accAhaBp2025" />. Because
-office readings run high, judge yourself against _home_ readings: rested, seated, and
-averaged over several days.
+High blood pressure compounds ApoB-driven risk by accelerating arterial damage.
+"Normal" is under 120/80 <Citation id="accAhaBp2017" />. The `130/80` below is
+the _diagnostic_ line where Stage 1 hypertension begins and the formal
+treatment goal for most adults; the prevention-optimal target is the 2025
+guideline's encouragement to get systolic **as close to under 120 as you
+tolerate** <Citation id="accAhaBp2025" />. The same guideline ties pressure to
+the brain, with a Class 1 finding that keeping systolic under 130 protects
+against cognitive decline and dementia <Citation id="accAhaBp2025" />; see
+[Brain](/brain/). Because office readings run high, judge yourself against
+_home_ readings: rested, seated, arm supported at heart level, two readings
+morning and evening for a week, averaged.
 
 <BloodPressure client:visible />
 
@@ -161,11 +301,57 @@ averaged over several days.
   </div>
 </details>
 
-## Your 10-year risk, in context
+## Lifestyle: what it moves, and what it can't
 
-Conventional scores estimate your _next 10 years_. The AHA **PREVENT** model (race-free)
-is the current standard <Citation id="preventEquations2024" />. Useful, but it
-systematically under-weights younger people, which is exactly why the lifetime exposure
-above matters more for prevention.
+Lifestyle is not the main lever on ApoB; that is why the statin conversation
+exists. But the honest numbers are worth knowing, and two of the items below
+outrank everything pharmacological.
+
+- **Diet.** Swapping saturated fat (butter, fatty meat) for unsaturated (olive
+  oil, nuts, fish) lowers LDL-C by roughly 10 mg/dL and cut cardiovascular
+  events by about 17% in randomized trials <Citation id="hooperSatFat2020" />.
+  About 10 g/day of psyllium fiber lowers LDL-C and ApoB measurably <Citation id="jovanovskiPsyllium2018" />,
+  and each kilogram of excess weight lost is worth about 1.3 mg/dL of LDL-C <Citation id="weightLossLipids2020" />.
+  Real and additive, but rarely enough alone once ApoB sits well above optimal.
+- **Exercise.** It trims ApoB a little but barely moves LDL-C <Citation id="holmeOsloExercise2007" />;
+  its leverage is elsewhere, and it is enormous. In a 122,000-patient treadmill
+  cohort, low fitness predicted death more strongly than smoking, diabetes, or
+  established heart disease <Citation id="mandsagerFitness2018" />.
+  Train for fitness and for the metabolic effects covered under
+  [Metabolism](/metabolism/), not for your lipid panel.
+- **Smoking.** The single largest modifiable risk here. Cardiovascular risk
+  falls steeply within about five years of quitting, and the residual excess
+  fades over 10 to 25 years <Citation id="smokingCessation2025" />: cumulative
+  exposure, again.
+- **Alcohol.** The "cardioprotective glass of red" has not survived genetic
+  analysis; risk rises continuously from zero <Citation id="biddingerAlcohol2022" />.
+- **Sleep.** 7–9 hours is now one of the AHA's eight core cardiovascular
+  health metrics <Citation id="lloydJonesEssential8" />, and untreated sleep
+  apnea is a common, fixable driver of the blood pressure above.
+
+## Your risk score, in context
+
+Conventional scores estimate your _next 10 years_. The AHA **PREVENT** model
+(race-free) is the current standard, and since 2026 it is what the guideline
+itself runs on, with action bands starting far lower than most people expect
+(borderline begins at 3%) <Citation id="preventEquations2024" /> <Citation id="accAhaDyslipidemia2026" />.
+For ages 30–59 it also projects **30-year risk**, the guideline's answer to
+the complaint this page has always made: a 10-year window under-weights
+younger people.
 
 <PreventRisk client:visible />
+
+<details class="fold not-prose">
+  <summary>What the calculators don't see</summary>
+  <div>
+    Risk equations run on a handful of inputs, and several well-documented
+    multipliers are not among them: a family history of premature heart disease,
+    chronic inflammatory disease, and, for women, **premature menopause**
+    (before 40) or a history of **preeclampsia or gestational diabetes**{" "}
+    <Citation id="parikhPregnancy2021" />. Any of these argues for reading a
+    borderline score as a higher one. The menopause transition itself also
+    shifts LDL and its atherogenic subclasses adversely around the final
+    menstrual period <Citation id="menopauseLipids2023" />, so a pre-menopause
+    panel may no longer describe you: re-measure on the far side.
+  </div>
+</details>

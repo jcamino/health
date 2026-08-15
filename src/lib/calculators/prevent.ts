@@ -1,6 +1,9 @@
 import { refs, type Reference } from '../references';
 
-export const sources: Reference[] = [refs.preventEquations2024];
+export const sources: Reference[] = [
+  refs.preventEquations2024,
+  refs.accAhaDyslipidemia2026,
+];
 
 /**
  * Inputs for the AHA PREVENT base 10-year ASCVD risk equation.
@@ -64,6 +67,11 @@ const AGE_MAX = 79;
  */
 interface AscvdCoefficients {
   age: number;
+  /**
+   * Coefficient on ((age - 55) / 10)^2. Present only in the 30-year models;
+   * the 10-year models have no age-squared term, expressed here as 0.
+   */
+  ageSquared: number;
   nonHdl: number;
   hdl: number;
   sbpLt110: number;
@@ -86,6 +94,7 @@ interface AscvdCoefficients {
 // Female, base model, 10-year ASCVD.
 const FEMALE: AscvdCoefficients = {
   age: 0.719883,
+  ageSquared: 0,
   nonHdl: 0.1176967,
   hdl: -0.151185,
   sbpLt110: -0.0835358,
@@ -108,6 +117,7 @@ const FEMALE: AscvdCoefficients = {
 // Male, base model, 10-year ASCVD.
 const MALE: AscvdCoefficients = {
   age: 0.7099847,
+  ageSquared: 0,
   nonHdl: 0.1658663,
   hdl: -0.1144285,
   sbpLt110: -0.2837212,
@@ -127,43 +137,96 @@ const MALE: AscvdCoefficients = {
   constant: -3.500655,
 };
 
-function requireFinite(value: number, name: string): void {
+/**
+ * Base model, 30-year ASCVD. Same source, transformations, and interaction set
+ * as the 10-year model, plus one structural addition: an age-squared term,
+ * ((age - 55) / 10)^2. Coefficients cross-checked to agree exactly across three
+ * independent transcriptions of the source's supplemental tables (the preventr
+ * R package, PyPREVENT, and the Medical Software Foundation implementation).
+ * As with the 10-year model, the statin terms are omitted (statin = false),
+ * matching the source's worked example.
+ *
+ * The 30-year models were derived in ages 30-59; risk is not reported above 59.
+ */
+const FEMALE_30: AscvdCoefficients = {
+  age: 0.4669202,
+  ageSquared: -0.0893118,
+  nonHdl: 0.1256901,
+  hdl: -0.1542255,
+  sbpLt110: -0.0018093,
+  sbpGe110: 0.322949,
+  diabetes: 0.6296707,
+  smoking: 0.268292,
+  egfrLt60: 0.100106,
+  egfrGe60: 0.0499663,
+  bpTreated: 0.1875292,
+  bpTreatedSbpGe110: -0.0276123,
+  ageNonHdl: -0.0521962,
+  ageHdl: 0.0316918,
+  ageSbpGe110: -0.1046101,
+  ageDiabetes: -0.2727793,
+  ageSmoking: -0.1530907,
+  ageEgfrLt60: -0.1299149,
+  constant: -1.974074,
+};
+
+const MALE_30: AscvdCoefficients = {
+  age: 0.3994099,
+  ageSquared: -0.0937484,
+  nonHdl: 0.1744643,
+  hdl: -0.120203,
+  sbpLt110: -0.0665117,
+  sbpGe110: 0.2753037,
+  diabetes: 0.4790257,
+  smoking: 0.1782635,
+  egfrLt60: -0.0218789, // genuinely negative in the source
+  egfrGe60: 0.0602553,
+  bpTreated: 0.1421182,
+  bpTreatedSbpGe110: -0.0218265,
+  ageNonHdl: -0.0312619,
+  ageHdl: 0.020673,
+  ageSbpGe110: -0.0920935,
+  ageDiabetes: -0.2159947,
+  ageSmoking: -0.1548811,
+  ageEgfrLt60: -0.0712547,
+  constant: -1.736444,
+};
+
+/** Upper age bound for the 30-year models (derived in ages 30-59). */
+export const AGE_MAX_30YR = 59;
+
+function requireFinite(value: number, name: string, fn: string): void {
   if (!Number.isFinite(value)) {
-    throw new Error(`preventAscvd10yr: ${name} must be a finite number (got ${value})`);
+    throw new Error(`${fn}: ${name} must be a finite number (got ${value})`);
   }
 }
 
-/**
- * Estimate 10-year ASCVD risk with the AHA PREVENT base equation (Khan 2024).
- *
- * Uses a sex-specific logistic model:
- *   logOdds = constant + sum(beta_i * x_i)
- *   risk    = exp(logOdds) / (1 + exp(logOdds))
- * with predictors centered/scaled as documented on {@link AscvdCoefficients}.
- *
- * @returns `{ tenYearPercent }`: the 10-year ASCVD risk as a percentage (0-100).
- * @throws if age is outside 30-79 or any numeric input is non-finite.
- */
-export function preventAscvd10yr(input: PreventInput): { tenYearPercent: number } {
-  const { age, sex, totalCholesterol, hdl, systolicBP, bpTreated, diabetic, smoker, egfr } =
-    input;
+/** Shared logistic-model risk computation for the base ASCVD models. */
+function ascvdRiskPercent(
+  input: PreventInput,
+  c: AscvdCoefficients,
+  fn: string,
+): number {
+  const {
+    age,
+    sex,
+    totalCholesterol,
+    hdl,
+    systolicBP,
+    bpTreated,
+    diabetic,
+    smoker,
+    egfr,
+  } = input;
 
-  requireFinite(age, 'age');
-  requireFinite(totalCholesterol, 'totalCholesterol');
-  requireFinite(hdl, 'hdl');
-  requireFinite(systolicBP, 'systolicBP');
-  requireFinite(egfr, 'egfr');
-
-  if (age < AGE_MIN || age > AGE_MAX) {
-    throw new Error(
-      `preventAscvd10yr: age ${age} is outside the validated range ${AGE_MIN}-${AGE_MAX}`,
-    );
-  }
+  requireFinite(age, 'age', fn);
+  requireFinite(totalCholesterol, 'totalCholesterol', fn);
+  requireFinite(hdl, 'hdl', fn);
+  requireFinite(systolicBP, 'systolicBP', fn);
+  requireFinite(egfr, 'egfr', fn);
   if (sex !== 'female' && sex !== 'male') {
-    throw new Error(`preventAscvd10yr: sex must be 'female' or 'male' (got ${sex})`);
+    throw new Error(`${fn}: sex must be 'female' or 'male' (got ${sex})`);
   }
-
-  const c = sex === 'female' ? FEMALE : MALE;
 
   // Centered / scaled predictors (cholesterol converted mg/dL -> mmol/L).
   const ageC = (age - 55) / 10;
@@ -180,6 +243,7 @@ export function preventAscvd10yr(input: PreventInput): { tenYearPercent: number 
   const logOdds =
     c.constant +
     c.age * ageC +
+    c.ageSquared * ageC * ageC +
     c.nonHdl * nonHdl +
     c.hdl * hdlC +
     c.sbpLt110 * sbpLt110 +
@@ -198,5 +262,78 @@ export function preventAscvd10yr(input: PreventInput): { tenYearPercent: number 
     c.ageEgfrLt60 * (ageC * egfrLt60);
 
   const risk = Math.exp(logOdds) / (1 + Math.exp(logOdds));
-  return { tenYearPercent: risk * 100 };
+  return risk * 100;
+}
+
+/**
+ * Estimate 10-year ASCVD risk with the AHA PREVENT base equation (Khan 2024).
+ *
+ * Uses a sex-specific logistic model:
+ *   logOdds = constant + sum(beta_i * x_i)
+ *   risk    = exp(logOdds) / (1 + exp(logOdds))
+ * with predictors centered/scaled as documented on {@link AscvdCoefficients}.
+ *
+ * @returns `{ tenYearPercent }`: the 10-year ASCVD risk as a percentage (0-100).
+ * @throws if age is outside 30-79 or any numeric input is non-finite.
+ */
+export function preventAscvd10yr(input: PreventInput): {
+  tenYearPercent: number;
+} {
+  if (
+    Number.isFinite(input.age) &&
+    (input.age < AGE_MIN || input.age > AGE_MAX)
+  ) {
+    throw new Error(
+      `preventAscvd10yr: age ${input.age} is outside the validated range ${AGE_MIN}-${AGE_MAX}`,
+    );
+  }
+  const c = input.sex === 'female' ? FEMALE : MALE;
+  return { tenYearPercent: ascvdRiskPercent(input, c, 'preventAscvd10yr') };
+}
+
+/**
+ * Estimate 30-year ASCVD risk with the AHA PREVENT base equation (Khan 2024).
+ * Same model family as {@link preventAscvd10yr} plus an age-squared term.
+ *
+ * @returns `{ thirtyYearPercent }`: the 30-year ASCVD risk as a percentage (0-100).
+ * @throws if age is outside 30-59 (the range the 30-year models were derived
+ *   in) or any numeric input is non-finite.
+ */
+export function preventAscvd30yr(input: PreventInput): {
+  thirtyYearPercent: number;
+} {
+  if (
+    Number.isFinite(input.age) &&
+    (input.age < AGE_MIN || input.age > AGE_MAX_30YR)
+  ) {
+    throw new Error(
+      `preventAscvd30yr: age ${input.age} is outside the validated range ${AGE_MIN}-${AGE_MAX_30YR}`,
+    );
+  }
+  const c = input.sex === 'female' ? FEMALE_30 : MALE_30;
+  return { thirtyYearPercent: ascvdRiskPercent(input, c, 'preventAscvd30yr') };
+}
+
+export type PreventBandName = 'low' | 'borderline' | 'intermediate' | 'high';
+
+export interface PreventBand {
+  band: PreventBandName;
+  label: string;
+}
+
+/**
+ * 10-year ASCVD risk bands per the 2026 ACC/AHA Multisociety Dyslipidemia
+ * Guideline: low <3%, borderline 3 to <5%, intermediate 5 to <10%, high >=10%.
+ * These replace the PCE-era 7.5%/20% bands (PREVENT recalibrates risk lower,
+ * so the action thresholds moved down with it).
+ */
+export function preventRiskBand(tenYearPercent: number): PreventBand {
+  if (!Number.isFinite(tenYearPercent) || tenYearPercent < 0) {
+    throw new Error(`preventRiskBand: invalid risk percent: ${tenYearPercent}`);
+  }
+  if (tenYearPercent >= 10) return { band: 'high', label: 'High' };
+  if (tenYearPercent >= 5)
+    return { band: 'intermediate', label: 'Intermediate' };
+  if (tenYearPercent >= 3) return { band: 'borderline', label: 'Borderline' };
+  return { band: 'low', label: 'Low' };
 }

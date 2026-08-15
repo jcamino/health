@@ -1,6 +1,9 @@
 import { refs, type Reference } from '../references';
 
-export const sources: Reference[] = [refs.easLpa2022];
+export const sources: Reference[] = [
+  refs.easLpa2022,
+  refs.accAhaDyslipidemia2026,
+];
 
 export type LpaUnit = 'mg/dL' | 'nmol/L';
 export type LpaTierName = 'low' | 'borderline' | 'high' | 'very-high';
@@ -14,7 +17,10 @@ export interface LpaTier {
  * Cut-points per the EAS 2022 Lp(a) consensus. mg/dL and nmol/L are NOT linearly
  * interconvertible, so each unit has its own thresholds rather than converting.
  */
-const CUTPOINTS: Record<LpaUnit, { borderline: number; high: number; veryHigh: number }> = {
+const CUTPOINTS: Record<
+  LpaUnit,
+  { borderline: number; high: number; veryHigh: number }
+> = {
   'mg/dL': { borderline: 30, high: 50, veryHigh: 180 },
   'nmol/L': { borderline: 75, high: 125, veryHigh: 430 },
 };
@@ -55,8 +61,18 @@ export function lpaBands(unit: LpaUnit): LpaBand[] {
   const c = CUTPOINTS[unit];
   return [
     { name: 'low', label: LABELS.low, lower: 0, upper: c.borderline },
-    { name: 'borderline', label: LABELS.borderline, lower: c.borderline, upper: c.high },
+    {
+      name: 'borderline',
+      label: LABELS.borderline,
+      lower: c.borderline,
+      upper: c.high,
+    },
     { name: 'high', label: LABELS.high, lower: c.high, upper: c.veryHigh },
-    { name: 'very-high', label: LABELS['very-high'], lower: c.veryHigh, upper: null },
+    {
+      name: 'very-high',
+      label: LABELS['very-high'],
+      lower: c.veryHigh,
+      upper: null,
+    },
   ];
 }

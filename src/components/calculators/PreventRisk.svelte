@@ -1,6 +1,9 @@
 <script lang="ts">
   import {
     preventAscvd10yr,
+    preventAscvd30yr,
+    preventRiskBand,
+    AGE_MAX_30YR,
     type PreventInput,
     sources,
   } from "../../lib/calculators/prevent";
@@ -23,25 +26,49 @@
   );
   const ageInRange = $derived(age >= 30 && age <= 79);
 
-  const result = $derived.by(() => {
+  const input = $derived.by((): PreventInput | null => {
     if (!numericValid || !ageInRange) return null;
+    return {
+      age,
+      sex,
+      totalCholesterol,
+      hdl,
+      systolicBP,
+      bpTreated,
+      diabetic,
+      smoker,
+      egfr,
+    };
+  });
+
+  const result = $derived.by(() => {
+    if (!input) return null;
     try {
-      const input: PreventInput = {
-        age,
-        sex,
-        totalCholesterol,
-        hdl,
-        systolicBP,
-        bpTreated,
-        diabetic,
-        smoker,
-        egfr,
-      };
       return preventAscvd10yr(input);
     } catch {
       return null;
     }
   });
+
+  // 30-year risk: the model is derived for ages 30-59 only.
+  const result30 = $derived.by(() => {
+    if (!input || age > AGE_MAX_30YR) return null;
+    try {
+      return preventAscvd30yr(input);
+    } catch {
+      return null;
+    }
+  });
+
+  const band = $derived(result ? preventRiskBand(result.tenYearPercent) : null);
+
+  // 2026-guideline action bands, colored like the other tier gauges.
+  const bandColor: Record<string, string> = {
+    low: "text-emerald-600 dark:text-emerald-400",
+    borderline: "text-amber-600 dark:text-amber-400",
+    intermediate: "text-orange-600 dark:text-orange-400",
+    high: "text-red-600 dark:text-red-400",
+  };
 </script>
 
 <div class="card not-prose">
@@ -121,7 +148,23 @@
       Estimated 10-year ASCVD risk: <strong class="font-mono"
         >{result.tenYearPercent.toFixed(1)}%</strong
       >
+      {#if band}
+        · <span class={`font-semibold ${bandColor[band.band]}`}
+          >{band.label}</span
+        >
+      {/if}
     </p>
+    {#if result30}
+      <p class="mt-1 text-sm">
+        Estimated 30-year ASCVD risk: <strong class="font-mono"
+          >{result30.thirtyYearPercent.toFixed(1)}%</strong
+        >
+      </p>
+    {:else}
+      <p class="mt-1 text-xs text-ink-muted">
+        30-year risk is modeled for ages 30–{AGE_MAX_30YR}.
+      </p>
+    {/if}
   {:else if !ageInRange}
     <p class="mt-4 text-sm text-red-600 dark:text-red-400">
       PREVENT is validated for ages 30–79.
@@ -133,9 +176,10 @@
   {/if}
 
   <p class="hint">
-    A short-horizon estimate (AHA PREVENT, race-free). 10-year risk
-    under-weights younger people, so read it alongside the lifetime exposure
-    above, which is what early prevention targets.
+    AHA PREVENT (race-free), the risk engine the 2026 guideline runs on. Its
+    10-year action bands: under 3% low, 3–5% borderline, 5–10% intermediate,
+    10%+ high. A 10-year window under-weights younger people, which is exactly
+    what the 30-year figure and the lifetime exposure above are for.
   </p>
 
   <Sources {sources} />
