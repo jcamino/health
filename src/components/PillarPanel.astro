@@ -1,0 +1,116 @@
+---
+// The homepage's pillar directory, styled as a lab requisition panel: each
+// pillar is a numbered row with its markers and an honest status stamp. The
+// numbering is the site's own taxonomy (Pillar 0–4), not decoration.
+type Status = "open" | "draft" | "planned";
+
+const pillars: {
+  n: string;
+  name: string;
+  href: string | null;
+  status: Status;
+  markers: string;
+}[] = [
+  {
+    n: "00",
+    name: "Foundations",
+    href: null,
+    status: "planned",
+    markers:
+      "nutrition · exercise (VO₂max + strength) · sleep · emotional & social health",
+  },
+  {
+    n: "01",
+    name: "Heart",
+    href: "/heart/",
+    status: "open",
+    markers: "ApoB · lifetime exposure · Lp(a) · blood pressure · statins",
+  },
+  {
+    n: "02",
+    name: "Metabolism",
+    href: "/metabolism/",
+    status: "draft",
+    markers: "A1C · insulin resistance (HOMA-IR) · metabolic syndrome · TG/HDL",
+  },
+  {
+    n: "03",
+    name: "Brain",
+    href: "/brain/",
+    status: "draft",
+    markers: "blood pressure · A1C · ApoB · hearing · sleep · APOE",
+  },
+  {
+    n: "04",
+    name: "Cancer & early detection",
+    href: null,
+    status: "planned",
+    markers:
+      "age-appropriate screening · smoking · alcohol · obesity · family history",
+  },
+];
+
+const stampClass: Record<Status, string> = {
+  open: "stamp text-blood",
+  draft: "stamp text-ink-muted",
+  planned: "stamp border-dashed text-ink-faint",
+};
+const stampText: Record<Status, string> = {
+  open: "Open",
+  draft: "Draft",
+  planned: "Planned",
+};
+---
+
+<div class="not-prose my-10 overflow-hidden rounded-md border border-rule">
+  <div class="border-b border-rule bg-well px-5 py-2.5">
+    <span
+      class="font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-ink-muted"
+      >Longevity panel · five pillars</span
+    >
+  </div>
+  {
+    pillars.map((p) => {
+      const inner = (
+        <>
+          <span
+            class={`pt-0.5 font-mono text-xs font-medium ${p.href ? "text-blood" : "text-ink-faint"}`}
+          >
+            {p.n}
+          </span>
+          <span class="min-w-0">
+            <span
+              class={`block text-base font-semibold ${p.href ? "text-ink" : "text-ink-muted"}`}
+            >
+              {p.name}
+              {p.href && (
+                <span
+                  aria-hidden="true"
+                  class="ml-1 text-blood opacity-0 transition-opacity group-hover:opacity-100"
+                >
+                  →
+                </span>
+              )}
+            </span>
+            <span class="mt-1 block font-mono text-[11px] leading-relaxed text-ink-muted">
+              {p.markers}
+            </span>
+          </span>
+          <span class={stampClass[p.status]}>{stampText[p.status]}</span>
+        </>
+      );
+      const rowClass =
+        "grid grid-cols-[auto_1fr_auto] items-start gap-x-4 border-b border-rule px-5 py-4 last:border-b-0";
+      return p.href ? (
+        <a
+          href={p.href}
+          class={`group ${rowClass} transition-colors hover:bg-blood-wash`}
+        >
+          {inner}
+        </a>
+      ) : (
+        <div class={rowClass}>{inner}</div>
+      );
+    })
+  }
+</div>

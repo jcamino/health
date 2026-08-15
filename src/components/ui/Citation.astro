@@ -1,8 +1,18 @@
 ---
-import { getRef, type ReferenceId } from '../../lib/references';
-interface Props { id: ReferenceId; }
+import { getRef, type ReferenceId } from "../../lib/references";
+interface Props {
+  id: ReferenceId;
+}
 const { id } = Astro.props;
 const ref = getRef(id);
 ---
-<a href={ref.url} target="_blank" rel="noopener noreferrer" class="align-super text-xs underline"
-  >[{ref.authors?.split(',')[0] ?? ref.title}{ref.year ? `, ${ref.year}` : ''}]</a>
+
+<a
+  href={ref.url}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="align-super font-mono text-[0.62em] font-medium text-blood no-underline hover:underline"
+  >[{ref.authors?.split(",")[0] ?? ref.title}{
+    ref.year ? `, ${ref.year}` : ""
+  }]</a
+>

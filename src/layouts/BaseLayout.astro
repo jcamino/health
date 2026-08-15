@@ -1,7 +1,11 @@
 ---
-import '../styles/global.css';
-import Disclaimer from '../components/ui/Disclaimer.astro';
-import ThemeToggle from '../components/ui/ThemeToggle.svelte';
+import "@fontsource-variable/stix-two-text";
+import "@fontsource-variable/stix-two-text/wght-italic.css";
+import "@fontsource/ibm-plex-mono/400.css";
+import "@fontsource/ibm-plex-mono/500.css";
+import "../styles/global.css";
+import Disclaimer from "../components/ui/Disclaimer.astro";
+import ThemeToggle from "../components/ui/ThemeToggle.svelte";
 
 interface Props {
   title?: string;
@@ -10,13 +14,24 @@ interface Props {
 }
 // MDX pages pass frontmatter under `frontmatter`; .astro callers pass props directly.
 const { frontmatter } = Astro.props;
-const title = Astro.props.title ?? frontmatter?.title ?? 'health.jcamino.net';
+const title = Astro.props.title ?? frontmatter?.title ?? "health.jcamino.net";
 const description =
   Astro.props.description ??
   frontmatter?.description ??
-  'Evidence-based longevity tools and explainers.';
-const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://health.jcamino.net').href;
+  "Evidence-based longevity tools and explainers.";
+const canonical = new URL(
+  Astro.url.pathname,
+  Astro.site ?? "https://health.jcamino.net",
+).href;
+
+const pillars = [
+  { n: "01", name: "Heart", href: "/heart/" },
+  { n: "02", name: "Metabolism", href: "/metabolism/" },
+  { n: "03", name: "Brain", href: "/brain/" },
+];
+const path = Astro.url.pathname;
 ---
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -24,9 +39,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://health.jcam
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script is:inline>
       (() => {
-        const stored = localStorage.getItem('theme');
-        const theme = stored ?? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        document.documentElement.classList.toggle('dark', theme === 'dark');
+        const stored = localStorage.getItem("theme");
+        const theme =
+          stored ??
+          (matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light");
+        document.documentElement.classList.toggle("dark", theme === "dark");
         document.documentElement.style.colorScheme = theme;
       })();
     </script>
@@ -39,27 +58,71 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://health.jcam
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
   </head>
-  <body class="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
-    <header class="border-b border-slate-200 dark:border-slate-800">
-      <nav class="mx-auto flex max-w-3xl items-center gap-6 px-4 py-4">
-        <a class="font-semibold" href="/">health.jcamino.net</a>
-        <a class="text-slate-600 hover:underline dark:text-slate-300" href="/heart/">Heart</a>
-        <a class="text-slate-600 hover:underline dark:text-slate-300" href="/metabolism/">Metabolism</a>
-        <a class="text-slate-600 hover:underline dark:text-slate-300" href="/brain/">Brain</a>
+  <body class="min-h-screen border-t-[3px] border-blood bg-paper text-ink">
+    <header class="border-b border-rule">
+      <nav
+        class="mx-auto flex max-w-3xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-4"
+      >
+        <a class="font-mono text-sm font-medium tracking-tight" href="/"
+          >health<span class="text-blood">.</span>jcamino<span
+            class="text-blood">.</span
+          >net</a
+        >
+        <div class="flex items-center gap-5">
+          {
+            pillars.map((p) => (
+              <a
+                href={p.href}
+                aria-current={path.startsWith(p.href) ? "page" : undefined}
+                class:list={[
+                  "font-mono text-[11px] font-medium uppercase tracking-[0.14em]",
+                  path.startsWith(p.href)
+                    ? "text-ink underline decoration-blood decoration-2 underline-offset-[6px]"
+                    : "text-ink-muted hover:text-ink",
+                ]}
+              >
+                <span class="text-blood">{p.n}</span> {p.name}
+              </a>
+            ))
+          }
+        </div>
         <div class="ml-auto"><ThemeToggle client:load /></div>
       </nav>
     </header>
-    <main class="prose prose-slate dark:prose-invert mx-auto max-w-3xl px-4 py-10">
+    <main class="prose mx-auto max-w-3xl px-4 py-12">
       <slot />
     </main>
-    <footer class="mx-auto max-w-3xl px-4 py-10 text-sm text-slate-500">
-      <Disclaimer />
-      <p>
-        Open source. Contributions and issues welcome on
-        <a class="underline hover:text-slate-700 dark:hover:text-slate-300" href="https://github.com/jcamino/health" target="_blank" rel="noopener noreferrer">GitHub</a>
-        (<a class="underline hover:text-slate-700 dark:hover:text-slate-300" href="https://github.com/jcamino/health/issues" target="_blank" rel="noopener noreferrer">open an issue</a>).
-      </p>
-      <p>Released under the <a class="underline hover:text-slate-700 dark:hover:text-slate-300" href="https://github.com/jcamino/health/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a>.</p>
+    <footer class="border-t border-rule">
+      <div class="mx-auto max-w-3xl space-y-4 px-4 py-10">
+        <Disclaimer />
+        <div
+          class="space-y-2 font-mono text-[11px] leading-relaxed text-ink-muted"
+        >
+          <p>
+            Open source. Contributions and issues welcome on
+            <a
+              class="underline underline-offset-2 hover:text-ink"
+              href="https://github.com/jcamino/health"
+              target="_blank"
+              rel="noopener noreferrer">GitHub</a
+            >
+            (<a
+              class="underline underline-offset-2 hover:text-ink"
+              href="https://github.com/jcamino/health/issues"
+              target="_blank"
+              rel="noopener noreferrer">open an issue</a
+            >).
+          </p>
+          <p>
+            Released under the <a
+              class="underline underline-offset-2 hover:text-ink"
+              href="https://github.com/jcamino/health/blob/main/LICENSE"
+              target="_blank"
+              rel="noopener noreferrer">MIT License</a
+            >.
+          </p>
+        </div>
+      </div>
     </footer>
   </body>
 </html>
