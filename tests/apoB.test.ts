@@ -1,5 +1,11 @@
 import { describe, it, expect } from "vitest";
-import { apoBTier, apoBBands, sources } from "../src/lib/calculators/apoB";
+import {
+  apoBTier,
+  apoBBands,
+  sources,
+  referenceIntervalSources,
+  APOB_REFERENCE_INTERVAL_UPPER_MGDL,
+} from "../src/lib/calculators/apoB";
 
 describe("apoBTier", () => {
   it("classifies representative values", () => {
@@ -37,5 +43,26 @@ describe("apoBBands", () => {
       const band = apoBBands.find((b) => b.upper === null || v < b.upper)!;
       expect(band.name).toBe(apoBTier(v).tier);
     }
+  });
+});
+
+describe("APOB_REFERENCE_INTERVAL_UPPER_MGDL", () => {
+  it("is the top of a typical laboratory reference interval", () => {
+    expect(APOB_REFERENCE_INTERVAL_UPPER_MGDL).toBe(130);
+  });
+
+  it("sits between the two upper limits its source reports", () => {
+    expect(APOB_REFERENCE_INTERVAL_UPPER_MGDL).toBeGreaterThanOrEqual(129);
+    expect(APOB_REFERENCE_INTERVAL_UPPER_MGDL).toBeLessThanOrEqual(134);
+  });
+
+  it("lands in this site's very-high tier, which is the hero's whole point", () => {
+    expect(apoBTier(APOB_REFERENCE_INTERVAL_UPPER_MGDL).tier).toBe("very-high");
+  });
+
+  it("carries the reference-interval citation", () => {
+    expect(referenceIntervalSources.map((s) => s.id)).toContain(
+      "choiApoBReferenceInterval2023",
+    );
   });
 });
