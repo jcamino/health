@@ -178,3 +178,24 @@ export function ageAtThreshold(
   }
   return null;
 }
+
+/**
+ * Age at which a lifelong-flat ApoB crosses the cumulative-exposure threshold,
+ * integrated from birth. This is the model behind the "an ApoB of 90 crosses
+ * around 56" figures on the heart page; the hero graphic reads from here so it
+ * cannot drift from the prose. Returns null if the threshold is not reached by
+ * `endAge`.
+ */
+export function ageAtThresholdForFlatApoB(
+  apoB: number,
+  endAge = 120,
+): number | null {
+  const trajectory = buildTrajectory({
+    currentAge: 0,
+    currentApoB: apoB,
+    risePerYear: 0,
+    startAge: 0,
+    endAge,
+  });
+  return ageAtThreshold(trajectory, CUMULATIVE_EXPOSURE_THRESHOLD_MG_YEARS);
+}
