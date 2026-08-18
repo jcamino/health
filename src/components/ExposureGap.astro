@@ -1,41 +1,70 @@
 ---
-// The heart page's thesis, drawn: two ApoB levels a standard panel waves
-// through, and the decade between the ages at which each one accumulates
-// enough exposure for events to typically begin. Every age here is computed
-// from the sourced, unit-tested exposure model — nothing is hand-entered, so
-// the graphic cannot drift from the prose that cites the same numbers.
-import { ageAtThresholdForFlatApoB } from "../lib/calculators/exposure";
+// The heart page's thesis, drawn: four ApoB levels, each as a lifetime from
+// birth to 80, with the years spent past the cumulative-exposure threshold
+// filled in. The top two are levels a standard panel waves through; the bottom
+// one never fills. Every figure is computed from the sourced, unit-tested model
+// at build time, so the graphic cannot drift from the prose that cites it.
+import {
+  ageAtThresholdForFlatApoB,
+  yearsOverThreshold,
+} from "../lib/calculators/exposure";
+import { APOB_REFERENCE_INTERVAL_UPPER_MGDL } from "../lib/calculators/apoB";
 
-const AXIS_END = 80; // years, the drawn span
-const TICKS = [20, 40, 60, 80];
+const SPAN = 80; // years, the drawn lifetime
 
-interface Track {
+interface Bar {
   apoB: number;
   note: string;
   age: number | null;
+  startPct: number | null;
+  years: number;
 }
 
-const tracks: Track[] = [
+const bars: Bar[] = [
+  {
+    apoB: APOB_REFERENCE_INTERVAL_UPPER_MGDL,
+    note: "the top of a standard lab's normal range",
+  },
   { apoB: 110, note: "a typical adult level" },
   { apoB: 90, note: "the guideline's most lenient goal" },
-].map((t) => ({ ...t, age: ageAtThresholdForFlatApoB(t.apoB) }));
+  { apoB: 55, note: "the guideline's strictest goal" },
+].map((level) => {
+  const age = ageAtThresholdForFlatApoB(level.apoB, SPAN);
+  return {
+    ...level,
+    age,
+    startPct: age === null ? null : (age / SPAN) * 100,
+    years: Math.round(yearsOverThreshold(level.apoB, SPAN)),
+  };
+});
 
-// Drop any level that never crosses inside the drawn span rather than clamping
-// it, which would put the marker somewhere the model never said.
-const drawn = tracks.filter(
-  (t): t is Track & { age: number } => t.age !== null && t.age <= AXIS_END,
-);
+// The fold "Why 'normal' on a lab panel is already too high" quotes these three
+// ages. If the model ever moves them the page would contradict itself, so fail
+// the build rather than ship the mismatch. Fix the prose, never the graphic.
+const QUOTED_AGES: ReadonlyArray<[number, number]> = [
+  [APOB_REFERENCE_INTERVAL_UPPER_MGDL, 38],
+  [110, 45],
+  [90, 56],
+];
+for (const [apoB, quoted] of QUOTED_AGES) {
+  const age = ageAtThresholdForFlatApoB(apoB, SPAN);
+  const actual = age === null ? "never" : String(Math.round(age));
+  if (actual !== String(quoted)) {
+    throw new Error(
+      `ExposureGap: ApoB ${apoB} now crosses at ${actual}, but the heart page prose says ${quoted}.`,
+    );
+  }
+}
 
-if (drawn.length !== tracks.length)
-  throw new Error(
-    "ExposureGap: a track no longer crosses inside the drawn span; re-check the prose that cites these ages",
-  );
-
-const pct = (age: number) => (age / AXIS_END) * 100;
-const summary = drawn
-  .map(
-    (t) =>
-      `ApoB ${t.apoB} (${t.note}) crosses at about age ${Math.round(t.age)}`,
+// Branch on `age`, never on the rounded count. A level that crosses at 79.9
+// rounds to zero years over, and captioning that "never crosses" would
+// contradict the tick drawn at 80. None of the four shipped levels hits that
+// window, but the wording should not depend on that staying true.
+const summary = bars
+  .map((b) =>
+    b.age === null
+      ? `ApoB ${b.apoB}, ${b.note}, never crosses within ${SPAN} years`
+      : `ApoB ${b.apoB}, ${b.note}, crosses at about age ${Math.round(b.age)} and spends about ${b.years} years over the line`,
   )
   .join("; ");
 ---
@@ -48,32 +77,48 @@ const summary = drawn
   <div
     class="gap-plot"
     role="img"
-    aria-label={`Cumulative exposure by age. ${summary}.`}
+    aria-label={`Years spent over the cumulative-exposure threshold, out of a drawn lifetime of ${SPAN} years. ${summary}.`}
   >
+    <p class="gap-head">Years over<br />the line</p>
     {
-      drawn.map((t) => (
-        <div class="gap-track">
+      bars.map((b, i) => (
+        <div class="gap-row">
           <p class="gap-key">
-            <b>ApoB {t.apoB}</b>
-            <span>{t.note}</span>
+            <b>ApoB {b.apoB}</b>
+            <span>{b.note}</span>
           </p>
-          <div class="gap-line">
-            <span class="gap-dot" style={`left:${pct(t.age)}%`} />
-            <span class="gap-age" style={`left:${pct(t.age)}%`}>
-              {Math.round(t.age)}
-            </span>
+          <div class="gap-bar">
+            {b.startPct !== null && (
+              <span
+                class="gap-fill"
+                style={`left:${b.startPct}%;animation-delay:${i * 140}ms`}
+              />
+            )}
           </div>
+          <p class="gap-count" data-empty={b.years === 0}>
+            {b.years}
+          </p>
         </div>
       ))
     }
     <div class="gap-axis">
-      {TICKS.map((age) => <span style={`left:${pct(age)}%`}>{age}</span>)}
+      <span class="gap-axis-start">Birth</span>
+      {
+        bars.map((b) =>
+          b.age === null || b.startPct === null ? null : (
+            <span class="gap-tick" style={`left:${b.startPct}%`}>
+              {Math.round(b.age)}
+            </span>
+          ),
+        )
+      }
+      <span class="gap-axis-end">{SPAN}</span>
     </div>
   </div>
   <figcaption class="gap-caption">
-    Age at which each level accumulates ~5,000 mg·years of exposure, an
-    illustrative marker of the plaque burden at which events typically begin.
-    Risk rises continuously — crossing it is not an appointment. The age is the
-    part you can move.
+    "The line" is ~5,000 mg·years of cumulative exposure — the illustrative
+    marker of plaque burden at which events typically begin — out of a drawn
+    lifetime of eighty. Risk rises continuously, so crossing it is not an
+    appointment and an empty bar is not immunity.
   </figcaption>
 </figure>
