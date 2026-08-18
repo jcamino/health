@@ -9,6 +9,7 @@ import ApoBTier from "../components/calculators/ApoBTier.svelte";
 import LpaTier from "../components/calculators/LpaTier.svelte";
 import BloodPressure from "../components/calculators/BloodPressure.svelte";
 import PreventRisk from "../components/calculators/PreventRisk.svelte";
+import ExposureGap from "../components/ExposureGap.astro";
 import StatinTable from "../components/StatinTable.astro";
 import ThreeChecks from "../components/ThreeChecks.svelte";
 import Citation from "../components/ui/Citation.astro";
@@ -25,6 +26,8 @@ Measured against _optimal_ targets instead of lab "normal," most adults are
 already above the line, even when a standard panel and a 10-year risk score say
 they are fine. Two numbers and one decision show where you actually stand, and
 as of 2026, US guidelines have moved a long way toward this view <Citation id="accAhaDyslipidemia2026" />.
+
+<ExposureGap />
 
 <ThreeChecks client:load />
 
