@@ -1,8 +1,13 @@
-import { refs, type Reference } from '../references';
+import { refs, type Reference } from "../references";
 
 export const sources: Reference[] = [refs.accAhaBp2017, refs.accAhaBp2025];
 
-export type BpCategoryName = 'normal' | 'elevated' | 'stage-1' | 'stage-2' | 'crisis';
+export type BpCategoryName =
+  | "normal"
+  | "elevated"
+  | "stage-1"
+  | "stage-2"
+  | "crisis";
 
 export interface BpCategory {
   category: BpCategoryName;
@@ -10,11 +15,11 @@ export interface BpCategory {
 }
 
 const LABELS: Record<BpCategoryName, string> = {
-  normal: 'Normal',
-  elevated: 'Elevated',
-  'stage-1': 'Stage 1 hypertension',
-  'stage-2': 'Stage 2 hypertension',
-  crisis: 'Hypertensive crisis',
+  normal: "Normal",
+  elevated: "Elevated",
+  "stage-1": "Stage 1 hypertension",
+  "stage-2": "Stage 2 hypertension",
+  crisis: "Hypertensive crisis",
 };
 
 /**
@@ -44,10 +49,11 @@ export function bpCategory(systolic: number, diastolic: number): BpCategory {
   const s = BP_THRESHOLDS.systolic;
   const d = BP_THRESHOLDS.diastolic;
   let category: BpCategoryName;
-  if (systolic > s.crisis || diastolic > d.crisis) category = 'crisis';
-  else if (systolic >= s.stage2 || diastolic >= d.stage2) category = 'stage-2';
-  else if (systolic >= s.stage1 || diastolic >= d.stage1) category = 'stage-1';
-  else if (systolic >= s.elevated) category = 'elevated'; // diastolic < 80 guaranteed here
-  else category = 'normal';
+  if (systolic > s.crisis || diastolic > d.crisis) category = "crisis";
+  else if (systolic >= s.stage2 || diastolic >= d.stage2) category = "stage-2";
+  else if (systolic >= s.stage1 || diastolic >= d.stage1) category = "stage-1";
+  else if (systolic >= s.elevated)
+    category = "elevated"; // diastolic < 80 guaranteed here
+  else category = "normal";
   return { category, label: LABELS[category] };
 }

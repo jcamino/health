@@ -1,8 +1,11 @@
-import { refs, type Reference } from '../references';
+import { refs, type Reference } from "../references";
 
-export const sources: Reference[] = [refs.adaDiagnosis2024, refs.nathanAdag2008];
+export const sources: Reference[] = [
+  refs.adaDiagnosis2024,
+  refs.nathanAdag2008,
+];
 
-export type A1cCategory = 'normal' | 'prediabetes' | 'diabetes';
+export type A1cCategory = "normal" | "prediabetes" | "diabetes";
 
 export interface A1cResult {
   category: A1cCategory;
@@ -12,9 +15,9 @@ export interface A1cResult {
 }
 
 const LABELS: Record<A1cCategory, string> = {
-  normal: 'Normal',
-  prediabetes: 'Prediabetes',
-  diabetes: 'Diabetes range',
+  normal: "Normal",
+  prediabetes: "Prediabetes",
+  diabetes: "Diabetes range",
 };
 
 /** A1C must be a plausible percentage (HbA1c is typically ~4–20%). */
@@ -40,8 +43,8 @@ export function eAG(a1cPercent: number): number {
 export function a1cStatus(a1cPercent: number): A1cResult {
   assertA1c(a1cPercent);
   let category: A1cCategory;
-  if (a1cPercent >= 6.5) category = 'diabetes';
-  else if (a1cPercent >= 5.7) category = 'prediabetes';
-  else category = 'normal';
+  if (a1cPercent >= 6.5) category = "diabetes";
+  else if (a1cPercent >= 5.7) category = "prediabetes";
+  else category = "normal";
   return { category, label: LABELS[category], eAG: eAG(a1cPercent) };
 }

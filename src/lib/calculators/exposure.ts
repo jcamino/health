@@ -1,4 +1,4 @@
-import { refs, type Reference } from '../references';
+import { refs, type Reference } from "../references";
 
 export const sources: Reference[] = [
   refs.easLdlCausality2017,
@@ -55,10 +55,10 @@ function risingApoB(age: number, p: TrajectoryParams): number {
 export function buildTrajectory(p: TrajectoryParams): ApoBPoint[] {
   const startAge = p.startAge ?? 0;
   if (!Number.isFinite(startAge) || startAge < 0) {
-    throw new Error('buildTrajectory: startAge must be a finite value >= 0');
+    throw new Error("buildTrajectory: startAge must be a finite value >= 0");
   }
   if (!(p.endAge > startAge)) {
-    throw new Error('buildTrajectory: endAge must be greater than startAge');
+    throw new Error("buildTrajectory: endAge must be greater than startAge");
   }
   if (
     ![p.currentAge, p.currentApoB, p.risePerYear].every((n) =>
@@ -66,26 +66,26 @@ export function buildTrajectory(p: TrajectoryParams): ApoBPoint[] {
     )
   ) {
     throw new Error(
-      'buildTrajectory: currentAge, currentApoB and risePerYear must be finite',
+      "buildTrajectory: currentAge, currentApoB and risePerYear must be finite",
     );
   }
   if (p.currentApoB <= 0)
-    throw new Error('buildTrajectory: currentApoB must be positive');
+    throw new Error("buildTrajectory: currentApoB must be positive");
   if (p.risePerYear < 0)
-    throw new Error('buildTrajectory: risePerYear must be >= 0');
+    throw new Error("buildTrajectory: risePerYear must be >= 0");
 
   if (p.intervention) {
     const { age, apoB } = p.intervention;
     if (!Number.isFinite(age) || !Number.isFinite(apoB)) {
-      throw new Error('buildTrajectory: intervention values must be finite');
+      throw new Error("buildTrajectory: intervention values must be finite");
     }
     if (age <= startAge || age >= p.endAge) {
       throw new Error(
-        'buildTrajectory: intervention age must be within (startAge, endAge)',
+        "buildTrajectory: intervention age must be within (startAge, endAge)",
       );
     }
     if (apoB <= 0)
-      throw new Error('buildTrajectory: intervention apoB must be positive');
+      throw new Error("buildTrajectory: intervention apoB must be positive");
     const held = Math.max(MIN_APOB, apoB);
     return [
       { age: startAge, apoB: risingApoB(startAge, p) },

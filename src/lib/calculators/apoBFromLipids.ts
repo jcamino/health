@@ -1,4 +1,4 @@
-import { refs, type Reference } from '../references';
+import { refs, type Reference } from "../references";
 
 export const sources: Reference[] = [refs.escEasDyslipidaemia2019];
 
@@ -52,7 +52,7 @@ function requirePositiveFinite(value: number, name: string): void {
  * Throws on non-finite or non-positive input.
  */
 export function apoBFromLdl(ldl_mgdl: number): number {
-  requirePositiveFinite(ldl_mgdl, 'apoBFromLdl');
+  requirePositiveFinite(ldl_mgdl, "apoBFromLdl");
   return SLOPE * ldl_mgdl + LDL_INTERCEPT;
 }
 
@@ -62,6 +62,6 @@ export function apoBFromLdl(ldl_mgdl: number): number {
  * Throws on non-finite or non-positive input.
  */
 export function apoBFromNonHdl(nonHdl_mgdl: number): number {
-  requirePositiveFinite(nonHdl_mgdl, 'apoBFromNonHdl');
+  requirePositiveFinite(nonHdl_mgdl, "apoBFromNonHdl");
   return SLOPE * nonHdl_mgdl + NON_HDL_INTERCEPT;
 }

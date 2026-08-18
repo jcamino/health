@@ -31,6 +31,7 @@ are the canonical, complete examples — copy their structure.
 ## Workflow
 
 ### 1. Build the calculators
+
 adding-sourced-calculator for each. Done when `npm test` is green.
 
 ### 2. Write the widget(s) — `src/components/calculators/<Name>.svelte`
@@ -41,39 +42,66 @@ instead of NaN or a thrown error.
 
 ```svelte
 <script lang="ts">
-  import { bpCategory, sources } from '../../lib/calculators/bloodPressure';
-  import Sources from '../ui/Sources.svelte';
+  import { bpCategory, sources } from "../../lib/calculators/bloodPressure";
+  import Sources from "../ui/Sources.svelte";
 
   let systolic = $state(120);
   let diastolic = $state(80);
   const result = $derived(
-    Number.isFinite(systolic) && Number.isFinite(diastolic) && systolic > 0 && diastolic > 0
+    Number.isFinite(systolic) &&
+      Number.isFinite(diastolic) &&
+      systolic > 0 &&
+      diastolic > 0
       ? bpCategory(systolic, diastolic)
       : null,
   );
   const color: Record<string, string> = {
-    normal: 'text-emerald-600', elevated: 'text-yellow-600',
-    'stage-1': 'text-orange-600', 'stage-2': 'text-red-600', crisis: 'text-red-700',
+    normal: "text-emerald-600",
+    elevated: "text-yellow-600",
+    "stage-1": "text-orange-600",
+    "stage-2": "text-red-600",
+    crisis: "text-red-700",
   };
 </script>
 
-<div class="not-prose rounded-xl border border-slate-200 p-5 dark:border-slate-700">
+<div
+  class="not-prose rounded-xl border border-slate-200 p-5 dark:border-slate-700"
+>
   <div class="flex flex-wrap items-end gap-3">
-    <label class="text-sm font-medium">Systolic (mmHg)
-      <input type="number" min="0" max="300" bind:value={systolic}
-        class="mt-1 block w-28 rounded border border-slate-300 px-2 py-1 dark:bg-slate-800" /></label>
-    <label class="text-sm font-medium">Diastolic (mmHg)
-      <input type="number" min="0" max="200" bind:value={diastolic}
-        class="mt-1 block w-28 rounded border border-slate-300 px-2 py-1 dark:bg-slate-800" /></label>
+    <label class="text-sm font-medium"
+      >Systolic (mmHg)
+      <input
+        type="number"
+        min="0"
+        max="300"
+        bind:value={systolic}
+        class="mt-1 block w-28 rounded border border-slate-300 px-2 py-1 dark:bg-slate-800"
+      /></label
+    >
+    <label class="text-sm font-medium"
+      >Diastolic (mmHg)
+      <input
+        type="number"
+        min="0"
+        max="200"
+        bind:value={diastolic}
+        class="mt-1 block w-28 rounded border border-slate-300 px-2 py-1 dark:bg-slate-800"
+      /></label
+    >
   </div>
   {#if result}
-    <p class="mt-3">Category: <span class={`font-semibold ${color[result.category]}`}>{result.label}</span></p>
+    <p class="mt-3">
+      Category: <span class={`font-semibold ${color[result.category]}`}
+        >{result.label}</span
+      >
+    </p>
   {/if}
   <Sources {sources} />
 </div>
 ```
 
 **Charts** — see `ApoBExposure.svelte`. Non-obvious musts:
+
 - `<canvas>` in a fixed-height container (`class="h-64"`) + `maintainAspectRatio: false`.
 - x axis `type: 'linear'` with `{ x, y }` data — a category axis duplicates labels
   and spaces points evenly (wrong for ages/time).
@@ -91,8 +119,9 @@ layout: ../layouts/BaseLayout.astro
 title: "Metabolism: insulin resistance and visceral fat"
 description: "..."
 ---
-import HomaIr from '../components/calculators/HomaIr.svelte';
-import Citation from '../components/ui/Citation.astro';
+
+import HomaIr from "../components/calculators/HomaIr.svelte";
+import Citation from "../components/ui/Citation.astro";
 
 # Heading that frames the lifetime/prevention angle
 
@@ -113,21 +142,25 @@ A sentence of context after the widget.
   the footer via `BaseLayout` — just close with a one-line "educational only" note.
 
 ### 4. Link it from the landing page
+
 Edit `src/pages/index.mdx` Pillars list: change the pillar from `*(coming soon)*` to a
 real link `[Pillar N — X](/x)`. Add a nav link in `BaseLayout.astro` if it should be
 top-level.
 
 ### 5. Verify (always, before pushing)
+
 ```
 npm test            # all green
 npx astro check     # 0 errors
 npm run build       # PASS; dist/<pillar>/index.html exists
 ```
+
 Then grep the built page to confirm rendering: section headings, each widget's island
 script (e.g. `grep <Name> dist/<pillar>/index.html`), each `<Sources>` block, and the
 citation DOIs.
 
 ### 6. Deploy
+
 Commit on `main`, **one commit per calculator as you finish it** (so progress survives
 an interruption — important when a long build may be cut off). **Push only at
 functional milestones** — Cloudflare allows ~500 builds/month and every push to `main`
@@ -136,15 +169,15 @@ triggers a build. Batch related commits; push once the page is complete and veri
 
 ## Quick reference
 
-| Thing | Where / copy from |
-| --- | --- |
-| Page | `src/pages/<pillar>.mdx` (copy `heart.mdx`) |
-| Simple widget | `src/components/calculators/<Name>.svelte` (copy `BloodPressure.svelte`) |
-| Chart widget | copy `ApoBExposure.svelte` (linear axis, fine sampling, h-64) |
-| Calculator + test + citation | adding-sourced-calculator |
-| Inline citation / source list | `<Citation id>` / `<Sources sources={...} />` |
-| Landing pillar list | `src/pages/index.mdx` |
-| Disclaimer | already in `BaseLayout.astro` footer |
+| Thing                         | Where / copy from                                                        |
+| ----------------------------- | ------------------------------------------------------------------------ |
+| Page                          | `src/pages/<pillar>.mdx` (copy `heart.mdx`)                              |
+| Simple widget                 | `src/components/calculators/<Name>.svelte` (copy `BloodPressure.svelte`) |
+| Chart widget                  | copy `ApoBExposure.svelte` (linear axis, fine sampling, h-64)            |
+| Calculator + test + citation  | adding-sourced-calculator                                                |
+| Inline citation / source list | `<Citation id>` / `<Sources sources={...} />`                            |
+| Landing pillar list           | `src/pages/index.mdx`                                                    |
+| Disclaimer                    | already in `BaseLayout.astro` footer                                     |
 
 ## Common mistakes
 

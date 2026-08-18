@@ -1,12 +1,12 @@
-import { refs, type Reference } from '../references';
+import { refs, type Reference } from "../references";
 
 export const sources: Reference[] = [
   refs.easLpa2022,
   refs.accAhaDyslipidemia2026,
 ];
 
-export type LpaUnit = 'mg/dL' | 'nmol/L';
-export type LpaTierName = 'low' | 'borderline' | 'high' | 'very-high';
+export type LpaUnit = "mg/dL" | "nmol/L";
+export type LpaTierName = "low" | "borderline" | "high" | "very-high";
 
 export interface LpaTier {
   tier: LpaTierName;
@@ -21,15 +21,15 @@ const CUTPOINTS: Record<
   LpaUnit,
   { borderline: number; high: number; veryHigh: number }
 > = {
-  'mg/dL': { borderline: 30, high: 50, veryHigh: 180 },
-  'nmol/L': { borderline: 75, high: 125, veryHigh: 430 },
+  "mg/dL": { borderline: 30, high: 50, veryHigh: 180 },
+  "nmol/L": { borderline: 75, high: 125, veryHigh: 430 },
 };
 
 const LABELS: Record<LpaTierName, string> = {
-  low: 'Low risk',
-  borderline: 'Borderline / grey zone',
-  high: 'High risk',
-  'very-high': 'Very high risk',
+  low: "Low risk",
+  borderline: "Borderline / grey zone",
+  high: "High risk",
+  "very-high": "Very high risk",
 };
 
 export function lpaTier(value: number, unit: LpaUnit): LpaTier {
@@ -37,10 +37,10 @@ export function lpaTier(value: number, unit: LpaUnit): LpaTier {
     throw new Error(`lpaTier: invalid Lp(a) value: ${value}`);
   }
   const c = CUTPOINTS[unit];
-  let tier: LpaTierName = 'low';
-  if (value >= c.veryHigh) tier = 'very-high';
-  else if (value >= c.high) tier = 'high';
-  else if (value >= c.borderline) tier = 'borderline';
+  let tier: LpaTierName = "low";
+  if (value >= c.veryHigh) tier = "very-high";
+  else if (value >= c.high) tier = "high";
+  else if (value >= c.borderline) tier = "borderline";
   return { tier, label: LABELS[tier] };
 }
 
@@ -60,17 +60,17 @@ export interface LpaBand {
 export function lpaBands(unit: LpaUnit): LpaBand[] {
   const c = CUTPOINTS[unit];
   return [
-    { name: 'low', label: LABELS.low, lower: 0, upper: c.borderline },
+    { name: "low", label: LABELS.low, lower: 0, upper: c.borderline },
     {
-      name: 'borderline',
+      name: "borderline",
       label: LABELS.borderline,
       lower: c.borderline,
       upper: c.high,
     },
-    { name: 'high', label: LABELS.high, lower: c.high, upper: c.veryHigh },
+    { name: "high", label: LABELS.high, lower: c.high, upper: c.veryHigh },
     {
-      name: 'very-high',
-      label: LABELS['very-high'],
+      name: "very-high",
+      label: LABELS["very-high"],
       lower: c.veryHigh,
       upper: null,
     },

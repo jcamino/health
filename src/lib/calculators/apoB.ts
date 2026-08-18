@@ -1,4 +1,4 @@
-import { refs, type Reference } from '../references';
+import { refs, type Reference } from "../references";
 
 export const sources: Reference[] = [
   refs.snidermanApoB2019,
@@ -7,7 +7,7 @@ export const sources: Reference[] = [
   refs.accAhaDyslipidemia2026,
 ];
 
-export type ApoBTierName = 'optimal' | 'borderline' | 'high' | 'very-high';
+export type ApoBTierName = "optimal" | "borderline" | "high" | "very-high";
 
 export interface ApoBTier {
   tier: ApoBTierName;
@@ -29,10 +29,10 @@ const TIERS: ReadonlyArray<{
   label: string;
   lower: number;
 }> = [
-  { name: 'very-high', label: 'Very high', lower: 100 },
-  { name: 'high', label: 'High', lower: 80 },
-  { name: 'borderline', label: 'Borderline', lower: 65 },
-  { name: 'optimal', label: 'Optimal', lower: 0 },
+  { name: "very-high", label: "Very high", lower: 100 },
+  { name: "high", label: "High", lower: 80 },
+  { name: "borderline", label: "Borderline", lower: 65 },
+  { name: "optimal", label: "Optimal", lower: 0 },
 ];
 
 export function apoBTier(apoB_mgdl: number): ApoBTier {

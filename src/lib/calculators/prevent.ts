@@ -1,4 +1,4 @@
-import { refs, type Reference } from '../references';
+import { refs, type Reference } from "../references";
 
 export const sources: Reference[] = [
   refs.preventEquations2024,
@@ -27,7 +27,7 @@ export const sources: Reference[] = [
  */
 export interface PreventInput {
   age: number;
-  sex: 'female' | 'male';
+  sex: "female" | "male";
   /** Total cholesterol, mg/dL */
   totalCholesterol: number;
   /** HDL cholesterol, mg/dL */
@@ -219,12 +219,12 @@ function ascvdRiskPercent(
     egfr,
   } = input;
 
-  requireFinite(age, 'age', fn);
-  requireFinite(totalCholesterol, 'totalCholesterol', fn);
-  requireFinite(hdl, 'hdl', fn);
-  requireFinite(systolicBP, 'systolicBP', fn);
-  requireFinite(egfr, 'egfr', fn);
-  if (sex !== 'female' && sex !== 'male') {
+  requireFinite(age, "age", fn);
+  requireFinite(totalCholesterol, "totalCholesterol", fn);
+  requireFinite(hdl, "hdl", fn);
+  requireFinite(systolicBP, "systolicBP", fn);
+  requireFinite(egfr, "egfr", fn);
+  if (sex !== "female" && sex !== "male") {
     throw new Error(`${fn}: sex must be 'female' or 'male' (got ${sex})`);
   }
 
@@ -287,8 +287,8 @@ export function preventAscvd10yr(input: PreventInput): {
       `preventAscvd10yr: age ${input.age} is outside the validated range ${AGE_MIN}-${AGE_MAX}`,
     );
   }
-  const c = input.sex === 'female' ? FEMALE : MALE;
-  return { tenYearPercent: ascvdRiskPercent(input, c, 'preventAscvd10yr') };
+  const c = input.sex === "female" ? FEMALE : MALE;
+  return { tenYearPercent: ascvdRiskPercent(input, c, "preventAscvd10yr") };
 }
 
 /**
@@ -310,11 +310,11 @@ export function preventAscvd30yr(input: PreventInput): {
       `preventAscvd30yr: age ${input.age} is outside the validated range ${AGE_MIN}-${AGE_MAX_30YR}`,
     );
   }
-  const c = input.sex === 'female' ? FEMALE_30 : MALE_30;
-  return { thirtyYearPercent: ascvdRiskPercent(input, c, 'preventAscvd30yr') };
+  const c = input.sex === "female" ? FEMALE_30 : MALE_30;
+  return { thirtyYearPercent: ascvdRiskPercent(input, c, "preventAscvd30yr") };
 }
 
-export type PreventBandName = 'low' | 'borderline' | 'intermediate' | 'high';
+export type PreventBandName = "low" | "borderline" | "intermediate" | "high";
 
 export interface PreventBand {
   band: PreventBandName;
@@ -331,9 +331,9 @@ export function preventRiskBand(tenYearPercent: number): PreventBand {
   if (!Number.isFinite(tenYearPercent) || tenYearPercent < 0) {
     throw new Error(`preventRiskBand: invalid risk percent: ${tenYearPercent}`);
   }
-  if (tenYearPercent >= 10) return { band: 'high', label: 'High' };
+  if (tenYearPercent >= 10) return { band: "high", label: "High" };
   if (tenYearPercent >= 5)
-    return { band: 'intermediate', label: 'Intermediate' };
-  if (tenYearPercent >= 3) return { band: 'borderline', label: 'Borderline' };
-  return { band: 'low', label: 'Low' };
+    return { band: "intermediate", label: "Intermediate" };
+  if (tenYearPercent >= 3) return { band: "borderline", label: "Borderline" };
+  return { band: "low", label: "Low" };
 }
