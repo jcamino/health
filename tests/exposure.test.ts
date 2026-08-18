@@ -6,6 +6,7 @@ import {
   cumulativeSeries,
   ageAtThreshold,
   ageAtThresholdForFlatApoB,
+  yearsOverThreshold,
   CUMULATIVE_EXPOSURE_THRESHOLD_MG_YEARS,
   sources,
 } from "../src/lib/calculators/exposure";
@@ -265,5 +266,44 @@ describe("ageAtThresholdForFlatApoB", () => {
 
   it("rejects a non-positive ApoB", () => {
     expect(() => ageAtThresholdForFlatApoB(0)).toThrow();
+  });
+});
+
+describe("yearsOverThreshold", () => {
+  it("counts the years past the threshold inside the drawn span", () => {
+    expect(yearsOverThreshold(130)).toBeCloseTo(41.54, 1);
+    expect(yearsOverThreshold(110)).toBeCloseTo(34.55, 1);
+    expect(yearsOverThreshold(90)).toBeCloseTo(24.44, 1);
+  });
+
+  it("renders as the four integers the hero draws", () => {
+    const drawn = [130, 110, 90, 55].map((apoB) =>
+      Math.round(yearsOverThreshold(apoB)),
+    );
+    expect(drawn).toEqual([42, 35, 24, 0]);
+  });
+
+  it("returns zero when the level never crosses inside the span", () => {
+    expect(yearsOverThreshold(55)).toBe(0);
+  });
+
+  it("treats zero as 'not within this span' rather than a floor", () => {
+    expect(yearsOverThreshold(55, 100)).toBeGreaterThan(0);
+  });
+
+  it("falls as ApoB falls", () => {
+    expect(yearsOverThreshold(110)).toBeGreaterThan(yearsOverThreshold(90));
+  });
+
+  it("returns exactly zero when the crossing lands on the span end", () => {
+    expect(yearsOverThreshold(62.5)).toBe(0);
+  });
+
+  it("rejects a non-positive ApoB", () => {
+    expect(() => yearsOverThreshold(0)).toThrow();
+  });
+
+  it("rejects a non-positive span", () => {
+    expect(() => yearsOverThreshold(130, 0)).toThrow();
   });
 });

@@ -199,3 +199,20 @@ export function ageAtThresholdForFlatApoB(
   });
   return ageAtThreshold(trajectory, CUMULATIVE_EXPOSURE_THRESHOLD_MG_YEARS);
 }
+
+/**
+ * How many of a drawn `span` of years are spent past the cumulative-exposure
+ * threshold, for a lifelong-flat ApoB integrated from birth. Returns 0 when the
+ * level does not cross inside the span — which is a statement about the drawn
+ * span, not a claim of immunity, and is why the hero's caption says so. Rounding
+ * for display is the caller's job.
+ *
+ * `span` defaults to 80, the drawn lifetime — NOT the 120 that
+ * `ageAtThresholdForFlatApoB` defaults to. Pass the same span to both when a
+ * caller pairs a crossing age with this count, or they will disagree:
+ * `ageAtThresholdForFlatApoB(55)` is 90.9 while `yearsOverThreshold(55)` is 0.
+ */
+export function yearsOverThreshold(apoB: number, span = 80): number {
+  const age = ageAtThresholdForFlatApoB(apoB, span);
+  return age === null ? 0 : span - age;
+}
