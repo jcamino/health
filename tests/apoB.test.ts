@@ -51,7 +51,7 @@ describe("APOB_REFERENCE_INTERVAL_UPPER_MGDL", () => {
     expect(APOB_REFERENCE_INTERVAL_UPPER_MGDL).toBe(130);
   });
 
-  it("sits between the two upper limits its source reports", () => {
+  it("sits within the upper limits its source reports", () => {
     expect(APOB_REFERENCE_INTERVAL_UPPER_MGDL).toBeGreaterThanOrEqual(129);
     expect(APOB_REFERENCE_INTERVAL_UPPER_MGDL).toBeLessThanOrEqual(134);
   });

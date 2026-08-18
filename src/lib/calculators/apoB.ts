@@ -77,7 +77,9 @@ export const referenceIntervalSources: Reference[] = [
  * figure from the cited study's parametric (mean ± 2 SD) intervals of 46–134
  * mg/dL in men and 49–129 mg/dL in women, measured in 334 Korean adults
  * attending routine health checks who had otherwise normal conventional lipids.
- * That narrow base is why the page says "a standard lab's normal range" and
- * never "the normal range".
+ * The same paper's non-parametric (central 95th percentile) intervals are
+ * 50–131 mg/dL in men and 51–127 mg/dL in women, so even one study yields two
+ * ceilings. That narrow base is why the page says "a standard lab's normal
+ * range" and never "the normal range".
  */
 export const APOB_REFERENCE_INTERVAL_UPPER_MGDL = 130;
