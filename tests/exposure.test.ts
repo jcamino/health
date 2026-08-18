@@ -5,6 +5,7 @@ import {
   apoBYears,
   cumulativeSeries,
   ageAtThreshold,
+  ageAtThresholdForFlatApoB,
   CUMULATIVE_EXPOSURE_THRESHOLD_MG_YEARS,
   sources,
 } from "../src/lib/calculators/exposure";
@@ -241,5 +242,28 @@ describe("sampleTrajectory (fine-grained for charting)", () => {
     expect(apoBYears(sampleTrajectory(p))).toBeCloseTo(
       apoBYears(buildTrajectory(p)),
     );
+  });
+});
+
+describe("ageAtThresholdForFlatApoB", () => {
+  it("matches the ages the heart page already publishes", () => {
+    // The "Why 'normal' on a lab panel is already too high" fold cites ~56 and ~45.
+    expect(ageAtThresholdForFlatApoB(90)).toBeCloseTo(55.56, 1);
+    expect(ageAtThresholdForFlatApoB(110)).toBeCloseTo(45.45, 1);
+  });
+
+  it("pushes the crossing later as ApoB falls", () => {
+    expect(ageAtThresholdForFlatApoB(65)).toBeCloseTo(76.92, 1);
+    expect(ageAtThresholdForFlatApoB(65)!).toBeGreaterThan(
+      ageAtThresholdForFlatApoB(90)!,
+    );
+  });
+
+  it("returns null when the threshold is never reached in a lifetime", () => {
+    expect(ageAtThresholdForFlatApoB(20)).toBeNull();
+  });
+
+  it("rejects a non-positive ApoB", () => {
+    expect(() => ageAtThresholdForFlatApoB(0)).toThrow();
   });
 });
