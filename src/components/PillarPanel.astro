@@ -51,7 +51,8 @@ const pillars: {
 ];
 
 const stampClass: Record<Status, string> = {
-  open: "stamp text-blood",
+  open: "stamp", // colour comes from .pillar-open .stamp
+
   draft: "stamp text-ink-muted",
   planned: "stamp border-dashed text-ink-faint",
 };
@@ -71,28 +72,47 @@ const stampText: Record<Status, string> = {
   </div>
   {
     pillars.map((p) => {
+      // The open row is inked with the slip palette (see .pillar-open). Its
+      // colours have to come from that rule alone: Tailwind's utilities layer
+      // sits after the components layer, so a `text-blood` here would win
+      // regardless of specificity.
+      const open = p.status === "open";
       const inner = (
         <>
           <span
-            class={`pt-0.5 font-mono text-xs font-medium ${p.href ? "text-blood" : "text-ink-faint"}`}
+            class:list={[
+              "pillar-n pt-0.5 font-mono text-xs font-medium",
+              !open && (p.href ? "text-blood" : "text-ink-faint"),
+            ]}
           >
             {p.n}
           </span>
           <span class="min-w-0">
             <span
-              class={`block text-base font-semibold ${p.href ? "text-ink" : "text-ink-muted"}`}
+              class:list={[
+                "pillar-name block text-base font-semibold",
+                !open && (p.href ? "text-ink" : "text-ink-muted"),
+              ]}
             >
               {p.name}
               {p.href && (
                 <span
                   aria-hidden="true"
-                  class="ml-1 text-blood opacity-0 transition-opacity group-hover:opacity-100"
+                  class:list={[
+                    "ml-1 opacity-0 transition-opacity group-hover:opacity-100",
+                    !open && "text-blood",
+                  ]}
                 >
                   →
                 </span>
               )}
             </span>
-            <span class="mt-1 block font-mono text-[11px] leading-relaxed text-ink-muted">
+            <span
+              class:list={[
+                "pillar-markers mt-1 block font-mono text-[11px] leading-relaxed",
+                !open && "text-ink-muted",
+              ]}
+            >
               {p.markers}
             </span>
           </span>
@@ -104,7 +124,11 @@ const stampText: Record<Status, string> = {
       return p.href ? (
         <a
           href={p.href}
-          class={`group ${rowClass} transition-colors hover:bg-blood-wash`}
+          class:list={[
+            "group",
+            rowClass,
+            open ? "pillar-open" : "transition-colors hover:bg-blood-wash",
+          ]}
         >
           {inner}
         </a>
