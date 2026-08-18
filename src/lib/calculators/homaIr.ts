@@ -1,8 +1,11 @@
-import { refs, type Reference } from '../references';
+import { refs, type Reference } from "../references";
 
-export const sources: Reference[] = [refs.matthewsHoma1985, refs.gayosoHomaIr2013];
+export const sources: Reference[] = [
+  refs.matthewsHoma1985,
+  refs.gayosoHomaIr2013,
+];
 
-export type HomaIrCategory = 'normal' | 'insulin-resistant';
+export type HomaIrCategory = "normal" | "insulin-resistant";
 
 export interface HomaIrResult {
   /** HOMA-IR index value (dimensionless). */
@@ -44,7 +47,7 @@ export function homaIr(glucoseMgDl: number, insulinUuMl: number): HomaIrResult {
   const insulinResistant = value >= IR_CUTPOINT;
   return {
     value,
-    category: insulinResistant ? 'insulin-resistant' : 'normal',
+    category: insulinResistant ? "insulin-resistant" : "normal",
     insulinResistant,
     cutPoint: IR_CUTPOINT,
   };

@@ -4,6 +4,7 @@ Static Astro site (educational longevity tools), deployed on **Cloudflare Worker
 (static assets) via the `@astrojs/cloudflare` adapter.
 
 ## Develop
+
 ```bash
 nvm use            # Node 24 (see .nvmrc)
 npm install
@@ -14,6 +15,7 @@ npm run preview    # build, then serve via `wrangler dev` (Workers runtime)
 ```
 
 ## Deploy — Cloudflare Workers
+
 The repo is connected to Cloudflare (Workers Builds via the GitHub integration), so
 **every push to `main` triggers a build and deploy** automatically. Worker/asset
 config lives in `wrangler.jsonc` (assets served from `dist/`).

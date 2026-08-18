@@ -68,20 +68,20 @@ and — **for a published equation — reproduce a published worked example with
 tolerance** (this is the correctness gate).
 
 ```ts
-import { describe, it, expect } from 'vitest';
-import { bpCategory, sources } from '../src/lib/calculators/bloodPressure';
+import { describe, it, expect } from "vitest";
+import { bpCategory, sources } from "../src/lib/calculators/bloodPressure";
 
-describe('bpCategory (ACC/AHA 2017)', () => {
-  it('classifies; higher of systolic/diastolic wins', () => {
-    expect(bpCategory(118, 76).category).toBe('normal');
-    expect(bpCategory(125, 82).category).toBe('stage-1'); // DBP drives it
-    expect(bpCategory(150, 95).category).toBe('stage-2');
+describe("bpCategory (ACC/AHA 2017)", () => {
+  it("classifies; higher of systolic/diastolic wins", () => {
+    expect(bpCategory(118, 76).category).toBe("normal");
+    expect(bpCategory(125, 82).category).toBe("stage-1"); // DBP drives it
+    expect(bpCategory(150, 95).category).toBe("stage-2");
   });
-  it('respects boundaries', () => {
-    expect(bpCategory(129, 79).category).toBe('elevated');
-    expect(bpCategory(130, 79).category).toBe('stage-1');
+  it("respects boundaries", () => {
+    expect(bpCategory(129, 79).category).toBe("elevated");
+    expect(bpCategory(130, 79).category).toBe("stage-1");
   });
-  it('validates input and ships sources', () => {
+  it("validates input and ships sources", () => {
     expect(() => bpCategory(0, 80)).toThrow();
     expect(sources.length).toBeGreaterThan(0);
   });
@@ -96,42 +96,58 @@ no side effects.
 
 Pick the matching pattern — copy from these real files:
 
-| Pattern | Example | Shape |
-| --- | --- | --- |
-| Tier classifier | `apoB.ts` | descending `TIERS` array + `.find(v >= lower)` |
-| Category ladder ("higher wins") | `bloodPressure.ts` | ordered `if / else if`, validated thresholds |
-| Per-unit cut-points | `lpa.ts` | `Record<Unit, {...}>` — **never** interconvert units |
-| Validated regression | `prevent.ts` | group coefficient constants + logistic; worked-example test |
-| Sourced linear conversion | `apoBFromLipids.ts` | slope/intercept fit from a guideline's corresponding-goals table |
-| Model + chart sampling | `exposure.ts` | breakpoints for exact area + `sampleTrajectory` for the curve |
+| Pattern                         | Example             | Shape                                                            |
+| ------------------------------- | ------------------- | ---------------------------------------------------------------- |
+| Tier classifier                 | `apoB.ts`           | descending `TIERS` array + `.find(v >= lower)`                   |
+| Category ladder ("higher wins") | `bloodPressure.ts`  | ordered `if / else if`, validated thresholds                     |
+| Per-unit cut-points             | `lpa.ts`            | `Record<Unit, {...}>` — **never** interconvert units             |
+| Validated regression            | `prevent.ts`        | group coefficient constants + logistic; worked-example test      |
+| Sourced linear conversion       | `apoBFromLipids.ts` | slope/intercept fit from a guideline's corresponding-goals table |
+| Model + chart sampling          | `exposure.ts`       | breakpoints for exact area + `sampleTrajectory` for the curve    |
 
 Complete example (the category-ladder pattern):
 
 ```ts
-import { refs, type Reference } from '../references';
+import { refs, type Reference } from "../references";
 
 export const sources: Reference[] = [refs.accAhaBp2017];
 
-export type BpCategoryName = 'normal' | 'elevated' | 'stage-1' | 'stage-2' | 'crisis';
-export interface BpCategory { category: BpCategoryName; label: string; }
+export type BpCategoryName =
+  | "normal"
+  | "elevated"
+  | "stage-1"
+  | "stage-2"
+  | "crisis";
+export interface BpCategory {
+  category: BpCategoryName;
+  label: string;
+}
 
 const LABELS: Record<BpCategoryName, string> = {
-  normal: 'Normal', elevated: 'Elevated',
-  'stage-1': 'Stage 1 hypertension', 'stage-2': 'Stage 2 hypertension',
-  crisis: 'Hypertensive crisis',
+  normal: "Normal",
+  elevated: "Elevated",
+  "stage-1": "Stage 1 hypertension",
+  "stage-2": "Stage 2 hypertension",
+  crisis: "Hypertensive crisis",
 };
 
 /** ACC/AHA 2017. When systolic/diastolic disagree, the HIGHER category applies. */
 export function bpCategory(systolic: number, diastolic: number): BpCategory {
-  if (!Number.isFinite(systolic) || !Number.isFinite(diastolic) || systolic <= 0 || diastolic <= 0) {
+  if (
+    !Number.isFinite(systolic) ||
+    !Number.isFinite(diastolic) ||
+    systolic <= 0 ||
+    diastolic <= 0
+  ) {
     throw new Error(`bpCategory: invalid reading ${systolic}/${diastolic}`);
   }
   let category: BpCategoryName;
-  if (systolic > 180 || diastolic > 120) category = 'crisis';
-  else if (systolic >= 140 || diastolic >= 90) category = 'stage-2';
-  else if (systolic >= 130 || diastolic >= 80) category = 'stage-1';
-  else if (systolic >= 120) category = 'elevated'; // diastolic < 80 guaranteed here
-  else category = 'normal';
+  if (systolic > 180 || diastolic > 120) category = "crisis";
+  else if (systolic >= 140 || diastolic >= 90) category = "stage-2";
+  else if (systolic >= 130 || diastolic >= 80) category = "stage-1";
+  else if (systolic >= 120)
+    category = "elevated"; // diastolic < 80 guaranteed here
+  else category = "normal";
   return { category, label: LABELS[category] };
 }
 ```
@@ -148,8 +164,8 @@ npx astro check                       # 0 errors
 
 - **Primary source first.** Find the paper/guideline, add it, WebFetch the DOI to
   confirm it resolves to that exact work.
-- **Bot-blocked (403/CAPTCHA)?** Verify the *citation* via NCBI E-utilities (Step 1).
-  For the *numbers* (coefficients/thresholds) when the source PDF is unreadable, use a
+- **Bot-blocked (403/CAPTCHA)?** Verify the _citation_ via NCBI E-utilities (Step 1).
+  For the _numbers_ (coefficients/thresholds) when the source PDF is unreadable, use a
   peer-reviewed transcription (a CRAN package, a guideline's "corresponding goals"
   table, StatPearls) — still cite the primary source, and report what you used + the
   anchor numbers you derived/checked.
@@ -163,7 +179,7 @@ npx astro check                       # 0 errors
   comment AND the UI (e.g. the cumulative-exposure threshold is LDL-C-derived, not
   ApoB-specific). Never dress an illustration up as a clinical score.
 - **Population/assay-dependent cut-points** (HOMA-IR, TG/HDL ratio, waist
-  circumference, etc.): cite the *specific* population/assay the cut-point came from,
+  circumference, etc.): cite the _specific_ population/assay the cut-point came from,
   label it approximate in code + UI, expose a population option where one exists
   (e.g. waist: US AHA/NHLBI vs IDF-Europid), and frame it as a trend, not a hard
   diagnosis.

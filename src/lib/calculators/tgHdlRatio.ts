@@ -1,4 +1,4 @@
-import { refs, type Reference } from '../references';
+import { refs, type Reference } from "../references";
 
 export const sources: Reference[] = [refs.mclaughlinTgHdl2003];
 
@@ -22,7 +22,10 @@ const TG_HDL_CUTPOINT = 3.0;
  * Triglyceride/HDL-C ratio in conventional (mg/dL) units. Both inputs must be
  * in mg/dL; the cut-point above is unit-specific (mg/dL), so do NOT mix units.
  */
-export function tgHdlRatio(triglyceridesMgDl: number, hdlMgDl: number): TgHdlResult {
+export function tgHdlRatio(
+  triglyceridesMgDl: number,
+  hdlMgDl: number,
+): TgHdlResult {
   if (
     !Number.isFinite(triglyceridesMgDl) ||
     !Number.isFinite(hdlMgDl) ||

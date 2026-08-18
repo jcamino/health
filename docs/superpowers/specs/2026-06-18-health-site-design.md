@@ -12,7 +12,7 @@ interactive client-side calculators. Eventual routes:
 
 - `/` — landing page: longevity suggestions, links into the pillars.
 - `/heart` — cardiovascular: ApoB, cumulative exposure ("ApoB-years"), Lp(a), blood pressure, statins.
-- `/metabolism` — metabolic health *(deferred post-MVP — see §13)*.
+- `/metabolism` — metabolic health _(deferred post-MVP — see §13)_.
 
 **MVP scope (v1):** the **heart page is the focus**. v1 ships the site shell
 (layout, nav, footer, disclaimer), a **minimal landing page**, and the **full
@@ -41,17 +41,17 @@ Guiding principles:
 
 ## 3. Tech stack
 
-| Concern        | Choice                                              |
-| -------------- | --------------------------------------------------- |
-| Meta-framework | **Astro** (static output, file-based routing)       |
-| Content        | **MDX** (`@astrojs/mdx`)                             |
-| Styling        | **Tailwind CSS** + **@tailwindcss/typography**      |
-| Interactivity  | **Svelte islands** (`@astrojs/svelte`)              |
-| Charts         | **Chart.js** (wrapped in Svelte components)         |
-| Language       | **TypeScript** throughout                           |
-| Tests          | **Vitest** (unit tests on the pure formula modules) |
-| Formatting     | **Prettier** (+ Astro/Svelte plugins)               |
-| Runtime        | **Node 24** (pinned via `.nvmrc`)                   |
+| Concern        | Choice                                                                                      |
+| -------------- | ------------------------------------------------------------------------------------------- |
+| Meta-framework | **Astro** (static output, file-based routing)                                               |
+| Content        | **MDX** (`@astrojs/mdx`)                                                                    |
+| Styling        | **Tailwind CSS** + **@tailwindcss/typography**                                              |
+| Interactivity  | **Svelte islands** (`@astrojs/svelte`)                                                      |
+| Charts         | **Chart.js** (wrapped in Svelte components)                                                 |
+| Language       | **TypeScript** throughout                                                                   |
+| Tests          | **Vitest** (unit tests on the pure formula modules)                                         |
+| Formatting     | **Prettier** (+ Astro/Svelte plugins)                                                       |
+| Runtime        | **Node 24** (pinned via `.nvmrc`)                                                           |
 | Hosting        | **Cloudflare Workers** (static assets) via `@astrojs/cloudflare` adapter; pages prerendered |
 | Theming        | Manual light/dark toggle (class `dark` variant + `localStorage`); defaults to OS preference |
 
@@ -119,23 +119,35 @@ export interface Reference {
   title: string;
   authors?: string;
   year?: number;
-  url: string;   // real, verified link — required
+  url: string; // real, verified link — required
   doi?: string;
 }
 
 export const refs = {
-  ference2017apoB: { /* cumulative ApoB/LDL exposure — Ference et al. */ },
-  sniderman2019:   { /* ApoB as the primary atherogenic measure */ },
-  lpaConsensus:    { /* Lp(a) high-risk cut-points + causality */ },
-  ascvdPce2013:    { /* ACC/AHA Pooled Cohort Equations */ },
+  ference2017apoB: {
+    /* cumulative ApoB/LDL exposure — Ference et al. */
+  },
+  sniderman2019: {
+    /* ApoB as the primary atherogenic measure */
+  },
+  lpaConsensus: {
+    /* Lp(a) high-risk cut-points + causality */
+  },
+  ascvdPce2013: {
+    /* ACC/AHA Pooled Cohort Equations */
+  },
   // ...
 } satisfies Record<string, Reference>;
 
 // apoB.ts — math + the sources it rests on
 import { refs } from "../references";
 export const sources = [refs.ference2017apoB, refs.sniderman2019];
-export function apoBTier(apoB_mgdl: number): ApoBTier { /* ... */ }
-export function apoBYears(trajectory: ApoBPoint[]): number { /* AUC */ }
+export function apoBTier(apoB_mgdl: number): ApoBTier {
+  /* ... */
+}
+export function apoBYears(trajectory: ApoBPoint[]): number {
+  /* AUC */
+}
 ```
 
 ## 6. Medical accuracy, framing & disclaimer
@@ -143,7 +155,7 @@ export function apoBYears(trajectory: ApoBPoint[]): number { /* AUC */ }
 - **Validated scores use published equations**, verified against worked examples
   from their source papers (see §8 test vectors).
 - **The ApoB-years cumulative-exposure model is the hero of the heart page**, framed
-  as the lifetime view: atherosclerosis tracks the *area under the ApoB curve*
+  as the lifetime view: atherosclerosis tracks the _area under the ApoB curve_
   (magnitude × duration), per the cumulative-exposure literature. Exposure is
   integrated **from birth (age 0)**, with ApoB **rising with age at a user-adjustable
   per-decade rate** (anchored to the user's current ApoB and clamped to a floor); an
@@ -201,7 +213,7 @@ export function apoBYears(trajectory: ApoBPoint[]): number { /* AUC */ }
    Informational, sourced.
 
 **Landing (`/`)** — minimal for MVP: a short intro, a clear link into `/heart`, and a
-**Pillar 0 — Foundations (nutrition, exercise, sleep)** entry marked *(coming soon)*.
+**Pillar 0 — Foundations (nutrition, exercise, sleep)** entry marked _(coming soon)_.
 Fuller longevity suggestions come later.
 
 **Deferred (post-MVP):** the `/metabolism` page (HOMA-IR, TG/HDL ratio,
@@ -276,7 +288,7 @@ before the corresponding calculator ships (per §5). Candidate sources by topic:
   pinned in `references.ts` as `preventEquations2024` (and any lifetime-risk
   companion used).
 - **Statin intensity/indications**: guideline statin-intensity table.
-- **Metabolic markers** *(post-MVP)*: HOMA-IR original description; TG/HDL ratio
+- **Metabolic markers** _(post-MVP)_: HOMA-IR original description; TG/HDL ratio
   evidence; metabolic-syndrome diagnostic criteria.
 
 ## 13. Open questions / future
@@ -285,6 +297,6 @@ before the corresponding calculator ships (per §5). Candidate sources by topic:
   metabolic-syndrome criteria — then expand (CGM concepts, fasting insulin, etc.).
 - Add a lifetime ASCVD estimate alongside the 10-year score?
 - Fuller longevity-suggestions content on the landing page.
-- **Pillar 0 — Foundations page (nutrition, exercise, sleep):** shown as *(coming
-  soon)* on the landing now; build the page later.
+- **Pillar 0 — Foundations page (nutrition, exercise, sleep):** shown as _(coming
+  soon)_ on the landing now; build the page later.
 - Possible future pillars (e.g., fitness/VO₂max) as additional routes.

@@ -1,11 +1,11 @@
-import { refs, type Reference } from '../references';
+import { refs, type Reference } from "../references";
 
 export const sources: Reference[] = [refs.albertiMetSyndrome2009];
 
-export type Sex = 'male' | 'female';
+export type Sex = "male" | "female";
 
 /** Which population's waist-circumference cut-points to apply. */
-export type WaistPopulation = 'aha-nhlbi-us' | 'idf-europid';
+export type WaistPopulation = "aha-nhlbi-us" | "idf-europid";
 
 /** The five harmonized criteria, each already evaluated to met/not-met. */
 export interface MetSCriteria {
@@ -36,8 +36,8 @@ export function metabolicSyndrome(criteria: MetSCriteria): MetSResult {
     criteria.glucose,
   ];
   for (const f of flags) {
-    if (typeof f !== 'boolean') {
-      throw new Error('metabolicSyndrome: each criterion must be a boolean');
+    if (typeof f !== "boolean") {
+      throw new Error("metabolicSyndrome: each criterion must be a boolean");
     }
   }
   const count = flags.filter(Boolean).length;
@@ -50,10 +50,13 @@ export function metabolicSyndrome(criteria: MetSCriteria): MetSResult {
  * values (≥102 cm men, ≥88 cm women) and also offer the IDF Europid values
  * (≥94 cm men, ≥80 cm women). Population-specific, so label as such in the UI.
  */
-export function waistThresholdCm(sex: Sex, population: WaistPopulation = 'aha-nhlbi-us'): number {
+export function waistThresholdCm(
+  sex: Sex,
+  population: WaistPopulation = "aha-nhlbi-us",
+): number {
   const TABLE: Record<WaistPopulation, Record<Sex, number>> = {
-    'aha-nhlbi-us': { male: 102, female: 88 },
-    'idf-europid': { male: 94, female: 80 },
+    "aha-nhlbi-us": { male: 102, female: 88 },
+    "idf-europid": { male: 94, female: 80 },
   };
   return TABLE[population][sex];
 }
@@ -84,13 +87,22 @@ export interface MetSMeasurements {
  * as meeting that component.
  */
 export function evaluateCriteria(m: MetSMeasurements): MetSCriteria {
-  const nums = [m.waistCm, m.triglyceridesMgDl, m.hdlMgDl, m.systolic, m.diastolic, m.glucoseMgDl];
+  const nums = [
+    m.waistCm,
+    m.triglyceridesMgDl,
+    m.hdlMgDl,
+    m.systolic,
+    m.diastolic,
+    m.glucoseMgDl,
+  ];
   for (const n of nums) {
     if (!Number.isFinite(n) || n <= 0) {
-      throw new Error('evaluateCriteria: all measurements must be finite, positive numbers');
+      throw new Error(
+        "evaluateCriteria: all measurements must be finite, positive numbers",
+      );
     }
   }
-  const hdlCut = m.sex === 'male' ? 40 : 50;
+  const hdlCut = m.sex === "male" ? 40 : 50;
   return {
     waist: m.waistCm >= waistThresholdCm(m.sex, m.waistPopulation),
     triglycerides: m.lipidTreated || m.triglyceridesMgDl >= 150,

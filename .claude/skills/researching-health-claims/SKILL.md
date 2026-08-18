@@ -10,7 +10,7 @@ description: Use when researching, sourcing, or fact-checking the medical claims
 Every factual medical claim in a page's prose must trace to a **primary source that
 actually supports it**, be **graded by evidence strength**, and be **phrased to match
 that strength**. This is the prose analogue of adding-sourced-calculator (which governs
-numbers). There, every *number* is sourced; here, **every *claim* is sourced, verified,
+numbers). There, every _number_ is sourced; here, **every _claim_ is sourced, verified,
 and honestly framed.**
 
 Cover **current guideline / standard-of-care medicine first, then evidence-backed
@@ -79,8 +79,8 @@ State the guideline position, then the proactive refinement, each labeled:
 
 ## Landmines (check on every page)
 
-- **Retracted or withdrawn papers**: verify before citing (a 2023 *Lancet Public
-  Health* hearing-aid and dementia paper was retracted).
+- **Retracted or withdrawn papers**: verify before citing (a 2023 _Lancet Public
+  Health_ hearing-aid and dementia paper was retracted).
 - **Superseded effect sizes**: use the current meta-analysis (the hearing-loss to
   dementia relative risk was revised from 1.9 to 1.4 by the 2024 Commission).
 - **Press-release inflation**: cite the paper's numbers, not the PR headline.
