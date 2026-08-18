@@ -356,9 +356,13 @@ for (const [apoB, quoted] of QUOTED_AGES) {
   }
 }
 
+// Branch on `age`, never on the rounded count. A level that crosses at 79.9
+// rounds to zero years over, and captioning that "never crosses" would
+// contradict the tick drawn at 80. None of the four shipped levels hits that
+// window, but the wording should not depend on that staying true.
 const summary = bars
   .map((b) =>
-    b.years === 0
+    b.age === null
       ? `ApoB ${b.apoB}, ${b.note}, never crosses within ${SPAN} years`
       : `ApoB ${b.apoB}, ${b.note}, spends about ${b.years} years over the line`,
   )
@@ -384,7 +388,7 @@ const summary = bars
             <span>{b.note}</span>
           </p>
           <div class="gap-bar">
-            {b.startPct !== null && b.years > 0 && (
+            {b.startPct !== null && (
               <span
                 class="gap-fill"
                 style={`left:${b.startPct}%;animation-delay:${i * 140}ms`}
