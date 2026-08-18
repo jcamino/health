@@ -64,3 +64,20 @@ export const apoBBands: ApoBBand[] = [...TIERS]
     lower: t.lower,
     upper: i < arr.length - 1 ? arr[i + 1].lower : null,
   }));
+
+/** Source for the laboratory reference interval below — not for the tier boundaries. */
+export const referenceIntervalSources: Reference[] = [
+  refs.choiApoBReferenceInterval2023,
+];
+
+/**
+ * Upper limit of a typical laboratory ApoB reference interval (mg/dL) — roughly
+ * the point above which a standard panel starts flagging the result. Reference
+ * intervals are laboratory- and assay-dependent; this is a representative round
+ * figure from the cited study's parametric (mean ± 2 SD) intervals of 46–134
+ * mg/dL in men and 49–129 mg/dL in women, measured in 334 Korean adults
+ * attending routine health checks who had otherwise normal conventional lipids.
+ * That narrow base is why the page says "a standard lab's normal range" and
+ * never "the normal range".
+ */
+export const APOB_REFERENCE_INTERVAL_UPPER_MGDL = 130;

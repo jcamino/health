@@ -549,6 +549,16 @@ export const refs = {
     url: "https://doi.org/10.1056/NEJMoa2601283",
     doi: "10.1056/NEJMoa2601283",
   },
+  choiApoBReferenceInterval2023: {
+    id: "choiApoBReferenceInterval2023",
+    title:
+      "Exploring Utilization and Establishing Reference Intervals for the Apolipoprotein B Test in the Korean Population",
+    authors: "Choi R, et al.",
+    year: 2023,
+    source: "Diagnostics (Basel)",
+    url: "https://doi.org/10.3390/diagnostics13203194",
+    doi: "10.3390/diagnostics13203194",
+  },
 } satisfies Record<string, Reference>;
 
 export type ReferenceId = keyof typeof refs;
