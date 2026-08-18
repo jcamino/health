@@ -635,6 +635,42 @@ git add src/components/ExposureGap.astro src/styles/global.css
 git commit -m "feat: rebuild the hero as years over the line"
 ```
 
+### Amendments applied after review
+
+The code blocks above are the version first committed. Review of the rendered page
+found six things and all were folded into the same commit, so **the shipped files
+differ from the listing above**. Read the files, not this section, as the source of
+truth; this records why they diverge.
+
+1. **The gutter header rendered as four ragged lines.** `.gap-head` at `width: 3.5rem`
+   (56px) could not fit "YEARS OVER" (~72px at 10px mono with `0.12em` tracking), so it
+   stacked YEARS / OVER / THE / LINE and the `<br />` in the markup was inert. Fixed by
+   introducing `--gap-gutter: 3.5rem` and `--gap-colgap: 1rem` on `.gap`, setting the
+   header to `calc(var(--gap-gutter) + var(--gap-colgap))` and its tracking to `0.1em`.
+   That width also makes the header's left edge meet the bars' right edge exactly.
+2. **`.gap-row` and `.gap-axis` now consume those same two custom properties**, so the
+   gutter width and column gap have one definition instead of five copies held in sync
+   by a comment.
+3. **Contrast.** `.gap-head` and `.gap-axis` moved from `--color-ink-faint` (2.72:1
+   light, 3.99:1 dark at 10px — both under WCAG AA) to `--color-ink-muted` (4.84:1 /
+   6.65:1). These labels say what the gutter and the axis mean, so they are not
+   decoration.
+4. **The empty bar was nearly invisible in dark mode.** `.gap-bar`'s border moved from
+   `--color-rule` (1.24:1 / 1.45:1) to `--color-rule-strong`. For the three filled bars
+   the outline is cosmetic, but for ApoB 55 the outline _is_ the content.
+5. **The build guard was pinned to a literal.** `QUOTED_AGES` now begins
+   `[APOB_REFERENCE_INTERVAL_UPPER_MGDL, 38]` rather than `[130, 38]`, so if that
+   sourced constant is ever revised the guard validates the level actually drawn. This
+   also means a change to the constant and the matching prose fix must land together.
+6. **The aria-label omitted the crossing ages** that the ticks draw and the prose
+   quotes, and "out of 80" was ambiguous read aloud. The summary now reads
+   "crosses at about age N and spends about M years over the line", and the label says
+   "out of a drawn lifetime of 80 years".
+
+Knowingly not fixed: on mobile the count reads as an annotation on the key rather than
+the headline, and row heights vary with how many lines each key wraps to. Both need a
+layout rethink rather than a tweak, and neither affects correctness.
+
 ---
 
 ## Task 4: Give the page the prose to defend the new figure
