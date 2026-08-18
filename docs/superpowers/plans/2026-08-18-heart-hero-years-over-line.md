@@ -91,28 +91,33 @@ describe("APOB_REFERENCE_INTERVAL_UPPER_MGDL", () => {
     expect(APOB_REFERENCE_INTERVAL_UPPER_MGDL).toBe(130);
   });
 
-  it("sits above every tier boundary this module defines", () => {
+  it("stays inside the reference intervals its source reports", () => {
+    expect(APOB_REFERENCE_INTERVAL_UPPER_MGDL).toBeGreaterThanOrEqual(129);
+    expect(APOB_REFERENCE_INTERVAL_UPPER_MGDL).toBeLessThanOrEqual(134);
+  });
+
+  it("lands in this site's very-high tier, which is the hero's whole point", () => {
     expect(apoBTier(APOB_REFERENCE_INTERVAL_UPPER_MGDL).tier).toBe("very-high");
-    for (const band of apoBBands) {
-      expect(APOB_REFERENCE_INTERVAL_UPPER_MGDL).toBeGreaterThanOrEqual(
-        band.lower,
-      );
-    }
   });
 
   it("carries the reference-interval citation", () => {
-    expect(sources.map((s) => s.id)).toContain("choiApoBReferenceInterval2023");
+    expect(referenceIntervalSources.map((s) => s.id)).toContain(
+      "choiApoBReferenceInterval2023",
+    );
   });
 });
 ```
 
-Update the import at the top of the same file to add the new name:
+The bounds test is the one that matters: it ties the round 130 to the intervals the cited study actually reports, so someone later "rounding" to 120 or 140 breaks the build rather than quietly drifting from the source.
+
+Update the import at the top of the same file to add the new names:
 
 ```ts
 import {
   apoBTier,
   apoBBands,
   sources,
+  referenceIntervalSources,
   APOB_REFERENCE_INTERVAL_UPPER_MGDL,
 } from "../src/lib/calculators/apoB";
 ```
@@ -120,7 +125,7 @@ import {
 - [ ] **Step 2: Run the tests to verify they fail**
 
 Run: `cd ~/health && npx vitest run tests/apoB.test.ts`
-Expected: FAIL — the constant is undefined, so the first assertion fails and the citation is missing.
+Expected: FAIL — the constant and `referenceIntervalSources` are both undefined, so the value, bounds and tier assertions fail and the citation lookup throws.
 
 - [ ] **Step 3: Add the verified citation**
 
@@ -141,31 +146,30 @@ In `src/lib/references.ts`, add this entry to the `refs` object, immediately aft
 
 - [ ] **Step 4: Export the constant**
 
-In `src/lib/calculators/apoB.ts`, add the reference to the existing `sources` array:
+**Leave the existing `sources` array alone.** `ApoBTier.svelte` imports it and renders it through `<Sources {sources} />`, and that widget ships on both `heart.mdx` and `brain.mdx`. Adding this citation there would list a lab reference-interval study as a source for tier boundaries it has nothing to do with, on two pages. Give it its own export instead.
+
+Append to the end of `src/lib/calculators/apoB.ts`:
 
 ```ts
-export const sources: Reference[] = [
-  refs.snidermanApoB2019,
-  refs.easLdlCausality2017,
-  refs.fourierVeryLowLdl2017,
-  refs.accAhaDyslipidemia2026,
+/** Source for the laboratory reference interval below — not for the tier boundaries. */
+export const referenceIntervalSources: Reference[] = [
   refs.choiApoBReferenceInterval2023,
 ];
-```
 
-Then append to the end of the same file:
-
-```ts
 /**
  * Upper limit of a typical laboratory ApoB reference interval (mg/dL) — roughly
  * the point above which a standard panel starts flagging the result. Reference
  * intervals are laboratory- and assay-dependent; this is a representative round
- * figure from the cited study's 46–134 mg/dL (men) and 49–129 mg/dL (women)
- * intervals, which is why the page says "a standard lab's normal range" and
+ * figure from the cited study's parametric (mean ± 2 SD) intervals of 46–134
+ * mg/dL in men and 49–129 mg/dL in women, measured in 334 Korean adults
+ * attending routine health checks who had otherwise normal conventional lipids.
+ * That narrow base is why the page says "a standard lab's normal range" and
  * never "the normal range".
  */
 export const APOB_REFERENCE_INTERVAL_UPPER_MGDL = 130;
 ```
+
+Naming the population is required by the project's `adding-sourced-calculator` skill, and matches how `homaIr.ts` names the Spanish EPIRCE cohort and `tgHdlRatio.ts` names insulin-resistant overweight adults.
 
 - [ ] **Step 5: Run the tests to verify they pass**
 
@@ -748,7 +752,7 @@ If `git status` is clean, there is nothing to commit and the work is done.
 
 ## Definition of done
 
-- [ ] `APOB_REFERENCE_INTERVAL_UPPER_MGDL` exists, is unit-tested, and carries the Choi 2023 citation in `apoB.ts`'s `sources`.
+- [ ] `APOB_REFERENCE_INTERVAL_UPPER_MGDL` exists, is unit-tested, and carries the Choi 2023 citation via its own `referenceIntervalSources` export — **not** in `apoB.ts`'s `sources`, which feeds the tier gauge's rendered citations on two pages.
 - [ ] `yearsOverThreshold` exists, is unit-tested, and is the only source of the counts on screen.
 - [ ] Exactly one new entry in `src/lib/references.ts`, with the DOI given in Task 1 and no other.
 - [ ] The hero ships zero JavaScript (no `client:*`, no `<script>` in the built figure).
