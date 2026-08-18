@@ -1,0 +1,79 @@
+---
+// The heart page's thesis, drawn: two ApoB levels a standard panel waves
+// through, and the decade between the ages at which each one accumulates
+// enough exposure for events to typically begin. Every age here is computed
+// from the sourced, unit-tested exposure model — nothing is hand-entered, so
+// the graphic cannot drift from the prose that cites the same numbers.
+import { ageAtThresholdForFlatApoB } from "../lib/calculators/exposure";
+
+const AXIS_END = 80; // years, the drawn span
+const TICKS = [20, 40, 60, 80];
+
+interface Track {
+  apoB: number;
+  note: string;
+  age: number | null;
+}
+
+const tracks: Track[] = [
+  { apoB: 110, note: "a typical adult level" },
+  { apoB: 90, note: "the guideline's most lenient goal" },
+].map((t) => ({ ...t, age: ageAtThresholdForFlatApoB(t.apoB) }));
+
+// Drop any level that never crosses inside the drawn span rather than clamping
+// it, which would put the marker somewhere the model never said.
+const drawn = tracks.filter(
+  (t): t is Track & { age: number } => t.age !== null && t.age <= AXIS_END,
+);
+
+if (drawn.length !== tracks.length)
+  throw new Error(
+    "ExposureGap: a track no longer crosses inside the drawn span; re-check the prose that cites these ages",
+  );
+
+const pct = (age: number) => (age / AXIS_END) * 100;
+const summary = drawn
+  .map(
+    (t) =>
+      `ApoB ${t.apoB} (${t.note}) crosses at about age ${Math.round(t.age)}`,
+  )
+  .join("; ");
+---
+
+<figure class="gap not-prose">
+  {
+    /* role=img on the plot only: the caption below must stay readable text,
+      which it would not be if the whole figure collapsed to a single label. */
+  }
+  <div
+    class="gap-plot"
+    role="img"
+    aria-label={`Cumulative exposure by age. ${summary}.`}
+  >
+    {
+      drawn.map((t) => (
+        <div class="gap-track">
+          <p class="gap-key">
+            <b>ApoB {t.apoB}</b>
+            <span>{t.note}</span>
+          </p>
+          <div class="gap-line">
+            <span class="gap-dot" style={`left:${pct(t.age)}%`} />
+            <span class="gap-age" style={`left:${pct(t.age)}%`}>
+              {Math.round(t.age)}
+            </span>
+          </div>
+        </div>
+      ))
+    }
+    <div class="gap-axis">
+      {TICKS.map((age) => <span style={`left:${pct(age)}%`}>{age}</span>)}
+    </div>
+  </div>
+  <figcaption class="gap-caption">
+    Age at which each level accumulates ~5,000 mg·years of exposure, an
+    illustrative marker of the plaque burden at which events typically begin.
+    Risk rises continuously — crossing it is not an appointment. The age is the
+    part you can move.
+  </figcaption>
+</figure>

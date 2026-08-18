@@ -345,6 +345,95 @@
     color: var(--color-blood);
   }
 
+  /* ---- The exposure gap ------------------------------------------------
+     The page's thesis as a picture: two lifetime tracks on a shared age axis,
+     with a marker where each crosses the exposure threshold. Deliberately
+     hairline — the slip below it is the page's one loud element, and this must
+     stay quiet in value while carrying the argument. */
+  .gap {
+    margin: 2.5rem 0;
+  }
+
+  .gap-plot {
+    padding-bottom: 1.25rem;
+  }
+
+  .gap-track + .gap-track {
+    margin-top: 1.5rem;
+  }
+
+  .gap-key {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 0.5rem;
+    margin-bottom: 0.4375rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+
+  .gap-key b {
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  /* The lifetime track. The rule is the accruing exposure; the dot is where it
+     reaches the threshold. */
+  .gap-line {
+    position: relative;
+    height: 1px;
+    background: var(--color-rule-strong);
+  }
+
+  .gap-dot {
+    position: absolute;
+    top: 50%;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--color-blood);
+    transform: translate(-50%, -50%);
+  }
+
+  .gap-age {
+    position: absolute;
+    top: 0.5rem;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-blood);
+  }
+
+  .gap-axis {
+    position: relative;
+    height: 1.25rem;
+    margin-top: 1.75rem;
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .gap-axis span {
+    position: absolute;
+    top: 0.375rem;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-ink-faint);
+  }
+
+  .gap-caption {
+    max-width: 62ch;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: var(--color-ink-muted);
+  }
+
   /* ---- The slip -------------------------------------------------------
      The three checks are the page's payload; everything else on the page is
      evidence for them. So the slip is built as the one thing you cannot
