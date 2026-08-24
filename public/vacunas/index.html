@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Vacunas para tu viaje a China</title>
+<meta name="description" content="Qué vacunas ponerse antes del viaje a China de septiembre–octubre de 2026, con las fuentes oficiales.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bitter:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --papel: #FBF7EE;
+    --carta: #FFFFFF;
+    --tinta: #29241D;
+    --tinta-suave: #554E3E;
+    --cinabrio: #93291D;
+    --cinabrio-claro: #FBEDE8;
+    --jade: #1A6349;
+    --jade-claro: #EAF3EE;
+    --piedra: #605949;
+    --piedra-claro: #F1EDE4;
+    --niebla: #E4DBC8;
+    --enlace: #12547F;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--papel);
+    color: var(--tinta);
+    font-family: "Atkinson Hyperlegible", "Trebuchet MS", system-ui, sans-serif;
+    font-size: 19px;
+    line-height: 1.65;
+  }
+  main { max-width: 42rem; margin: 0 auto; padding: 0 1.1rem 4rem; }
+  h1, h2, h3, .fecha-num {
+    font-family: "Bitter", Georgia, serif;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  a { color: var(--enlace); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
+  a:focus-visible { outline: 3px solid var(--enlace); outline-offset: 3px; border-radius: 4px; }
+  p + p { margin-top: 0.8em; }
+  em.lat { font-style: italic; }
+
+  /* ---------- sello ---------- */
+  .sello {
+    display: inline-block;
+    font-family: "Bitter", Georgia, serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    padding: 0.22em 0.65em;
+    border: 3px double currentColor;
+    border-radius: 10px 14px 9px 16px / 14px 9px 15px 10px;
+    transform: rotate(-2.5deg);
+    white-space: nowrap;
+  }
+  .sello.poner   { color: var(--cinabrio); background: var(--cinabrio-claro); }
+  .sello.cubierta{ color: var(--jade);     background: var(--jade-claro); }
+  .sello.nohace  { color: var(--piedra);   background: var(--piedra-claro); }
+
+  /* ---------- cabecera ---------- */
+  header.portada { padding: 2.6rem 0 1.6rem; border-bottom: 3px solid var(--tinta); }
+  .eyebrow {
+    font-size: 1rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--cinabrio); margin-bottom: 0.9rem;
+  }
+  h1 { font-size: clamp(2.1rem, 8.5vw, 3rem); font-weight: 800; margin-bottom: 1rem; }
+  h1 .num-grande { color: var(--cinabrio); }
+  .portada p.resumen { font-size: 1.16rem; }
+  .portada .clave { background: var(--cinabrio-claro); border-radius: 6px; padding: 0.05em 0.3em; font-weight: 700; }
+  .aviso-fecha {
+    margin-top: 1.3rem; display: flex; gap: 0.8rem; align-items: baseline;
+    background: var(--carta); border: 1.5px solid var(--niebla); border-left: 6px solid var(--cinabrio);
+    border-radius: 10px; padding: 0.85rem 1rem;
+  }
+  .aviso-fecha .fecha-num { font-size: 1.5rem; font-weight: 800; color: var(--cinabrio); white-space: nowrap; }
+
+  /* ---------- secciones ---------- */
+  section { margin-top: 3rem; }
+  h2 { font-size: 1.65rem; font-weight: 800; margin-bottom: 0.4rem; }
+  .sub { color: var(--tinta-suave); margin-bottom: 1.4rem; }
+  .grupo-titulo { display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap; margin-bottom: 0.4rem; }
+  .grupo-titulo h2 { margin-bottom: 0; }
+
+  /* ---------- mapa ---------- */
+  figure.mapa { background: var(--carta); border: 1.5px solid var(--niebla); border-radius: 14px; padding: 1rem 0.6rem 0.4rem; }
+  figure.mapa svg { width: 100%; height: auto; display: block; }
+  figure.mapa figcaption { font-size: 0.95rem; color: var(--tinta-suave); padding: 0.5rem 0.5rem 0.7rem; }
+
+  /* ---------- línea de tiempo ---------- */
+  ol.tiempo { list-style: none; margin-top: 1.6rem; border-left: 3px solid var(--niebla); padding-left: 0; }
+  ol.tiempo li { display: grid; grid-template-columns: 6.4rem 1fr; gap: 0.8rem; padding: 0.55rem 0 0.55rem 1.1rem; position: relative; }
+  ol.tiempo li::before {
+    content: ""; position: absolute; left: -8px; top: 1.15rem;
+    width: 13px; height: 13px; border-radius: 50%;
+    background: var(--papel); border: 3px solid var(--tinta);
+  }
+  ol.tiempo li.rural::before { border-color: var(--cinabrio); background: var(--cinabrio); }
+  .fecha-num { font-weight: 800; font-size: 1.02rem; padding-top: 0.1rem; }
+  ol.tiempo .lugar strong { font-size: 1.05rem; }
+  ol.tiempo .detalle { display: block; color: var(--tinta-suave); font-size: 0.98rem; }
+  .chip-rural {
+    display: inline-block; font-size: 0.85rem; font-weight: 700; color: var(--cinabrio);
+    background: var(--cinabrio-claro); border-radius: 999px; padding: 0.05em 0.7em; margin-left: 0.3em;
+    white-space: nowrap;
+  }
+  .nota-agencia { margin-top: 1rem; font-size: 0.98rem; color: var(--tinta-suave); }
+
+  /* ---------- tarjetas ---------- */
+  article.vac {
+    background: var(--carta); border: 1.5px solid var(--niebla); border-radius: 14px;
+    padding: 1.3rem 1.2rem 1.4rem; margin-top: 1.3rem;
+  }
+  article.vac.poner { border-top: 6px solid var(--cinabrio); }
+  article.vac.cubierta { border-top: 6px solid var(--jade); }
+  article.vac.nohace { border-top: 6px solid var(--piedra); }
+  .vac-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.7rem; }
+  .vac-head h3 { font-size: 1.45rem; font-weight: 800; }
+  .que-es { font-size: 1.05rem; }
+  ul.porque { list-style: none; margin: 1rem 0 0.2rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  ul.porque li {
+    font-size: 0.95rem; font-weight: 700;
+    background: var(--papel); border: 1.5px solid var(--niebla);
+    border-radius: 999px; padding: 0.15em 0.85em;
+  }
+  ul.porque li::before { content: "→ "; color: var(--cinabrio); }
+
+  figure.cita-oficial {
+    margin: 1.2rem 0 0; background: var(--papel); border-left: 5px solid var(--jade);
+    border-radius: 0 10px 10px 0; padding: 0.9rem 1rem;
+  }
+  figure.cita-oficial blockquote { font-size: 1.02rem; }
+  figure.cita-oficial blockquote p::before { content: "“"; }
+  figure.cita-oficial blockquote p::after { content: "”"; }
+  .original { margin-top: 0.6rem; font-size: 0.92rem; color: var(--tinta-suave); font-style: italic; }
+  .original::before { content: "Texto original: “"; font-style: normal; font-weight: 700; }
+  .original::after { content: "”"; }
+  figure.cita-oficial figcaption { margin-top: 0.6rem; font-size: 0.98rem; font-weight: 700; }
+
+  dl.datos { margin-top: 1.2rem; display: grid; grid-template-columns: auto 1fr; gap: 0.4rem 0.9rem; font-size: 1rem; }
+  dl.datos dt { font-weight: 700; color: var(--tinta-suave); white-space: nowrap; }
+  dl.datos dt::after { content: ":"; }
+
+  .ojo {
+    margin-top: 1.2rem; background: var(--cinabrio-claro); border: 1.5px solid var(--cinabrio);
+    border-radius: 10px; padding: 0.85rem 1rem; font-size: 1.02rem;
+  }
+  .ojo strong.titulo { display: block; color: var(--cinabrio); font-family: "Bitter", Georgia, serif; font-size: 1.1rem; margin-bottom: 0.3rem; }
+
+  /* ---------- ya cubierta ---------- */
+  ul.cubiertas { list-style: none; }
+  ul.cubiertas li {
+    display: flex; gap: 0.7rem; align-items: baseline;
+    padding: 0.55rem 0.2rem; border-bottom: 1.5px solid var(--niebla);
+    font-size: 1.05rem;
+  }
+  ul.cubiertas li:last-child { border-bottom: none; }
+  ul.cubiertas .check { color: var(--jade); font-weight: 700; font-size: 1.15rem; }
+  ul.cubiertas .apunte { color: var(--tinta-suave); font-size: 0.95rem; }
+
+  /* ---------- repelente ---------- */
+  aside.repelente {
+    margin-top: 3rem; background: var(--jade-claro); border: 1.5px solid var(--jade);
+    border-radius: 14px; padding: 1.3rem 1.2rem;
+  }
+  aside.repelente h2 { color: var(--jade); font-size: 1.35rem; margin-bottom: 0.5rem; }
+
+  /* ---------- pie ---------- */
+  footer { margin-top: 3.5rem; border-top: 3px solid var(--tinta); padding-top: 1.4rem; font-size: 0.98rem; color: var(--tinta-suave); }
+  footer h2 { font-size: 1.15rem; color: var(--tinta); margin-bottom: 0.6rem; }
+  footer ul { list-style: none; }
+  footer li { padding: 0.35rem 0; }
+  footer .descargo { margin-top: 1.3rem; }
+
+  @media (max-width: 430px) {
+    ol.tiempo li { grid-template-columns: 5.2rem 1fr; }
+    dl.datos { grid-template-columns: 1fr; gap: 0; }
+    dl.datos dd { margin-bottom: 0.55rem; }
+  }
+  @media print {
+    body { background: #fff; font-size: 12pt; }
+    article.vac, figure.mapa { break-inside: avoid; border-color: #999; }
+    a { color: var(--tinta); }
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <!-- ============ 1 · CABECERA ============ -->
+  <header class="portada">
+    <p class="eyebrow">Tu viaje a China · 15 sep – 15 oct 2026</p>
+    <h1>Te faltan <span class="num-grande">tres vacunas</span>, y hay que ponerlas ya.</h1>
+    <p class="resumen">
+      Antes de volar el 15 de septiembre necesitas vacunarte de la
+      <span class="clave">rabia</span>, la <span class="clave">encefalitis japonesa</span>
+      y la <span class="clave">fiebre tifoidea</span>. Las tres se ponen en el Centro de
+      Vacunación Internacional, así que pide cita cuanto antes. Llévate esta página a la
+      cita: aquí tienes el porqué de cada una, con las fuentes oficiales enlazadas.
+    </p>
+    <div class="aviso-fecha">
+      <span class="fecha-num">15 sep</span>
+      <p>Sales de Madrid. Todas necesitan días para hacer efecto, y una de ellas son dos dosis separadas por semanas: por eso corre prisa.</p>
+    </div>
+  </header>
+
+  <!-- ============ 2 · ITINERARIO ============ -->
+  <section id="itinerario" aria-labelledby="t-itinerario">
+    <h2 id="t-itinerario">Tu ruta, y por qué manda en las vacunas</h2>
+    <p class="sub">
+      Pekín y Shanghái son grandes ciudades y apenas cuentan. Lo que decide las vacunas son
+      los <strong>quince días de pueblos, montaña y campo en Yunnan</strong>, la esquina rural
+      del suroeste — marcados en rojo.
+    </p>
+
+    <figure class="mapa">
+      <svg viewBox="0 0 720 560" role="img" aria-labelledby="mapa-titulo">
+        <title id="mapa-titulo">Mapa de China con la ruta: llegada a Pekín en el noreste, después Yunnan en el suroeste (Dali, Lijiang, Shaxi, Baoshan y Tengchong) y por último Shanghái en la costa este.</title>
+        <path d="M40,240 C50,195 75,165 120,142 C155,124 185,118 220,128
+                 C250,137 275,165 305,182 C340,200 375,205 415,192
+                 C455,178 490,155 520,128 C545,105 565,80 600,62
+                 C625,50 655,48 672,62 C692,78 700,102 692,128
+                 C685,150 668,168 650,185 C635,200 620,215 608,232
+                 C598,246 590,252 578,258 C566,264 560,272 568,282
+                 C580,295 595,305 602,322 C610,342 612,355 620,362
+                 C632,372 636,382 630,396 C620,420 598,438 575,452
+                 C552,466 528,478 502,487 C478,495 455,498 438,508
+                 C425,516 412,522 398,518 C384,514 372,505 358,510
+                 C344,515 330,522 318,514 C306,506 300,492 292,478
+                 C284,464 272,452 255,444 C230,432 200,425 170,415
+                 C140,405 110,392 85,372 C62,353 48,330 42,302 C38,280 37,258 40,240 Z"
+              fill="#F1E9DA" stroke="#C6BBA2" stroke-width="2.5" stroke-linejoin="round"/>
+
+        <path d="M40,140 C150,110 320,120 540,208" fill="none" stroke="#93291D" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round"/>
+        <text x="40" y="122" font-size="19" font-weight="700" fill="#93291D" font-family="Atkinson Hyperlegible, sans-serif">✈ desde Madrid, 15 sep</text>
+
+        <path d="M552,222 C480,300 400,390 342,450" fill="none" stroke="#29241D" stroke-width="2.5" stroke-dasharray="2 9" stroke-linecap="round"/>
+        <path d="M305,472 C420,472 540,432 612,374" fill="none" stroke="#29241D" stroke-width="2.5" stroke-dasharray="2 9" stroke-linecap="round"/>
+
+        <g font-family="Atkinson Hyperlegible, sans-serif">
+          <circle cx="556" cy="218" r="9" fill="#29241D"/>
+          <text x="572" y="212" font-size="21" font-weight="700" fill="#29241D">Pekín</text>
+          <text x="572" y="234" font-size="16" fill="#554E3E">15–24 sep</text>
+
+          <circle cx="618" cy="368" r="9" fill="#29241D"/>
+          <text x="556" y="338" font-size="21" font-weight="700" fill="#29241D">Shanghái</text>
+          <text x="556" y="358" font-size="16" fill="#554E3E">~8 – 15 oct</text>
+
+          <circle cx="322" cy="468" r="31" fill="none" stroke="#93291D" stroke-width="3.5" stroke-dasharray="7 6"/>
+          <circle cx="322" cy="468" r="9" fill="#93291D"/>
+          <text x="118" y="500" font-size="21" font-weight="700" fill="#93291D">Yunnan</text>
+          <text x="64" y="522" font-size="16" fill="#93291D">24 sep – 8 oct · zona rural</text>
+        </g>
+      </svg>
+      <figcaption>
+        Dentro del círculo rojo: <strong>Dali → Lijiang y Shuhe → Shaxi, Baoshan y Tengchong</strong>,
+        con Shangri-La intercalado. Montaña, arrozales, pueblos y senderos — justo el terreno del
+        que hablan las recomendaciones oficiales de más abajo.
+      </figcaption>
+    </figure>
+
+    <ol class="tiempo">
+      <li><span class="fecha-num">15 sep</span><span class="lugar"><strong>Vuelo Madrid → Pekín</strong></span></li>
+      <li><span class="fecha-num">15–24 sep</span><span class="lugar"><strong>Pekín</strong><span class="detalle">ciudad</span></span></li>
+      <li class="rural"><span class="fecha-num">24 sep</span><span class="lugar"><strong>Vuelo Pekín → Dali</strong> <span class="chip-rural">empieza Yunnan</span></span></li>
+      <li class="rural"><span class="fecha-num">24–25 sep</span><span class="lugar"><strong>Dali</strong></span></li>
+      <li class="rural"><span class="fecha-num">26 sep</span><span class="lugar"><strong>Tren a Lijiang / Shuhe</strong></span></li>
+      <li class="rural"><span class="fecha-num">27–30 sep</span><span class="lugar"><strong>Zona de Lijiang</strong><span class="detalle">Montaña Nevada del Dragón de Jade · Garganta del Salto del Tigre</span></span></li>
+      <li class="rural"><span class="fecha-num">1–6 oct</span><span class="lugar"><strong>Shaxi, Baoshan y Tengchong</strong><span class="detalle">Semana Dorada (la gran semana de vacaciones en China) · Shangri-La intercalado por la agencia</span></span></li>
+      <li><span class="fecha-num">~8 oct</span><span class="lugar"><strong>Vuelo Tengchong → Shanghái</strong></span></li>
+      <li><span class="fecha-num">~10–15 oct</span><span class="lugar"><strong>Shanghái</strong><span class="detalle">ciudad</span></span></li>
+      <li><span class="fecha-num">15 oct</span><span class="lugar"><strong>Vuelta a Madrid</strong></span></li>
+    </ol>
+    <p class="nota-agencia">Los días exactos entre el 8 y el 10 de octubre todavía se están cerrando con la agencia; el resto no cambia.</p>
+  </section>
+
+  <!-- ============ 3a · VACUNAS QUE PONER ============ -->
+  <section id="poner" aria-labelledby="t-poner">
+    <div class="grupo-titulo"><h2 id="t-poner">Vacunas que debes ponerte</h2><span class="sello poner">Ponérselas</span></div>
+    <p class="sub">Las tres las pone el Centro de Vacunación Internacional. Se pagan allí mismo; el importe te lo dicen en la cita.</p>
+
+    <!-- RABIA -->
+    <article class="vac poner" id="rabia">
+      <div class="vac-head"><h3>1 · Rabia</h3><span class="sello poner">Ponérsela</span></div>
+      <p class="que-es">
+        La transmiten mordiscos y arañazos de animales, sobre todo perros. Vacunarse
+        <strong>antes</strong> del viaje (lo que los médicos llaman «preexposición») no
+        evita tener que ir al médico si te muerden, pero simplifica mucho el tratamiento
+        y te da margen — y en el campo de Yunnan el hospital bueno puede estar a horas.
+      </p>
+      <ul class="porque">
+        <li>pueblos y senderos de Yunnan</li>
+        <li>perros sueltos en zonas rurales</li>
+        <li>hospital grande lejos</li>
+      </ul>
+      <figure class="cita-oficial">
+        <blockquote>
+          <p>También se recomienda en viajeros que realicen actividades al aire libre en
+          zonas rurales (aunque la duración del viaje sea corta), así como en viajes a
+          zonas con dificultad de acceso a servicios médicos para la administración de
+          profilaxis posexposición.</p>
+        </blockquote>
+        <figcaption>— Ministerio de Sanidad, ficha «Rabia» de La Salud También Viaja ·
+          <a href="https://www.sanidad.gob.es/areas/sanidadExterior/laSaludTambienViaja/consejosSanitarios/docs/2023_RABIA_ULT_vf.pdf">ver la ficha oficial (PDF)</a>
+        </figcaption>
+      </figure>
+      <figure class="cita-oficial">
+        <blockquote>
+          <p>Recomendables: Tétanos, poliomielitis, rabia y dengue.</p>
+        </blockquote>
+        <figcaption>— Ministerio de Asuntos Exteriores, recomendaciones de viaje para China (apartado «Vacunas») ·
+          <a href="https://www.exteriores.gob.es/es/ServiciosAlCiudadano/Paginas/Detalle-recomendaciones-de-viaje.aspx?trc=china">ver la página oficial</a>
+        </figcaption>
+      </figure>
+      <figure class="cita-oficial">
+        <blockquote>
+          <p>Con el reciente acortamiento de la pauta preexposición (2 dosis, separadas
+          una semana), las barreras para vacunarse de la rabia antes de viajar se han
+          reducido considerablemente. Considere seriamente poner la pauta preexposición
+          de la rabia a los viajeros que van a comunidades rurales de China.</p>
+        </blockquote>
+        <p class="original">With the recent shortening of the pre-exposure regimen (2 doses, 1 week apart), barriers to pre-exposure rabies vaccination have been considerably reduced. Strongly consider providing travelers to rural communities, long-term travelers, and expatriates going to live in China with the rabies pre-exposure vaccination series.</p>
+        <figcaption>— CDC Yellow Book 2026, capítulo de China (la guía médica de viajes de EE.&nbsp;UU.) ·
+          <a href="https://www.cdc.gov/yellow-book/hcp/asia/china.html">ver la página oficial</a>
+        </figcaption>
+      </figure>
+      <dl class="datos">
+        <dt>Dosis</dt><dd><strong>Dos</strong>, los días 0 y 7 — es decir, la segunda una semana después de la primera.</dd>
+        <dt>Cuándo</dt><dd>Sanidad aconseja acudir al menos un mes antes de salir. Ya vas justa: cuanto antes pidas la cita, mejor.</dd>
+        <dt>Dónde</dt><dd>Centro de Vacunación Internacional</dd>
+        <dt>Coste</dt><dd>Te lo dicen en la cita y se paga allí</dd>
+      </dl>
+    </article>
+
+    <!-- ENCEFALITIS JAPONESA -->
+    <article class="vac poner" id="encefalitis">
+      <div class="vac-head"><h3>2 · Encefalitis japonesa</h3><span class="sello poner">Ponérsela</span></div>
+      <p class="que-es">
+        Una infección grave del cerebro que transmiten los mosquitos de las zonas de
+        arrozales y granjas de Asia. No tiene tratamiento: la defensa es la vacuna y no
+        dejarse picar. Tu viaje cumple <strong>todos</strong> los criterios que ponen las
+        guías: más de un mes en China, zona rural, actividades al aire libre y en plena
+        temporada de transmisión.
+      </p>
+      <ul class="porque">
+        <li>un mes entero en China</li>
+        <li>arrozales y campo en Yunnan</li>
+        <li>senderismo (Salto del Tigre)</li>
+        <li>sept–oct = temporada de mosquitos</li>
+      </ul>
+      <figure class="cita-oficial">
+        <blockquote>
+          <p>Debe considerarse la vacuna de la encefalitis japonesa para quienes vayan a
+          estar más de un mes en China, y también, en estancias más cortas, para quienes
+          vayan a pasar tiempo en zonas rurales o a hacer actividades al aire libre.</p>
+        </blockquote>
+        <p class="original">JE vaccine should be considered for travelers with frequent travel to JE-endemic countries and those who will stay longer than 1 month in China. JE vaccination should also be considered for persons who will stay for a shorter period but plan to spend time in rural areas, participate in outdoor activities, or stay in accommodations without air conditioning, window screens, or bed nets.</p>
+        <figcaption>— CDC Yellow Book 2026, capítulo de China ·
+          <a href="https://www.cdc.gov/yellow-book/hcp/asia/china.html">ver la página oficial</a>
+        </figcaption>
+      </figure>
+      <figure class="cita-oficial">
+        <blockquote>
+          <p>Se recomienda la vacunación a los viajeros con mucha exposición al aire libre
+          (como acampada y senderismo) durante la temporada de transmisión, sobre todo en
+          países o zonas endémicas donde el cultivo se riega por inundación.</p>
+        </blockquote>
+        <p class="original">Vaccination is recommended for travellers with extensive outdoor exposure (such as camping and hiking) during the transmission season, particularly in endemic countries or areas where farming involves irrigation by flooding.</p>
+        <figcaption>— OMS, «Viajes internacionales y salud», capítulo 6 ·
+          <a href="https://cdn.who.int/media/docs/default-source/travel-and-health/9789241580472-eng-chapter-6.pdf">ver el documento oficial (PDF)</a>
+        </figcaption>
+      </figure>
+      <figure class="cita-oficial">
+        <blockquote>
+          <p>La encefalitis japonesa existe en este país, salvo en Qinghai y Xinjiang. Hay
+          riesgo todo el año, y el riesgo máximo es entre mayo y octubre.</p>
+        </blockquote>
+        <p class="original">JE occurs in this country, apart from Qinghai and Xinjiang. Risk is year-round, with highest risk between May and October.</p>
+        <figcaption>— TravelHealthPro / NaTHNaC, sanidad de viajes del Gobierno británico, página de China ·
+          <a href="https://travelhealthpro.org.uk/countries/china">ver la página oficial</a>
+        </figcaption>
+      </figure>
+      <div class="ojo">
+        <strong class="titulo">Pide la pauta acelerada nada más entrar en la cita</strong>
+        La pauta normal son dos dosis separadas <strong>28 días</strong>, y hay que
+        terminarla al menos una semana antes de viajar: a estas alturas no da tiempo antes
+        del 15 de septiembre. Pero existe una <strong>pauta acelerada de 7 días</strong>,
+        pensada justo para viajeros de última hora, que decide el médico. Plantéalo lo
+        primero, porque de ello depende que llegues vacunada.
+      </div>
+      <figure class="cita-oficial">
+        <blockquote>
+          <p>Existen pautas aceleradas (intervalo de 7 días) que se pueden aplicar a
+          viajeros adultos de última hora, siempre a criterio médico.</p>
+        </blockquote>
+        <figcaption>— Comité Asesor de Vacunas de la Asociación Española de Pediatría (CAV-AEP) ·
+          <a href="https://vacunasaep.org/familias/vacunas-una-a-una/vacuna-encefalitis-japonesa">ver la página oficial</a>
+        </figcaption>
+      </figure>
+      <dl class="datos">
+        <dt>Dosis</dt><dd><strong>Dos.</strong> Lo habitual es día 0 y día 28; con la pauta acelerada, día 0 y día 7. La ficha del medicamento recoge la acelerada entre los 18 y los 65 años, así que por encima de esa edad la decide el médico del centro.</dd>
+        <dt>Cuándo</dt><dd>Hay que terminar la pauta al menos una semana antes de la exposición</dd>
+        <dt>Dónde</dt><dd>Centro de Vacunación Internacional</dd>
+        <dt>Coste</dt><dd>Te lo dicen en la cita y se paga allí</dd>
+        <dt>Más info</dt><dd><a href="https://www.sanidad.gob.es/areas/sanidadExterior/laSaludTambienViaja/consejosSanitarios/docs/2023_EncefalitisJaponesa_ULT_vf.pdf">ficha del Ministerio de Sanidad (PDF)</a></dd>
+      </dl>
+    </article>
+
+    <!-- FIEBRE TIFOIDEA -->
+    <article class="vac poner" id="tifoidea">
+      <div class="vac-head"><h3>3 · Fiebre tifoidea</h3><span class="sello poner">Ponérsela</span></div>
+      <p class="que-es">
+        Una infección intestinal que se coge por agua o comida contaminadas. En las grandes
+        ciudades chinas apenas hay riesgo, pero vas a comer un mes fuera de casa y buena
+        parte en pueblos — y en China circulan cepas resistentes a los antibióticos, con
+        lo cual conviene no tener que tratarla.
+      </p>
+      <ul class="porque">
+        <li>zonas rurales de Yunnan</li>
+        <li>un mes comiendo fuera</li>
+        <li>cepas resistentes a antibióticos</li>
+      </ul>
+      <figure class="cita-oficial">
+        <blockquote>
+          <p>Aunque la fiebre tifoidea no es un riesgo importante en las grandes ciudades de
+          China, los viajeros que visiten zonas rurales deberían considerar seriamente
+          ponerse la vacuna. En China se han detectado <em class="lat">Salmonella typhi</em> y
+          <em class="lat">Salmonella paratyphi</em> resistentes a múltiples antibióticos.</p>
+        </blockquote>
+        <p class="original">Although typhoid fever is not a significant risk in China's major urban areas, travelers visiting rural areas, adventure travelers, and travelers visiting friends and relatives should strongly consider receiving the typhoid vaccine. […] Multidrug-resistant Salmonella typhi and Salmonella paratyphi have been detected in China.</p>
+        <figcaption>— CDC Yellow Book 2026, capítulo de China ·
+          <a href="https://www.cdc.gov/yellow-book/hcp/asia/china.html">ver la página oficial</a>
+        </figcaption>
+      </figure>
+      <figure class="cita-oficial">
+        <blockquote>
+          <p>Se puede ofrecer la vacunación a los viajeros que van a destinos donde el
+          riesgo de fiebre tifoidea es alto, sobre todo a quienes vayan a permanecer más de
+          un mes en zonas endémicas o en lugares donde abunden las cepas resistentes a los
+          antibióticos.</p>
+        </blockquote>
+        <p class="original">Vaccination may be offered to travellers to destinations where the risk of typhoid fever is high, especially to those staying in endemic areas for &gt; 1 month and/or in locations in which antibiotic-resistant strains of S. Typhi are prevalent.</p>
+        <figcaption>— OMS, «Viajes internacionales y salud», capítulo 6 ·
+          <a href="https://cdn.who.int/media/docs/default-source/travel-and-health/9789241580472-eng-chapter-6.pdf">ver el documento oficial (PDF)</a>
+        </figcaption>
+      </figure>
+      <dl class="datos">
+        <dt>Dosis</dt><dd><strong>Una sola</strong> inyección. (Hay también una versión en cápsulas, tres tomas en días alternos; el centro te dirá cuál te pone.)</dd>
+        <dt>Cuándo</dt><dd>Al menos dos semanas antes de salir de viaje</dd>
+        <dt>Dónde</dt><dd>Centro de Vacunación Internacional</dd>
+        <dt>Coste</dt><dd>Te lo dicen en la cita y se paga allí</dd>
+        <dt>Más info</dt><dd><a href="https://www.sanidad.gob.es/areas/sanidadExterior/laSaludTambienViaja/consejosSanitarios/docs/2023_FiebreTifoidea_ULT_vf.pdf">ficha del Ministerio de Sanidad (PDF)</a></dd>
+      </dl>
+    </article>
+  </section>
+
+  <!-- ============ 3b · YA CUBIERTA ============ -->
+  <section id="cubiertas" aria-labelledby="t-cubiertas">
+    <div class="grupo-titulo"><h2 id="t-cubiertas">Ya estás cubierta</h2><span class="sello cubierta">Ya cubierta</span></div>
+    <p class="sub">Según tu cartilla, estas ya las tienes: <strong>no hay que hacer nada</strong>. Aun así, lleva la cartilla a la cita para que lo comprueben.</p>
+    <article class="vac cubierta">
+      <ul class="cubiertas">
+        <li><span class="check">✓</span><span><strong>Hepatitis A</strong> <span class="apunte">— infección del hígado que se coge por agua o comida</span></span></li>
+        <li><span class="check">✓</span><span><strong>Hepatitis B</strong> <span class="apunte">— infección del hígado que se transmite por sangre</span></span></li>
+        <li><span class="check">✓</span><span><strong>Tétanos, difteria y polio</strong> <span class="apunte">— el recuerdo de adulto, ya puesto</span></span></li>
+        <li><span class="check">✓</span><span><strong>Fiebre amarilla</strong> <span class="apunte">— de viajes anteriores; para China no hace falta ninguna vacuna obligatoria</span></span></li>
+      </ul>
+    </article>
+  </section>
+
+  <!-- ============ 3c · NO NECESARIA ============ -->
+  <section id="nonecesarias" aria-labelledby="t-nonecesarias">
+    <div class="grupo-titulo"><h2 id="t-nonecesarias">No te hacen falta para este viaje</h2><span class="sello nohace">No hace falta</span></div>
+
+    <!-- MALARIA -->
+    <article class="vac nohace" id="malaria">
+      <div class="vac-head"><h3>Pastillas contra la malaria</h3><span class="sello nohace">No hace falta</span></div>
+      <p class="que-es">
+        No necesitas llevar pastillas: <strong>China está libre de malaria</strong>. La OMS
+        se lo certificó en 2021, después de cuatro años seguidos sin un solo caso propio, y
+        tanto los CDC estadounidenses como la sanidad británica lo recogen ya en sus páginas
+        de China. Ojo con una cosa: la ficha de Exteriores todavía menciona Yunnan como zona
+        de riesgo de paludismo, pero ese dato es anterior a la certificación de la OMS.
+      </p>
+      <figure class="cita-oficial">
+        <blockquote>
+          <p>De 30 millones de casos a cero: la OMS certifica que China está libre de malaria.</p>
+        </blockquote>
+        <p class="original">From 30 million cases to zero: China is certified malaria-free by WHO</p>
+        <figcaption>— OMS, nota de prensa del 30 de junio de 2021 ·
+          <a href="https://www.who.int/news/item/30-06-2021-from-30-million-cases-to-zero-china-is-certified-malaria-free-by-who">ver la nota oficial</a>
+        </figcaption>
+      </figure>
+      <figure class="cita-oficial">
+        <blockquote>
+          <p>En 2021 la OMS declaró China libre de malaria. No hay riesgo de malaria en China.</p>
+        </blockquote>
+        <p class="original">In 2021 the WHO declared China malaria-free. There is no risk of malaria in China.</p>
+        <figcaption>— TravelHealthPro / NaTHNaC (Gobierno británico), página de China ·
+          <a href="https://travelhealthpro.org.uk/countries/china">ver la página oficial</a>
+        </figcaption>
+      </figure>
+      <figure class="cita-oficial">
+        <blockquote>
+          <p>El riesgo de transmisión de malaria en China es muy bajo. Los viajeros deben
+          seguir tomando precauciones frente a las picaduras de insectos para reducir el
+          riesgo de contagiarse de otras enfermedades transmitidas por ellos.</p>
+        </blockquote>
+        <p class="original">The risk of malaria transmission in China is very low. Travelers should continue to follow insect-bite precautions to minimize the risk of infection with other vector-borne diseases.</p>
+        <figcaption>— CDC Yellow Book 2026, capítulo de China ·
+          <a href="https://www.cdc.gov/yellow-book/hcp/asia/china.html">ver la página oficial</a>
+        </figcaption>
+      </figure>
+    </article>
+
+    <!-- DENGUE -->
+    <article class="vac nohace" id="dengue">
+      <div class="vac-head"><h3>Vacuna del dengue (Qdenga)</h3><span class="sello nohace">No hace falta</span></div>
+      <p class="que-es">
+        El dengue es un virus que transmiten mosquitos que pican de día, y en el sur de China
+        (Yunnan incluido) existe. Hay una vacuna, Qdenga, pero los organismos oficiales la
+        reservan a personas de 6 a 60 años que ya hayan pasado el dengue confirmado — y
+        además son dos dosis separadas tres meses, que no darían tiempo antes del 15 de
+        septiembre. Contra el dengue, tu protección real es el repelente.
+      </p>
+      <dl class="datos">
+        <dt>Más info</dt><dd><a href="https://travelhealthpro.org.uk/news/763/qdenga-dengue-vaccine-guidance">guía oficial de NaTHNaC sobre Qdenga</a></dd>
+      </dl>
+    </article>
+  </section>
+
+  <!-- ============ 4 · REPELENTE ============ -->
+  <aside class="repelente" aria-labelledby="t-repelente">
+    <h2 id="t-repelente">Y lo que no es una vacuna pero cuenta igual: el repelente</h2>
+    <p>
+      Contra el dengue y la encefalitis japonesa, la medida que más protege es no dejarse
+      picar. <strong>Repelente todos los días</strong> — de día y también al atardecer —,
+      manga larga al caer la tarde, y dormir con la ventana cerrada o con mosquitera.
+      Cómpralo aquí antes de salir y llévalo en la maleta.
+    </p>
+  </aside>
+
+  <!-- ============ 5 · FUENTES ============ -->
+  <footer>
+    <h2>Todas las fuentes oficiales</h2>
+    <ul>
+      <li><a href="https://www.cdc.gov/yellow-book/hcp/asia/china.html">CDC Yellow Book 2026 — capítulo de China</a></li>
+      <li><a href="https://cdn.who.int/media/docs/default-source/travel-and-health/9789241580472-eng-chapter-6.pdf">OMS — Viajes internacionales y salud, capítulo 6 (PDF)</a></li>
+      <li><a href="https://www.who.int/news/item/30-06-2021-from-30-million-cases-to-zero-china-is-certified-malaria-free-by-who">OMS — China, certificada libre de malaria (2021)</a></li>
+      <li><a href="https://travelhealthpro.org.uk/countries/china">TravelHealthPro / NaTHNaC — China</a></li>
+      <li><a href="https://travelhealthpro.org.uk/news/763/qdenga-dengue-vaccine-guidance">NaTHNaC — guía sobre la vacuna Qdenga</a></li>
+      <li><a href="https://vacunasaep.org/familias/vacunas-una-a-una/vacuna-encefalitis-japonesa">CAV-AEP — vacuna de la encefalitis japonesa</a></li>
+      <li><a href="https://wwwnc.cdc.gov/travel/destinations/traveler/none/china">CDC — página de China para viajeros</a></li>
+      <li><a href="https://www.exteriores.gob.es/es/ServiciosAlCiudadano/Paginas/Detalle-recomendaciones-de-viaje.aspx?trc=china">Exteriores — recomendaciones de viaje: China</a></li>
+      <li><a href="https://www.sanidad.gob.es/areas/sanidadExterior/laSaludTambienViaja/consejosSanitarios/infVacunas.htm">Ministerio de Sanidad — fichas de vacunas del viajero</a></li>
+      <li><a href="https://www.sanidad.gob.es/areas/sanidadExterior/laSaludTambienViaja/consejosSanitarios/docs/2023_RABIA_ULT_vf.pdf">Sanidad — ficha de la rabia (PDF)</a></li>
+      <li><a href="https://www.sanidad.gob.es/areas/sanidadExterior/laSaludTambienViaja/consejosSanitarios/docs/2023_EncefalitisJaponesa_ULT_vf.pdf">Sanidad — ficha de la encefalitis japonesa (PDF)</a></li>
+      <li><a href="https://www.sanidad.gob.es/areas/sanidadExterior/laSaludTambienViaja/consejosSanitarios/docs/2023_FiebreTifoidea_ULT_vf.pdf">Sanidad — ficha de la fiebre tifoidea (PDF)</a></li>
+    </ul>
+    <p class="descargo">
+      Las citas en gris pequeño son el texto original en inglés, tal cual lo publican las
+      fuentes; encima va su traducción. Página preparada el 24 de agosto de 2026. La última
+      palabra la tiene siempre el personal médico del Centro de Vacunación Internacional.
+    </p>
+  </footer>
+
+</main>
+</body>
+</html>
