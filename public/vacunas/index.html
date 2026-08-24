@@ -151,6 +151,17 @@
     border-radius: 10px; padding: 0.85rem 1rem; font-size: 1.02rem;
   }
   .ojo strong.titulo { display: block; color: var(--cinabrio); font-family: "Bitter", Georgia, serif; font-size: 1.1rem; margin-bottom: 0.3rem; }
+  .ojo.ojo-verde { background: var(--jade-claro); border-color: var(--jade); }
+  .ojo.ojo-verde strong.titulo { color: var(--jade); }
+
+  /* ---------- por qué ahora (inmunosenescencia) ---------- */
+  aside.reloj {
+    margin-top: 1.8rem; background: var(--piedra-claro);
+    border: 1.5px solid var(--niebla); border-top: 6px solid var(--piedra);
+    border-radius: 14px; padding: 1.3rem 1.2rem;
+  }
+  aside.reloj h2 { font-size: 1.35rem; color: var(--piedra); margin-bottom: 0.6rem; }
+  aside.reloj figure.cita-oficial { background: var(--carta); border-left-color: var(--piedra); margin-bottom: 1rem; }
 
   /* ---------- ya cubierta ---------- */
   ul.cubiertas { list-style: none; }
@@ -195,17 +206,18 @@
   <!-- ============ 1 · CABECERA ============ -->
   <header class="portada">
     <p class="eyebrow">Tu viaje a China · 15 sep – 15 oct 2026</p>
-    <h1>Te faltan <span class="num-grande">tres vacunas</span>, y hay que ponerlas ya.</h1>
+    <h1>Te faltan <span class="num-grande">dos vacunas</span>, y hay que ponerlas ya.</h1>
     <p class="resumen">
       Antes de volar el 15 de septiembre necesitas vacunarte de la
-      <span class="clave">rabia</span>, la <span class="clave">encefalitis japonesa</span>
-      y la <span class="clave">fiebre tifoidea</span>. Las tres se ponen en el Centro de
-      Vacunación Internacional, así que pide cita cuanto antes. Llévate esta página a la
-      cita: aquí tienes el porqué de cada una, con las fuentes oficiales enlazadas.
+      <span class="clave">encefalitis japonesa</span> y de la
+      <span class="clave">fiebre tifoidea</span>. La rabia ya la tienes puesta, así que esa
+      la puedes tachar. Las dos que faltan se ponen en el Centro de Vacunación
+      Internacional, así que pide cita cuanto antes. Llévate esta página a la cita: aquí
+      tienes el porqué de cada una, con las fuentes oficiales enlazadas.
     </p>
     <div class="aviso-fecha">
       <span class="fecha-num">15 sep</span>
-      <p>Sales de Madrid. Todas necesitan días para hacer efecto, y una de ellas son dos dosis separadas por semanas: por eso corre prisa.</p>
+      <p>Sales de Madrid. Las dos necesitan días para hacer efecto, y una de ellas son dos dosis separadas por semanas: por eso corre prisa.</p>
     </div>
   </header>
 
@@ -276,64 +288,11 @@
   <!-- ============ 3a · VACUNAS QUE PONER ============ -->
   <section id="poner" aria-labelledby="t-poner">
     <div class="grupo-titulo"><h2 id="t-poner">Vacunas que debes ponerte</h2><span class="sello poner">Ponérselas</span></div>
-    <p class="sub">Las tres las pone el Centro de Vacunación Internacional. Se pagan allí mismo; el importe te lo dicen en la cita.</p>
-
-    <!-- RABIA -->
-    <article class="vac poner" id="rabia">
-      <div class="vac-head"><h3>1 · Rabia</h3><span class="sello poner">Ponérsela</span></div>
-      <p class="que-es">
-        La transmiten mordiscos y arañazos de animales, sobre todo perros. Vacunarse
-        <strong>antes</strong> del viaje (lo que los médicos llaman «preexposición») no
-        evita tener que ir al médico si te muerden, pero simplifica mucho el tratamiento
-        y te da margen — y en el campo de Yunnan el hospital bueno puede estar a horas.
-      </p>
-      <ul class="porque">
-        <li>pueblos y senderos de Yunnan</li>
-        <li>perros sueltos en zonas rurales</li>
-        <li>hospital grande lejos</li>
-      </ul>
-      <figure class="cita-oficial">
-        <blockquote>
-          <p>También se recomienda en viajeros que realicen actividades al aire libre en
-          zonas rurales (aunque la duración del viaje sea corta), así como en viajes a
-          zonas con dificultad de acceso a servicios médicos para la administración de
-          profilaxis posexposición.</p>
-        </blockquote>
-        <figcaption>— Ministerio de Sanidad, ficha «Rabia» de La Salud También Viaja ·
-          <a href="https://www.sanidad.gob.es/areas/sanidadExterior/laSaludTambienViaja/consejosSanitarios/docs/2023_RABIA_ULT_vf.pdf">ver la ficha oficial (PDF)</a>
-        </figcaption>
-      </figure>
-      <figure class="cita-oficial">
-        <blockquote>
-          <p>Recomendables: Tétanos, poliomielitis, rabia y dengue.</p>
-        </blockquote>
-        <figcaption>— Ministerio de Asuntos Exteriores, recomendaciones de viaje para China (apartado «Vacunas») ·
-          <a href="https://www.exteriores.gob.es/es/ServiciosAlCiudadano/Paginas/Detalle-recomendaciones-de-viaje.aspx?trc=china">ver la página oficial</a>
-        </figcaption>
-      </figure>
-      <figure class="cita-oficial">
-        <blockquote>
-          <p>Con el reciente acortamiento de la pauta preexposición (2 dosis, separadas
-          una semana), las barreras para vacunarse de la rabia antes de viajar se han
-          reducido considerablemente. Considere seriamente poner la pauta preexposición
-          de la rabia a los viajeros que van a comunidades rurales de China.</p>
-        </blockquote>
-        <p class="original">With the recent shortening of the pre-exposure regimen (2 doses, 1 week apart), barriers to pre-exposure rabies vaccination have been considerably reduced. Strongly consider providing travelers to rural communities, long-term travelers, and expatriates going to live in China with the rabies pre-exposure vaccination series.</p>
-        <figcaption>— CDC Yellow Book 2026, capítulo de China (la guía médica de viajes de EE.&nbsp;UU.) ·
-          <a href="https://www.cdc.gov/yellow-book/hcp/asia/china.html">ver la página oficial</a>
-        </figcaption>
-      </figure>
-      <dl class="datos">
-        <dt>Dosis</dt><dd><strong>Dos</strong>, los días 0 y 7 — es decir, la segunda una semana después de la primera.</dd>
-        <dt>Cuándo</dt><dd>Sanidad aconseja acudir al menos un mes antes de salir. Ya vas justa: cuanto antes pidas la cita, mejor.</dd>
-        <dt>Dónde</dt><dd>Centro de Vacunación Internacional</dd>
-        <dt>Coste</dt><dd>Te lo dicen en la cita y se paga allí</dd>
-      </dl>
-    </article>
+    <p class="sub">Las dos las pone el Centro de Vacunación Internacional. Se pagan allí mismo; el importe te lo dicen en la cita.</p>
 
     <!-- ENCEFALITIS JAPONESA -->
     <article class="vac poner" id="encefalitis">
-      <div class="vac-head"><h3>2 · Encefalitis japonesa</h3><span class="sello poner">Ponérsela</span></div>
+      <div class="vac-head"><h3>1 · Encefalitis japonesa</h3><span class="sello poner">Ponérsela</span></div>
       <p class="que-es">
         Una infección grave del cerebro que transmiten los mosquitos de las zonas de
         arrozales y granjas de Asia. No tiene tratamiento: la defensa es la vacuna y no
@@ -407,7 +366,7 @@
 
     <!-- FIEBRE TIFOIDEA -->
     <article class="vac poner" id="tifoidea">
-      <div class="vac-head"><h3>3 · Fiebre tifoidea</h3><span class="sello poner">Ponérsela</span></div>
+      <div class="vac-head"><h3>2 · Fiebre tifoidea</h3><span class="sello poner">Ponérsela</span></div>
       <p class="que-es">
         Una infección intestinal que se coge por agua o comida contaminadas. En las grandes
         ciudades chinas apenas hay riesgo, pero vas a comer un mes fuera de casa y buena
@@ -451,12 +410,69 @@
         <dt>Más info</dt><dd><a href="https://www.sanidad.gob.es/areas/sanidadExterior/laSaludTambienViaja/consejosSanitarios/docs/2023_FiebreTifoidea_ULT_vf.pdf">ficha del Ministerio de Sanidad (PDF)</a></dd>
       </dl>
     </article>
+
+    <aside class="reloj" aria-labelledby="t-reloj">
+      <h2 id="t-reloj">Y una razón para no dejarlo para el próximo viaje</h2>
+      <p>
+        El sistema inmunitario responde a las vacunas peor según cumplimos años: fabrica
+        menos defensas y las mantiene menos tiempo. Tiene nombre — los médicos lo llaman
+        <strong>inmunosenescencia</strong> — y no es una teoría de laboratorio, sino algo
+        que las propias guías ya tienen en cuenta. La ficha de la encefalitis japonesa del
+        Ministerio, por ejemplo, añade esta nota solo para los mayores de 65:
+      </p>
+      <figure class="cita-oficial">
+        <blockquote>
+          <p>En mayores de 65 años se debe barajar una dosis de refuerzo (tercera dosis)
+          antes de la exposición al virus.</p>
+        </blockquote>
+        <figcaption>— Ministerio de Sanidad, ficha «Encefalitis Japonesa» ·
+          <a href="https://www.sanidad.gob.es/areas/sanidadExterior/laSaludTambienViaja/consejosSanitarios/docs/2023_EncefalitisJaponesa_ULT_vf.pdf">ver la ficha oficial (PDF)</a>
+        </figcaption>
+      </figure>
+      <p>
+        La conclusión práctica es sencilla: <strong>la vacuna que te pongas hoy te protege
+        mejor que la misma vacuna dentro de unos años</strong>. Y no son de un solo uso —
+        la de la encefalitis japonesa vale para cualquier viaje futuro a Asia rural
+        (con un recuerdo entre los 12 y los 24 meses si vuelves), y la de la tifoidea
+        cubre entre uno y tres años si sigue habiendo riesgo. Ponerlas ahora, para este
+        viaje, es también dejarlas hechas para los siguientes.
+      </p>
+    </aside>
   </section>
 
   <!-- ============ 3b · YA CUBIERTA ============ -->
   <section id="cubiertas" aria-labelledby="t-cubiertas">
     <div class="grupo-titulo"><h2 id="t-cubiertas">Ya estás cubierta</h2><span class="sello cubierta">Ya cubierta</span></div>
     <p class="sub">Según tu cartilla, estas ya las tienes: <strong>no hay que hacer nada</strong>. Aun así, lleva la cartilla a la cita para que lo comprueben.</p>
+
+    <!-- RABIA -->
+    <article class="vac cubierta" id="rabia">
+      <div class="vac-head"><h3>Rabia</h3><span class="sello cubierta">Ya cubierta</span></div>
+      <p class="que-es">
+        Esta la tienes puesta, y era la más importante de tener para esta ruta: la rabia la
+        transmiten mordiscos y arañazos de animales, sobre todo perros, y en los pueblos y
+        senderos de Yunnan el hospital bueno puede estar a horas. Justo el caso que describe
+        la ficha del Ministerio:
+      </p>
+      <figure class="cita-oficial">
+        <blockquote>
+          <p>También se recomienda en viajeros que realicen actividades al aire libre en
+          zonas rurales (aunque la duración del viaje sea corta), así como en viajes a
+          zonas con dificultad de acceso a servicios médicos para la administración de
+          profilaxis posexposición.</p>
+        </blockquote>
+        <figcaption>— Ministerio de Sanidad, ficha «Rabia» de La Salud También Viaja ·
+          <a href="https://www.sanidad.gob.es/areas/sanidadExterior/laSaludTambienViaja/consejosSanitarios/docs/2023_RABIA_ULT_vf.pdf">ver la ficha oficial (PDF)</a>
+        </figcaption>
+      </figure>
+      <div class="ojo ojo-verde">
+        <strong class="titulo">Estar vacunada no significa poder ignorar un mordisco</strong>
+        Si un animal te muerde o te araña, hay que lavar la herida a fondo con agua y jabón
+        e ir al médico igualmente. Lo que te ahorra tener la vacuna puesta es parte del
+        tratamiento y la urgencia de encontrarlo — no la visita.
+      </div>
+    </article>
+
     <article class="vac cubierta">
       <ul class="cubiertas">
         <li><span class="check">✓</span><span><strong>Hepatitis A</strong> <span class="apunte">— infección del hígado que se coge por agua o comida</span></span></li>
