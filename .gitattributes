@@ -1,0 +1,8 @@
+# Store and check out every text file with LF, on every platform.
+# Duplicated from ~/.gitattributes deliberately: the global file enforces this
+# only for this account on this machine, and does not travel with a clone.
+* text=auto eol=lf
+
+# cmd.exe misreads LF-only batch files, so those stay CRLF.
+*.bat text eol=crlf
+*.cmd text eol=crlf
