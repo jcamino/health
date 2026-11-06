@@ -2,8 +2,8 @@
   // The heart page's payload: your labs, the statin conversation they can lead
   // to, and your blood pressure. The order carries information (the statin point
   // is conditional on the labs above it). Everything else on the page is
-  // evidence for these, so this is built as a requisition slip — the form you
-  // take to your doctor — rather than a callout panel. See .slip in global.css
+  // evidence for these, so this is built as a requisition slip (the form you
+  // take to your doctor) rather than a callout panel. See .slip in global.css
   // for why it is the page's one inverted block.
   //
   // It also lives as a component rather than inline MDX because formatters
@@ -26,7 +26,7 @@
           action: "Lp(a), once.",
           detail:
             "A largely genetic risk multiplier. About 1 in 5 people carry a high level, and almost none of them know it.",
-          note: "Lp(a) — a one-time test; about 1 in 5 people have an elevated level.",
+          note: "Lp(a): a one-time test, and about 1 in 5 people have an elevated level.",
         },
         {
           id: "apob",
@@ -34,7 +34,7 @@
           action: "ApoB.",
           detail:
             "The real driver of atherosclerosis, and a better measure than standard LDL-C.",
-          note: "ApoB — a better measure of risk than standard LDL-C.",
+          note: "ApoB: a better measure of risk than standard LDL-C.",
         },
         {
           id: "lipids",
@@ -42,7 +42,7 @@
           action: "Standard lipid panel.",
           detail:
             "The usual baseline. It feeds the risk score below, and an LDL-C of 190 or higher warrants a doctor now.",
-          note: "Standard lipid panel — the usual baseline, and the input for a risk score.",
+          note: "Standard lipid panel: the usual baseline, and the input for a risk score.",
         },
       ],
     },
@@ -172,7 +172,7 @@
     <p>
       {doneCount > 0
         ? `${doneCount} of ${checks.length} done`
-        : "Tick these off as you go"} — saved in this browser only.
+        : "Tick these off as you go"}. Saved in this browser only.
     </p>
     <button type="button" class="slip-copy" onclick={copyList}>
       {copyLabel}

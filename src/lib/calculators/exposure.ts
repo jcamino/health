@@ -32,7 +32,7 @@ export interface TrajectoryParams {
 const MIN_APOB = 10;
 
 /**
- * Illustrative cumulative-exposure threshold, 5000 mg·years. This is a sourced
+ * Illustrative cumulative-exposure threshold, 5000 mg-years. This is a sourced
  * *LDL-C* value (Ference et al., JACC Health Promotion Series 2018), not an
  * ApoB-specific one; the hero chart labels the line "illustrative (LDL-C–derived)".
  */
@@ -136,7 +136,7 @@ export function sampleTrajectory(
   return out;
 }
 
-/** Trapezoidal integral of ApoB over age. Units: (mg/dL)·years. */
+/** Trapezoidal integral of ApoB over age. Units: mg-years, meaning mg/dL multiplied by years. */
 export function apoBYears(trajectory: ApoBPoint[]): number {
   let total = 0;
   for (let i = 1; i < trajectory.length; i++) {
@@ -203,11 +203,11 @@ export function ageAtThresholdForFlatApoB(
 /**
  * How many of a drawn `span` of years are spent past the cumulative-exposure
  * threshold, for a lifelong-flat ApoB integrated from birth. Returns 0 when the
- * level does not cross inside the span — which is a statement about the drawn
+ * level does not cross inside the span. That is a statement about the drawn
  * span, not a claim of immunity, and is why the hero's caption says so. Rounding
  * for display is the caller's job.
  *
- * `span` defaults to 80, the drawn lifetime — NOT the 120 that
+ * `span` defaults to 80, the drawn lifetime, NOT the 120 that
  * `ageAtThresholdForFlatApoB` defaults to. Pass the same span to both when a
  * caller pairs a crossing age with this count, or they will disagree:
  * `ageAtThresholdForFlatApoB(55)` is 90.9 while `yearsOverThreshold(55)` is 0.

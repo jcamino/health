@@ -14,7 +14,7 @@ npm run build      # prerenders the static site to dist/ (+ Workers assets)
 npm run preview    # build, then serve via `wrangler dev` (Workers runtime)
 ```
 
-## Deploy — Cloudflare Workers
+## Deploy to Cloudflare Workers
 
 The repo is connected to Cloudflare (Workers Builds via the GitHub integration), so
 **every push to `main` triggers a build and deploy** automatically. Worker/asset

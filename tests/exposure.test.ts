@@ -118,7 +118,7 @@ describe("buildTrajectory (lifetime, from birth, with age-rise)", () => {
   });
 });
 
-describe("apoBYears (trapezoidal AUC, mg·years)", () => {
+describe("apoBYears (trapezoidal AUC, mg-years)", () => {
   it("flat 100 from birth to 50 = 5000", () => {
     expect(
       apoBYears(

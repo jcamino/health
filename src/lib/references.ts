@@ -197,7 +197,7 @@ export const refs = {
   adaDiagnosis2024: {
     id: "adaDiagnosis2024",
     title:
-      "2. Diagnosis and Classification of Diabetes: Standards of Care in Diabetes—2024",
+      "2. Diagnosis and Classification of Diabetes: Standards of Care in Diabetes-2024",
     authors: "American Diabetes Association Professional Practice Committee",
     year: 2024,
     source: "Diabetes Care",
@@ -336,7 +336,7 @@ export const refs = {
   alpacaLepodisiran2025: {
     id: "alpacaLepodisiran2025",
     title:
-      "Lepodisiran — A Long-Duration Small Interfering RNA Targeting Lipoprotein(a) (ALPACA)",
+      "Lepodisiran - A Long-Duration Small Interfering RNA Targeting Lipoprotein(a) (ALPACA)",
     authors: "Nissen SE, et al.",
     year: 2025,
     source: "New England Journal of Medicine",

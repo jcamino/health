@@ -4,7 +4,7 @@
 // both on linear axes with tooltips. Register exactly those pieces so the rest
 // tree-shakes away.
 //
-// NOTE: registration is a runtime side effect — a successful build does NOT prove
+// NOTE: registration is a runtime side effect, so a successful build does NOT prove
 // the set is complete. If a controller/element/scale is missing, `new Chart(...)`
 // throws at runtime ("'line' is not a registered controller"). A missing *plugin*
 // fails silently instead (e.g. without Colors, datasets that set no color render

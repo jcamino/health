@@ -65,13 +65,13 @@ export const apoBBands: ApoBBand[] = [...TIERS]
     upper: i < arr.length - 1 ? arr[i + 1].lower : null,
   }));
 
-/** Source for the laboratory reference interval below — not for the tier boundaries. */
+/** Source for the laboratory reference interval below, not for the tier boundaries. */
 export const referenceIntervalSources: Reference[] = [
   refs.choiApoBReferenceInterval2023,
 ];
 
 /**
- * Upper limit of a typical laboratory ApoB reference interval (mg/dL) — roughly
+ * Upper limit of a typical laboratory ApoB reference interval (mg/dL), roughly
  * the point above which a standard panel starts flagging the result. Reference
  * intervals are laboratory- and assay-dependent; this is a representative round
  * figure from the cited study's parametric (mean ± 2 SD) intervals of 46–134

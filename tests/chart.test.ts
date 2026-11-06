@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { Chart } from "../src/lib/chart";
 
 // Guard for the tree-shaken Chart.js bundle (src/lib/chart.ts). Unlike a missing
-// controller/element/scale — which throws "not a registered ..." at runtime — a
+// controller/element/scale, which throws "not a registered ..." at runtime, a
 // missing *plugin* fails SILENTLY (e.g. dropping Colors makes charts render gray,
 // which shipped once). Assert the registration list stays complete so that
 // `npm run build` (which runs the tests first via the `prebuild` script) fails
@@ -36,7 +36,7 @@ describe("Chart.js registration (src/lib/chart.ts)", () => {
     }
     expect(
       missing,
-      "unregistered Chart.js pieces — see src/lib/chart.ts",
+      "unregistered Chart.js pieces (see src/lib/chart.ts)",
     ).toEqual([]);
   });
 });

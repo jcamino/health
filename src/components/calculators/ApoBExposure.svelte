@@ -153,7 +153,7 @@
       data: {
         datasets: [
           {
-            label: "Cumulative ApoB exposure (mg·years)",
+            label: "Cumulative ApoB exposure (mg-years)",
             data: [],
             fill: true,
             tension: 0,
@@ -188,8 +188,8 @@
               label: (item) => {
                 const v = Math.round(item.parsed.y).toLocaleString();
                 return item.datasetIndex === 0
-                  ? `Cumulative exposure: ${v} mg·years`
-                  : `Illustrative threshold: ${v} mg·years`;
+                  ? `Cumulative exposure: ${v} mg-years`
+                  : `Illustrative threshold: ${v} mg-years`;
               },
             },
           },
@@ -197,7 +197,10 @@
         scales: {
           x: { type: "linear", title: { display: true, text: "Age" } },
           y: {
-            title: { display: true, text: "Cumulative ApoB-years (mg·years)" },
+            title: {
+              display: true,
+              text: "Cumulative ApoB exposure (mg-years)",
+            },
             beginAtZero: true,
           },
         },
@@ -304,7 +307,7 @@
     <p class="mt-2 text-sm">
       At <strong>age {hovered.age}</strong>:
       <strong class="font-mono"
-        >{Math.round(hovered.cumulative).toLocaleString()} mg·years</strong
+        >{Math.round(hovered.cumulative).toLocaleString()} mg-years</strong
       >
       cumulative ({Math.round(
         (100 * hovered.cumulative) / CUMULATIVE_EXPOSURE_THRESHOLD_MG_YEARS,
@@ -319,15 +322,15 @@
   {#if scenario}
     <p class="mt-3 text-sm">
       Cumulative exposure from birth to age {endAge}:
-      <strong class="font-mono">{totalExposure} mg·years</strong>.
+      <strong class="font-mono">{totalExposure} mg-years</strong>.
       {#if crossingAge !== null}
         Crosses the illustrative threshold at about <strong
           >age {Math.round(crossingAge)}</strong
-        > — the age this model expects accumulated plaque to reach the level where
-        heart attacks start occurring. The goal is to push it later.
+        >, the age this model expects accumulated plaque to reach the level
+        where heart attacks start occurring. The goal is to push it later.
       {:else}
-        Stays under the illustrative threshold across this range — the outcome
-        prevention is aiming for.
+        Stays under the illustrative threshold across this range, which is the
+        outcome prevention is aiming for.
       {/if}
     </p>
   {:else}
@@ -343,7 +346,7 @@
     Illustrative model: exposure accrues from birth; ApoB is assumed to rise
     linearly with age (adjust the per-decade rate), anchored to your current
     value. An intervention drops ApoB and holds it. Real trajectories vary. The
-    dashed threshold (an LDL-C–derived ~5,000 mg·years) approximates the
+    dashed threshold (an LDL-C–derived ~5,000 mg-years) approximates the
     cumulative exposure, and with it the plaque burden, at which myocardial
     infarctions typically begin to occur. Crossing it is not an event date, and
     it is not a cliff: risk rises continuously with the area under the curve.
