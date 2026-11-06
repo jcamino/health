@@ -36,6 +36,14 @@
             "The real driver of atherosclerosis, and a better measure than standard LDL-C.",
           note: "ApoB — a better measure of risk than standard LDL-C.",
         },
+        {
+          id: "lipids",
+          href: "#your-risk-score-in-context",
+          action: "Standard lipid panel.",
+          detail:
+            "The usual baseline. It feeds the risk score below, and an LDL-C of 190 or higher warrants a doctor now.",
+          note: "Standard lipid panel — the usual baseline, and the input for a risk score.",
+        },
       ],
     },
     {
