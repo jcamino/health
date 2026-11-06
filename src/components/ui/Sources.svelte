@@ -4,7 +4,11 @@
 </script>
 
 {#if sources.length}
-  <section class="mt-5 border-t border-rule pt-3 text-xs text-ink-muted">
+  <!-- break-words: guideline titles carry long unbroken runs of society names
+       ("ACC/AHA/AACVPR/…") that would otherwise push the page sideways on phones. -->
+  <section
+    class="mt-5 border-t border-rule pt-3 text-xs break-words text-ink-muted"
+  >
     <p class="font-mono text-[10px] font-medium uppercase tracking-[0.16em]">
       Sources
     </p>

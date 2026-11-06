@@ -88,6 +88,12 @@
     accent-color: var(--color-blood);
   }
 
+  /* A chart's canvas sits at its default 300px until it scrolls into view and
+     mounts, which is wider than a card on the narrowest phones. */
+  canvas {
+    max-width: 100%;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -556,7 +562,9 @@
     border-top: 3px solid var(--color-slip-accent);
   }
 
-  @media (min-width: 640px) {
+  /* The gutter stays at 1rem until the 48rem column has room beside it (800px),
+     so a wider breakout before that would push the page sideways. */
+  @media (min-width: 800px) {
     .slip {
       margin-inline: -2rem;
     }
