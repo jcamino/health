@@ -1,9 +1,10 @@
 ---
 layout: ../layouts/BaseLayout.astro
 title: "Heart: ApoB, lifetime exposure, and statins"
-description: "Lp(a), ApoB, and whether a statin is worth it: the three checks that predict most heart attacks decades early."
+description: "Lp(a), ApoB, blood pressure, and whether a statin is worth it: the checks that predict most heart attacks decades early."
 ---
 
+import ActionSlip from "../components/ActionSlip.svelte";
 import ApoBExposure from "../components/calculators/ApoBExposure.svelte";
 import ApoBTier from "../components/calculators/ApoBTier.svelte";
 import LpaTier from "../components/calculators/LpaTier.svelte";
@@ -11,7 +12,6 @@ import BloodPressure from "../components/calculators/BloodPressure.svelte";
 import PreventRisk from "../components/calculators/PreventRisk.svelte";
 import ExposureGap from "../components/ExposureGap.astro";
 import StatinTable from "../components/StatinTable.astro";
-import ThreeChecks from "../components/ThreeChecks.svelte";
 import Citation from "../components/ui/Citation.astro";
 
 <p class="eyebrow">Pillar 01 · Heart</p>
@@ -24,12 +24,12 @@ concentration multiplied by years of exposure, the area under a lifelong
 curve <Citation id="easLdlCausality2017" /> <Citation id="zhangCumulativeLdl2021" />.
 Measured against _optimal_ targets instead of lab "normal," most adults are
 already above the line, even when a standard panel and a 10-year risk score say
-they are fine. Two numbers and one decision show where you actually stand, and
+they are fine. Three numbers and one decision show where you actually stand, and
 as of 2026, US guidelines have moved a long way toward this view <Citation id="accAhaDyslipidemia2026" />.
 
 <ExposureGap />
 
-<ThreeChecks client:load />
+<ActionSlip client:load />
 
 <h2 id="lpa">Lp(a): check it once</h2>
 
@@ -282,13 +282,7 @@ is still "prevention-optimal" rather than official is treating _optimal_, not
   </div>
 </details>
 
----
-
-The rest is worth knowing, but the three things above are what move the
-needle, with one exception: if you smoke, quitting outranks everything else on
-this page.
-
-## Blood pressure
+<h2 id="blood-pressure">Blood pressure: measure it at home</h2>
 
 High blood pressure compounds ApoB-driven risk by accelerating arterial damage.
 "Normal" is under 120/80 <Citation id="accAhaBp2017" />. The `130/80` below is
@@ -320,6 +314,12 @@ morning and evening for a week, averaged.
     looks like the same story, earlier in its arc.
   </div>
 </details>
+
+---
+
+The rest is worth knowing, but the two things above are what move the needle,
+with one exception: if you smoke, quitting outranks everything else on this
+page.
 
 ## Lifestyle: what it moves, and what it can't
 

@@ -542,10 +542,10 @@
   }
 
   /* ---- The slip -------------------------------------------------------
-     The three checks are the page's payload; everything else on the page is
+     The checks are the page's payload; everything else on the page is
      evidence for them. So the slip is built as the one thing you cannot
      scroll past: it inverts the page's ground, breaks out of the prose
-     measure, and sets its actions larger than the body copy around them
+     measure, and sets its points larger than the body copy around them
      (the old panel set them smaller, which is why they read as a footnote).
      It is the only inverted block on the site — the boldness is spent here
      and nowhere else. */
@@ -612,15 +612,29 @@
     color: var(--color-slip-muted);
   }
 
+  /* A numbered point heads its group of lines. The rule marks the group, so the
+     lines inside it sit closer together than the groups do. */
+  .slip-point {
+    padding: 1.375rem clamp(1rem, 4vw, 2rem);
+    border-top: 1px solid var(--color-slip-rule);
+  }
+
+  /* The numeral takes the checkboxes' column so point and line text align. */
+  .slip-point-title {
+    display: grid;
+    grid-template-columns: 1.1875rem minmax(0, 1fr);
+    gap: 0 1rem;
+    align-items: baseline;
+  }
+
   /* Stacked on small screens; on wide ones the actions become their own column
-     so the three of them scan in a single vertical sweep, with the detail
-     reading as the value against each label — the form's own two-column logic. */
+     so they scan in a single vertical sweep, with the detail reading as the
+     value against each label — the form's own two-column logic. */
   .slip-row {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
     gap: 0 1rem;
-    padding: 1.375rem clamp(1rem, 4vw, 2rem);
-    border-top: 1px solid var(--color-slip-rule);
+    margin-top: 0.875rem;
   }
 
   .slip-check {
@@ -637,6 +651,10 @@
   }
 
   @media (min-width: 768px) {
+    .slip-point-title {
+      column-gap: 1.25rem;
+    }
+
     .slip-row {
       grid-template-columns: auto minmax(0, 20rem) minmax(0, 1fr);
       gap: 0 1.25rem;
@@ -650,12 +668,27 @@
     }
   }
 
-  /* The one type inversion that matters: the actions outrank the prose. */
-  .slip-action {
+  /* The one type inversion that matters: the points outrank the prose. */
+  .slip-point-title {
     font-size: clamp(1.125rem, 1.4vw + 0.85rem, 1.3125rem);
     font-weight: 600;
     line-height: 1.28;
     letter-spacing: -0.015em;
+  }
+
+  .slip-n {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--color-slip-accent);
+  }
+
+  .slip-action {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
     text-wrap: balance;
   }
 
@@ -693,7 +726,7 @@
   .slip-check {
     appearance: none;
     align-self: start;
-    margin: 0.25rem 0 0;
+    margin: 0.125rem 0 0;
     width: 1.1875rem;
     height: 1.1875rem;
     flex: none;
