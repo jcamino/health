@@ -1,7 +1,7 @@
 <script lang="ts">
-  // The heart page's payload: your labs, then your blood pressure. The lines
-  // under the labs run in order (the statin line is conditional on the two tests
-  // above it, so the order carries information). Everything else on the page is
+  // The heart page's payload: your labs, the statin conversation they can lead
+  // to, and your blood pressure. The order carries information (the statin point
+  // is conditional on the labs above it). Everything else on the page is
   // evidence for these, so this is built as a requisition slip — the form you
   // take to your doctor — rather than a callout panel. See .slip in global.css
   // for why it is the page's one inverted block.
@@ -36,14 +36,20 @@
             "The real driver of atherosclerosis, and a better measure than standard LDL-C.",
           note: "ApoB — a better measure of risk than standard LDL-C.",
         },
+      ],
+    },
+    {
+      // Non-breaking space so the line breaks at the clause, not inside "are up".
+      title: "If your numbers are up, ask about a statin.",
+      note: "Statin",
+      checks: [
         {
           id: "statins",
           href: "#statins",
-          // Non-breaking space so the line breaks at the clause, not inside "are up".
-          action: "If your numbers are up, ask about a statin.",
+          action: "Bring your numbers to your doctor.",
           detail:
             "The highest-leverage lever. Guidelines now support starting as early as your 30s.",
-          note: "If those are up, whether a statin makes sense now.",
+          note: "If the labs are up, whether a statin makes sense now.",
         },
       ],
     },
@@ -92,7 +98,7 @@
 
   async function copyList() {
     const text = [
-      "Two things to ask about (from health.jcamino.net/heart/):",
+      "Three things to ask about (from health.jcamino.net/heart/):",
       "",
       ...points.flatMap((p, i) => [
         `${i + 1}. ${p.note}`,
@@ -118,8 +124,12 @@
 
 <aside class="slip not-prose" aria-labelledby="action-slip-title">
   <header class="slip-head">
-    <h2 class="slip-title" id="action-slip-title">If you do only two things</h2>
-    <p class="slip-sub">One blood draw · one week of home readings</p>
+    <h2 class="slip-title" id="action-slip-title">
+      If you do only three things
+    </h2>
+    <p class="slip-sub">
+      One blood draw · one conversation · one week of home readings
+    </p>
   </header>
 
   <ol>
