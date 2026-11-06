@@ -1,4 +1,4 @@
-# Heart hero: years over the line — Design
+# Heart hero: years over the line - Design
 
 **Date:** 2026-08-18
 **Status:** Approved design, pending spec review
@@ -13,7 +13,7 @@ quiet, so as not to compete with the action slip below it. In review the verdict
 it reads as plain: a lot of vertical space spent stating a conclusion, with no visual
 weight and nothing that shows the mechanism behind it.
 
-The replacement keeps the same thesis — damage accrues for decades before diagnosis — but
+The replacement keeps the same thesis - damage accrues for decades before diagnosis - but
 draws it as a quantity you can see at a glance: **how much of a lifetime is spent past the
 exposure threshold**, across four ApoB levels that run from the top of what a lab calls
 normal down to the strictest goal medicine currently sets.
@@ -100,13 +100,13 @@ build-time assertion checks.
 
 ### Why not a severity word, or "above standard risk"
 
-`apoB.ts` already defines tiers — very-high ≥100, high ≥80, borderline ≥65 — and
-`prevent.ts` defines risk bands — Low, Borderline, Intermediate, High — for the PREVENT
+`apoB.ts` already defines tiers - very-high ≥100, high ≥80, borderline ≥65 - and
+`prevent.ts` defines risk bands - Low, Borderline, Intermediate, High - for the PREVENT
 calculator further down the same page. Labelling a bar "high", or the count "years above
 standard risk", would collide with both vocabularies and imply a relationship to the
 PREVENT bands that does not exist. "Standard risk" is not a band in either set nor in the
 guideline, so using it would mean coining a clinical category, which the sourcing rule
-forbids. Naming each bar for its provenance sidesteps this entirely — and in the case of
+forbids. Naming each bar for its provenance sidesteps this entirely - and in the case of
 the 130 and 110 bars, the tension between "what a lab calls normal" and what this site's
 own gauge calls those levels is the point being made.
 
@@ -117,17 +117,17 @@ Column header: **YEARS OVER THE LINE**, set on two lines in the gutter, mono, up
 
 Caption (real text, outside the `role="img"` region):
 
-> "The line" is ~5,000 mg·years of cumulative exposure — the illustrative marker of plaque
-> burden at which events typically begin — out of a drawn lifetime of eighty. Risk rises
+> "The line" is ~5,000 mg·years of cumulative exposure - the illustrative marker of plaque
+> burden at which events typically begin - out of a drawn lifetime of eighty. Risk rises
 > continuously, so crossing is not an appointment and an empty bar is not immunity.
 
 Three hedges are load-bearing and must survive any copy edit:
 
-- **"Out of a drawn lifetime of eighty"** — ApoB 55 does cross the threshold at about age 91. The empty bar is a statement about the drawn span, not about a lifetime.
-- **"An empty bar is not immunity"** — carries the continuous-risk hedge the page makes
+- **"Out of a drawn lifetime of eighty"** - ApoB 55 does cross the threshold at about age 91. The empty bar is a statement about the drawn span, not about a lifetime.
+- **"An empty bar is not immunity"** - carries the continuous-risk hedge the page makes
   elsewhere, and blocks the cliff reading this device invites more strongly than the
   previous one did.
-- **"A standard lab's normal range"** on the 130 bar, never "the normal range" — the
+- **"A standard lab's normal range"** on the 130 bar, never "the normal range" - the
   interval is lab- and assay-dependent, and the supporting study is one cohort.
 
 ### Motion
@@ -173,7 +173,7 @@ typed into the component:
 
 ```ts
 /**
- * Upper limit of a typical laboratory ApoB reference interval (mg/dL) — the point
+ * Upper limit of a typical laboratory ApoB reference interval (mg/dL) - the point
  * above which a standard panel starts flagging the result. Reference intervals are
  * lab- and assay-dependent; this is a representative round figure from the cited
  * study's 46–134 (men) / 49–129 (women) intervals.
@@ -201,10 +201,10 @@ job**, keeping the model free of presentation concerns.
 The current component throws if a track does not cross inside the drawn span. That guard
 existed because a silently dropped track would have contradicted the prose. Under this
 design a non-crossing level is the point of the graphic, nothing is ever filtered, and
-that failure mode no longer exists — so the filter and its throw are removed.
+that failure mode no longer exists - so the filter and its throw are removed.
 
 Replacing it: a build-time assertion that the ages the prose quotes still round to the
-integers it prints — ApoB 130 → 38, 110 → 45, 90 → 56. If the model changes such that they
+integers it prints - ApoB 130 → 38, 110 → 45, 90 → 56. If the model changes such that they
 don't, the build fails rather than shipping a hero that contradicts the fold further down
 the page. This guards the real drift risk instead of a hypothetical one.
 
@@ -228,7 +228,7 @@ boundary the module defines, and `sources` includes the Choi entry.
 
 For `yearsOverThreshold`, in `tests/exposure.test.ts`:
 
-- The four displayed integers are 42, 35, 24 and 0 — this pins the design's headline
+- The four displayed integers are 42, 35, 24 and 0 - this pins the design's headline
   numbers to the model.
 - ApoB 55 returns exactly 0 within an 80-year span, and something greater than 0 when the
   span widens to 100, confirming the zero means "not within the drawn span" rather than a
@@ -244,7 +244,7 @@ full vitest suite passing, and visual verification in both themes at 390px and 1
 **The hero is now louder than it was, and that is intended.** The previous design's
 constraint was that the hero must not compete with the action slip. This one puts a solid
 oxblood field above it. The judgement is that they coexist because they are different
-devices at different scales — four thin bands versus one large tinted block — and this was
+devices at different scales - four thin bands versus one large tinted block - and this was
 reviewed against a mockup with the slip in place. If it proves too loud in the built page,
 the documented fallback is to drop the fill to `--color-blood-wash` with a solid leading
 edge at the crossing point, which keeps the shape and sheds about half the weight.

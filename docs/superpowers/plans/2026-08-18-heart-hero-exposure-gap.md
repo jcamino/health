@@ -1,8 +1,8 @@
-# Heart Hero: the exposure gap — Implementation Plan
+# Heart Hero: the exposure gap - Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Give `/heart/` a hero graphic that draws the page's own thesis — "heart disease starts decades before the diagnosis" — as two lifetime exposure tracks whose crossing ages are computed from the site's already-sourced exposure model.
+**Goal:** Give `/heart/` a hero graphic that draws the page's own thesis - "heart disease starts decades before the diagnosis" - as two lifetime exposure tracks whose crossing ages are computed from the site's already-sourced exposure model.
 
 **Architecture:** A zero-JS Astro component (`ExposureGap.astro`) that calls a new pure function in `src/lib/calculators/exposure.ts` at build time. Rendered as HTML + CSS (not SVG or Chart.js) so labels stay real text that reflows and scales. Every number on it is derived from the existing unit-tested model, so the component cannot display an unsourced figure.
 
@@ -16,7 +16,7 @@
 
 This was scoped during the August 2026 design pass (commit `bfb1b1b`) and deliberately left out. The reason matters, because it constrains the whole design:
 
-The page's thesis is a claim about **time** — damage accrues for decades before anything shows up. Drawing that means putting ages on a graphic. But this project's core invariant (see `.claude/skills/adding-sourced-calculator/SKILL.md`) is:
+The page's thesis is a claim about **time** - damage accrues for decades before anything shows up. Drawing that means putting ages on a graphic. But this project's core invariant (see `.claude/skills/adding-sourced-calculator/SKILL.md`) is:
 
 > **Every number is sourced. Never fabricate a coefficient, threshold, cut-point, conversion factor, or DOI.**
 
@@ -37,7 +37,7 @@ Those are outputs of `ageAtThreshold(buildTrajectory(...), 5000)`. Verified agai
 
 So the hero visualises numbers the page already makes, from a function that already ships with its sources. **No new `references.ts` entries are required.** That is the entire reason this is now a small task.
 
-**If you find yourself wanting to add a number that is not an output of this model — stop.** That is a different piece of work and needs the `adding-sourced-calculator` skill.
+**If you find yourself wanting to add a number that is not an output of this model - stop.** That is a different piece of work and needs the `adding-sourced-calculator` skill.
 
 ---
 
@@ -45,9 +45,9 @@ So the hero visualises numbers the page already makes, from a function that alre
 
 The heart page was just rebuilt around a single loud element, the action slip (`.slip` in `src/styles/global.css`, rendered by `src/components/ThreeChecks.svelte`). The slip is the page's one bold block, and the hero **must not compete with it**.
 
-- **Quiet in value, loud in meaning.** Hairline rules, mono labels, oxblood only on the two crossing markers. No fill, no card, no background tint — the tinted field is the slip's device.
+- **Quiet in value, loud in meaning.** Hairline rules, mono labels, oxblood only on the two crossing markers. No fill, no card, no background tint - the tinted field is the slip's device.
 - **Theme-aware via tokens only.** Use `var(--color-rule)`, `var(--color-blood)`, `var(--color-ink-muted)`. Never hardcode a hex; the tokens flip in `.dark` automatically.
-- **Zero JavaScript.** It is a static diagram. Do not make it a Svelte island, do not add Chart.js. The interactive cumulative-exposure chart (`ApoBExposure.svelte`) stays where it is, mid-page — this hero is not a replacement for it and should not duplicate its interactivity.
+- **Zero JavaScript.** It is a static diagram. Do not make it a Svelte island, do not add Chart.js. The interactive cumulative-exposure chart (`ApoBExposure.svelte`) stays where it is, mid-page - this hero is not a replacement for it and should not duplicate its interactivity.
 - **Honest copy.** The page already hedges the threshold: "Crossing it is not an appointment with an event, and staying under it is not immunity; risk rises continuously." The hero's caption must carry that hedge. Do not let the graphic imply a cliff.
 
 ---
@@ -56,7 +56,7 @@ The heart page was just rebuilt around a single loud element, the action slip (`
 
 | Path                                    | Responsibility                                                                        |
 | --------------------------------------- | ------------------------------------------------------------------------------------- |
-| `src/lib/calculators/exposure.ts`       | **Modify.** Add `ageAtThresholdForFlatApoB()` — pure, keeps the model logic out of UI |
+| `src/lib/calculators/exposure.ts`       | **Modify.** Add `ageAtThresholdForFlatApoB()` - pure, keeps the model logic out of UI |
 | `tests/exposure.test.ts`                | **Modify.** Unit tests for the new function                                           |
 | `src/components/ExposureGap.astro`      | **Create.** The hero: markup + build-time call into the model                          |
 | `src/styles/global.css`                 | **Modify.** `.gap-*` component styles, inside `@layer components`                      |
@@ -101,7 +101,7 @@ $SHOT --headless --disable-gpu --no-sandbox --hide-scrollbars \
   --virtual-time-budget=10000 http://localhost:4321/heart/
 ```
 
-`--force-dark-mode` does **not** flip this site — the theme comes from `localStorage.theme`, read by an inline script in `BaseLayout.astro`. To screenshot dark mode, drop a temporary probe in `public/` that sets the key and redirects, then **delete it before committing**:
+`--force-dark-mode` does **not** flip this site - the theme comes from `localStorage.theme`, read by an inline script in `BaseLayout.astro`. To screenshot dark mode, drop a temporary probe in `public/` that sets the key and redirects, then **delete it before committing**:
 
 ```html
 <!-- public/__probe.html -->
@@ -174,7 +174,7 @@ import {
 - [ ] **Step 2: Run the tests to verify they fail**
 
 Run: `npx vitest run tests/exposure.test.ts`
-Expected: FAIL — `ageAtThresholdForFlatApoB is not a function`.
+Expected: FAIL - `ageAtThresholdForFlatApoB is not a function`.
 
 - [ ] **Step 3: Implement it**
 
@@ -235,7 +235,7 @@ Create `src/components/ExposureGap.astro`:
 // The heart page's thesis, drawn: two ApoB levels a standard panel waves
 // through, and the decade between the ages at which each one accumulates
 // enough exposure for events to typically begin. Every age here is computed
-// from the sourced, unit-tested exposure model — nothing is hand-entered, so
+// from the sourced, unit-tested exposure model - nothing is hand-entered, so
 // the graphic cannot drift from the prose that cites the same numbers.
 import { ageAtThresholdForFlatApoB } from "../lib/calculators/exposure";
 
@@ -296,7 +296,7 @@ const summary = drawn
   <figcaption class="gap-caption">
     Age at which each level accumulates ~5,000 mg·years of exposure, an
     illustrative marker of the plaque burden at which events typically begin.
-    Risk rises continuously — crossing it is not an appointment. The age is the
+    Risk rises continuously - crossing it is not an appointment. The age is the
     part you can move.
   </figcaption>
 </figure>
@@ -310,7 +310,7 @@ Insert into `src/styles/global.css`, inside `@layer components`, immediately **b
   /* ---- The exposure gap ------------------------------------------------
      The page's thesis as a picture: two lifetime tracks on a shared age axis,
      with a marker where each crosses the exposure threshold. Deliberately
-     hairline — the slip below it is the page's one loud element, and this must
+     hairline - the slip below it is the page's one loud element, and this must
      stay quiet in value while carrying the argument. */
   .gap {
     margin: 2.5rem 0;
@@ -435,7 +435,7 @@ as of 2026, US guidelines have moved a long way toward this view <Citation id="a
 <ThreeChecks client:load />
 ```
 
-Do **not** put it between the H1 and the paragraph — see gotcha 2, it silently kills the lead-paragraph styling.
+Do **not** put it between the H1 and the paragraph - see gotcha 2, it silently kills the lead-paragraph styling.
 
 - [ ] **Step 3: Run the dev server and screenshot both themes**
 
@@ -452,7 +452,7 @@ Screenshot light and dark at 1280 and at 390 using the recipe above. Check:
 
 - [ ] **Step 4: Confirm the numbers match the prose**
 
-The fold "Why 'normal' on a lab panel is already too high" further down the page cites **56** and **45**. The hero must render the same two integers. If they differ, the model changed and the prose is now stale — fix the prose, do not hardcode the graphic.
+The fold "Why 'normal' on a lab panel is already too high" further down the page cites **56** and **45**. The hero must render the same two integers. If they differ, the model changed and the prose is now stale - fix the prose, do not hardcode the graphic.
 
 - [ ] **Step 5: Full verification**
 
@@ -477,7 +477,7 @@ git commit -m "feat: open the heart page with the exposure gap"
 ## Definition of done
 
 - [ ] `ageAtThresholdForFlatApoB` exists, is unit-tested, and is the only source of the ages on screen.
-- [ ] No new entries in `src/lib/references.ts` — and if you felt you needed one, you have gone outside this plan's scope.
+- [ ] No new entries in `src/lib/references.ts` - and if you felt you needed one, you have gone outside this plan's scope.
 - [ ] The hero ships zero JavaScript (no `client:*` directive on it).
 - [ ] Legible and correct in light and dark, at 390px and 1280px.
 - [ ] The rendered ages match the prose in the ApoB fold.

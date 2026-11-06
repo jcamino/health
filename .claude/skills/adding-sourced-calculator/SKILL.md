@@ -9,31 +9,31 @@ description: Use when adding any medical/risk calculator, score, tier, category,
 
 Every numeric health claim on this site is a **pure TypeScript function** in
 `src/lib/calculators/` that is **unit-tested** and **carries a verified citation**.
-UI (Svelte) holds zero medical logic — it calls these functions and renders the
+UI (Svelte) holds zero medical logic - it calls these functions and renders the
 result plus a `<Sources>` block. This separation is the project's core invariant:
 **a calculator cannot ship without its sources.**
 
 **The non-negotiable rule: every number is sourced. Never fabricate a coefficient,
 threshold, cut-point, conversion factor, or DOI.** If you cannot verify it against a
-real source, do not ship it — report BLOCKED.
+real source, do not ship it - report BLOCKED.
 
 ## When to use
 
 - Adding a risk score, tier classifier, category, ratio, conversion, or any
   threshold/coefficient that will appear on the site.
-- Building the data layer for a new page — do this **before** the widget (see
+- Building the data layer for a new page - do this **before** the widget (see
   building-pillar-pages).
 
 ## The three files you touch
 
-1. `src/lib/references.ts` — add + verify the citation(s).
-2. `tests/<name>.test.ts` — the failing test, written FIRST.
-3. `src/lib/calculators/<name>.ts` — the pure module.
+1. `src/lib/references.ts` - add + verify the citation(s).
+2. `tests/<name>.test.ts` - the failing test, written FIRST.
+3. `src/lib/calculators/<name>.ts` - the pure module.
 
 (Plain reference-data modules live directly in `src/lib/` and import `./references`;
 formula modules live in `src/lib/calculators/` and import `../references`.)
 
-## Step 1 — Add + VERIFY the citation in `references.ts`
+## Step 1 - Add + VERIFY the citation in `references.ts`
 
 `refs` is one object `satisfies Record<string, Reference>` (this preserves literal
 keys so `ReferenceId` is a union; `getRef(id)` powers MDX `<Citation>`). Every entry
@@ -53,18 +53,18 @@ accAhaBp2017: {
 
 **Verify it resolves.** Try WebFetch on the DOI / WebSearch the exact title.
 Publisher pages (AHA/EAS/Springer) and PubMed itself frequently 403 / CAPTCHA bots.
-When they do, verify authoritatively via the **NCBI E-utilities API** (no CAPTCHA) —
+When they do, verify authoritatively via the **NCBI E-utilities API** (no CAPTCHA):
 WebFetch `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=<title-or-DOI>`
 for the PMID, then `.../esummary.fcgi?db=pubmed&id=<PMID>&retmode=json` for structured
 title/journal/year/DOI. Confirm the DOI redirects to the correct publisher host.
 Never invent a DOI.
 
-## Step 2 — Write the failing test FIRST (`tests/<name>.test.ts`)
+## Step 2 - Write the failing test FIRST (`tests/<name>.test.ts`)
 
 Vitest. Run `npx vitest run tests/<name>.test.ts` and confirm it fails with
 "Cannot find module" (failing for the right reason) before implementing. Cover:
 representative inputs, **exact boundaries**, validation throws, `sources` non-empty,
-and — **for a published equation — reproduce a published worked example within
+and - **for a published equation - reproduce a published worked example within
 tolerance** (this is the correctness gate).
 
 ```ts
@@ -88,19 +88,19 @@ describe("bpCategory (ACC/AHA 2017)", () => {
 });
 ```
 
-## Step 3 — Write the pure module (`src/lib/calculators/<name>.ts`)
+## Step 3 - Write the pure module (`src/lib/calculators/<name>.ts`)
 
 Rules: typed I/O; `throw` on non-finite / out-of-range / non-physiologic input;
 `export const sources: Reference[]`; import ONLY `../references`; no DOM, no Svelte,
 no side effects.
 
-Pick the matching pattern — copy from these real files:
+Pick the matching pattern - copy from these real files:
 
 | Pattern                         | Example             | Shape                                                            |
 | ------------------------------- | ------------------- | ---------------------------------------------------------------- |
 | Tier classifier                 | `apoB.ts`           | descending `TIERS` array + `.find(v >= lower)`                   |
 | Category ladder ("higher wins") | `bloodPressure.ts`  | ordered `if / else if`, validated thresholds                     |
-| Per-unit cut-points             | `lpa.ts`            | `Record<Unit, {...}>` — **never** interconvert units             |
+| Per-unit cut-points             | `lpa.ts`            | `Record<Unit, {...}>` - **never** interconvert units             |
 | Validated regression            | `prevent.ts`        | group coefficient constants + logistic; worked-example test      |
 | Sourced linear conversion       | `apoBFromLipids.ts` | slope/intercept fit from a guideline's corresponding-goals table |
 | Model + chart sampling          | `exposure.ts`       | breakpoints for exact area + `sampleTrajectory` for the curve    |
@@ -152,7 +152,7 @@ export function bpCategory(systolic: number, diastolic: number): BpCategory {
 }
 ```
 
-## Step 4 — Verify
+## Step 4 - Verify
 
 ```
 npx vitest run tests/<name>.test.ts   # red → green
@@ -167,13 +167,13 @@ npx astro check                       # 0 errors
 - **Bot-blocked (403/CAPTCHA)?** Verify the _citation_ via NCBI E-utilities (Step 1).
   For the _numbers_ (coefficients/thresholds) when the source PDF is unreadable, use a
   peer-reviewed transcription (a CRAN package, a guideline's "corresponding goals"
-  table, StatPearls) — still cite the primary source, and report what you used + the
+  table, StatPearls) - still cite the primary source, and report what you used + the
   anchor numbers you derived/checked.
 - **Validated equation → worked-example gate.** Do not ship until the function
   reproduces a published example (or the official calculator's output) within a stated
-  **tolerance** — assert `Math.abs(got - expected) <= tol`, not exact equality.
+  **tolerance** - assert `Math.abs(got - expected) <= tol`, not exact equality.
   Published values are pre-rounded and floats bite (e.g. `28.7×6 − 46.7 = 125.4999…`,
-  so `Math.round` gives 125, not the table's 126 — assert ±1). No worked example
+  so `Math.round` gives 125, not the table's 126 - assert ±1). No worked example
   obtainable → report **BLOCKED**, don't approximate.
 - **Illustrative ≠ validated.** Label teaching illustrations as such in the code
   comment AND the UI (e.g. the cumulative-exposure threshold is LDL-C-derived, not
@@ -183,9 +183,9 @@ npx astro check                       # 0 errors
   label it approximate in code + UI, expose a population option where one exists
   (e.g. waist: US AHA/NHLBI vs IDF-Europid), and frame it as a trend, not a hard
   diagnosis.
-- **Historical / qualitative claims** still need a citation — use a peer-reviewed
+- **Historical / qualitative claims** still need a citation - use a peer-reviewed
   review (e.g. `hypertensionHistory2011`).
-- **Prefer current, equitable models** — this site uses AHA PREVENT 2024 (race-free),
+- **Prefer current, equitable models** - this site uses AHA PREVENT 2024 (race-free),
   not the race-based Pooled Cohort Equations.
 
 ## Common mistakes
@@ -196,7 +196,7 @@ npx astro check                       # 0 errors
 - Skipping the worked-example test for a published equation.
 - Forgetting to export `sources` → the widget's `<Sources>` renders empty.
 
-## Red flags — STOP
+## Red flags - STOP
 
 - "I'll just estimate the coefficient." → find the source or BLOCK.
 - "The DOI is probably right." → WebFetch and confirm.

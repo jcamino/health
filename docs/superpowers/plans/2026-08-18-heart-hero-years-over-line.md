@@ -1,8 +1,8 @@
-# Heart hero: years over the line — Implementation Plan
+# Heart hero: years over the line - Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Replace the two-track exposure hero on `/heart/` with four lifetime bars showing how much of an eighty-year span each ApoB level spends past the cumulative-exposure threshold — from the top of a lab's normal range (42 years) down to the guideline's strictest goal (0).
+**Goal:** Replace the two-track exposure hero on `/heart/` with four lifetime bars showing how much of an eighty-year span each ApoB level spends past the cumulative-exposure threshold - from the top of a lab's normal range (42 years) down to the guideline's strictest goal (0).
 
 **Architecture:** A zero-JS Astro component reads two pure functions and one sourced constant at build time. The new cut-point (ApoB 130) is added to `references.ts` and `apoB.ts` with a verified citation, because the project forbids any unsourced number. Bars are HTML + CSS, not SVG, so labels stay real text; the fill animates with a CSS transform only.
 
@@ -16,7 +16,7 @@
 
 **The citation is already verified. Do not re-verify or substitute it.** The spec records the NCBI E-utilities check (DOI `10.3390/diagnostics13203194` → PMID 37892015 → esummary confirming title, journal, year, volume, issue). Use exactly the entry given in Task 1.
 
-**Every number in this plan comes from the model or that citation.** If you find yourself wanting a number that is neither, stop and report BLOCKED — adding one is governed by the project's `adding-sourced-calculator` skill and is outside this plan.
+**Every number in this plan comes from the model or that citation.** If you find yourself wanting a number that is neither, stop and report BLOCKED - adding one is governed by the project's `adding-sourced-calculator` skill and is outside this plan.
 
 ### Gotchas that will cost you an hour each
 
@@ -26,7 +26,7 @@
 
 **3. Do not run `npm run format` on the repo.** Prettier reflows JSX in MDX into block context and can split styled tags. Run prettier only on the specific files you touched, then re-check `git diff src/pages/`.
 
-**4. The hero's fill is `position: absolute` inside the bar.** `left` is set inline from the model; `right: 0` is in the stylesheet. Do not set width inline — the animation scales the element, and a width plus a transform will fight.
+**4. The hero's fill is `position: absolute` inside the bar.** `left` is set inline from the model; `right: 0` is in the stylesheet. Do not set width inline - the animation scales the element, and a width plus a transform will fight.
 
 ### Taking screenshots
 
@@ -39,7 +39,7 @@ $SHOT --headless --disable-gpu --no-sandbox --hide-scrollbars \
   --virtual-time-budget=10000 http://localhost:4321/heart/
 ```
 
-`--force-dark-mode` does **not** flip this site — the theme comes from `localStorage.theme`, read by an inline script in `BaseLayout.astro`. For dark mode, drop a temporary probe in `public/` and **delete it before committing**:
+`--force-dark-mode` does **not** flip this site - the theme comes from `localStorage.theme`, read by an inline script in `BaseLayout.astro`. For dark mode, drop a temporary probe in `public/` and **delete it before committing**:
 
 ```html
 <!-- public/__probe.html -->
@@ -125,7 +125,7 @@ import {
 - [ ] **Step 2: Run the tests to verify they fail**
 
 Run: `cd ~/health && npx vitest run tests/apoB.test.ts`
-Expected: FAIL — the constant and `referenceIntervalSources` are both undefined, so the value, bounds and tier assertions fail and the citation lookup throws.
+Expected: FAIL - the constant and `referenceIntervalSources` are both undefined, so the value, bounds and tier assertions fail and the citation lookup throws.
 
 - [ ] **Step 3: Add the verified citation**
 
@@ -151,13 +151,13 @@ In `src/lib/references.ts`, add this entry to the `refs` object, immediately aft
 Append to the end of `src/lib/calculators/apoB.ts`:
 
 ```ts
-/** Source for the laboratory reference interval below — not for the tier boundaries. */
+/** Source for the laboratory reference interval below - not for the tier boundaries. */
 export const referenceIntervalSources: Reference[] = [
   refs.choiApoBReferenceInterval2023,
 ];
 
 /**
- * Upper limit of a typical laboratory ApoB reference interval (mg/dL) — roughly
+ * Upper limit of a typical laboratory ApoB reference interval (mg/dL) - roughly
  * the point above which a standard panel starts flagging the result. Reference
  * intervals are laboratory- and assay-dependent; this is a representative round
  * figure from the cited study's parametric (mean ± 2 SD) intervals of 46–134
@@ -249,7 +249,7 @@ import {
 - [ ] **Step 2: Run the tests to verify they fail**
 
 Run: `cd ~/health && npx vitest run tests/exposure.test.ts`
-Expected: FAIL — `yearsOverThreshold is not a function`.
+Expected: FAIL - `yearsOverThreshold is not a function`.
 
 - [ ] **Step 3: Implement it**
 
@@ -259,7 +259,7 @@ Append to `src/lib/calculators/exposure.ts`:
 /**
  * How many of a drawn `span` of years are spent past the cumulative-exposure
  * threshold, for a lifelong-flat ApoB integrated from birth. Returns 0 when the
- * level does not cross inside the span — which is a statement about the drawn
+ * level does not cross inside the span - which is a statement about the drawn
  * span, not a claim of immunity, and is why the hero's caption says so. Rounding
  * for display is the caller's job.
  */
@@ -416,8 +416,8 @@ const summary = bars
     </div>
   </div>
   <figcaption class="gap-caption">
-    "The line" is ~5,000 mg·years of cumulative exposure — the illustrative
-    marker of plaque burden at which events typically begin — out of a drawn
+    "The line" is ~5,000 mg·years of cumulative exposure - the illustrative
+    marker of plaque burden at which events typically begin - out of a drawn
     lifetime of eighty. Risk rises continuously, so crossing it is not an
     appointment and an empty bar is not immunity.
   </figcaption>
@@ -426,7 +426,7 @@ const summary = bars
 
 - [ ] **Step 2: Replace the styles**
 
-In `src/styles/global.css`, delete the whole existing exposure-gap block — it starts at the comment `/* ---- The exposure gap ---` and ends with the closing brace of `.gap-caption`, immediately before the `/* ---- The slip ---` comment. Replace it with:
+In `src/styles/global.css`, delete the whole existing exposure-gap block - it starts at the comment `/* ---- The exposure gap ---` and ends with the closing brace of `.gap-caption`, immediately before the `/* ---- The slip ---` comment. Replace it with:
 
 ```css
 /* ---- Years over the line ---------------------------------------------
@@ -652,7 +652,7 @@ truth; this records why they diverge.
    gutter width and column gap have one definition instead of five copies held in sync
    by a comment.
 3. **Contrast.** `.gap-head` and `.gap-axis` moved from `--color-ink-faint` (2.72:1
-   light, 3.99:1 dark at 10px — both under WCAG AA) to `--color-ink-muted` (4.84:1 /
+   light, 3.99:1 dark at 10px - both under WCAG AA) to `--color-ink-muted` (4.84:1 /
    6.65:1). These labels say what the gutter and the axis mean, so they are not
    decoration.
 4. **The empty bar was nearly invisible in dark mode.** `.gap-bar`'s border moved from
@@ -707,7 +707,7 @@ Replace it with:
       lifetime-exposure threshold around **age 38**.
     - An ApoB of **110 mg/dL** crosses it around **age 45**.
     - An ApoB of **90 mg/dL**, exactly at the guideline's most lenient goal,
-      crosses it around **age 56** — still the best of the three, and still
+      crosses it around **age 56** - still the best of the three, and still
       decades of accrued damage before anyone would call it a disease.
 
     Reference intervals vary by laboratory and assay; the study above reports
@@ -715,7 +715,7 @@ Replace it with:
     "a standard lab's normal range" and never "the normal range."
 ```
 
-Keep the four-space indentation — MDX treats these lines as part of the `<details>` block, and changing the indent will break the fold.
+Keep the four-space indentation - MDX treats these lines as part of the `<details>` block, and changing the indent will break the fold.
 
 - [ ] **Step 2: Verify it compiles and formats cleanly**
 
@@ -737,7 +737,7 @@ git commit -m "content: cite where a lab's normal range actually tops out"
 
 ## Task 5: Verify the built page
 
-**Files:** none modified — this task is verification only, plus deleting the temporary probe.
+**Files:** none modified - this task is verification only, plus deleting the temporary probe.
 
 - [ ] **Step 1: Start the dev server and screenshot both themes**
 
@@ -755,12 +755,12 @@ View every screenshot and confirm:
 - The fills start at roughly 48%, 57% and 69% of the bar width (ages 38.5, 45.5 and 55.6 of 80), and the bottom bar is empty.
 - Both themes are legible and the oxblood flips with the theme; nothing is hardcoded.
 - At 390px the ticks are gone, each count sits beside its label reading "42 yrs over", and nothing overflows horizontally.
-- The lead paragraph above the hero is still visibly larger than body text — the hero sits after it, and the `.prose h1 + p` rule depends on that order.
+- The lead paragraph above the hero is still visibly larger than body text - the hero sits after it, and the `.prose h1 + p` rule depends on that order.
 - The action slip below is still readable as its own block rather than being drowned by the hero.
 
 - [ ] **Step 3: Confirm the page agrees with itself**
 
-The fold further down must print the same three ages the hero draws: **38**, **45**, **56**. The build-time assertion in the component enforces this, so a mismatch will already have failed the build — but confirm visually that the prose and the picture match.
+The fold further down must print the same three ages the hero draws: **38**, **45**, **56**. The build-time assertion in the component enforces this, so a mismatch will already have failed the build - but confirm visually that the prose and the picture match.
 
 - [ ] **Step 4: Full verification**
 
@@ -792,7 +792,7 @@ If `git status` is clean, there is nothing to commit and the work is done.
 
 ## Definition of done
 
-- [ ] `APOB_REFERENCE_INTERVAL_UPPER_MGDL` exists, is unit-tested, and carries the Choi 2023 citation via its own `referenceIntervalSources` export — **not** in `apoB.ts`'s `sources`, which feeds the tier gauge's rendered citations on two pages.
+- [ ] `APOB_REFERENCE_INTERVAL_UPPER_MGDL` exists, is unit-tested, and carries the Choi 2023 citation via its own `referenceIntervalSources` export - **not** in `apoB.ts`'s `sources`, which feeds the tier gauge's rendered citations on two pages.
 - [ ] `yearsOverThreshold` exists, is unit-tested, and is the only source of the counts on screen.
 - [ ] Exactly one new entry in `src/lib/references.ts`, with the DOI given in Task 1 and no other.
 - [ ] The hero ships zero JavaScript (no `client:*`, no `<script>` in the built figure).
@@ -806,5 +806,5 @@ If `git status` is clean, there is nothing to commit and the work is done.
 - The interactive `ApoBExposure.svelte` chart. It stays exactly where it is; this hero is not a replacement and must not duplicate its interactivity.
 - Making the hero interactive.
 - A page-wide rhythm pass beyond the hero.
-- Re-examining the "a typical adult level" label on the 110 bar — it carries over unchanged from the shipped component.
+- Re-examining the "a typical adult level" label on the 110 bar - it carries over unchanged from the shipped component.
 - Any claim about the age at which plaque starts or the typical age at diagnosis.
